@@ -1,0 +1,368 @@
+/*================================ 
+    #RESPONSIVE CSS 
+====================================*/
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+.utf-banner-area-block.auto-height h1, .utf-banner-area-block.text-normal h1, .utf-banner-area-block.large-heading h1, .utf-banner-area-block.typed-text h1 {
+    font-size: 50px;
+}	
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+.utf-about-area-item .right-info {
+	padding-left: 15px;
+	margin-top: 30px;
+}
+.utf-banner-area-block.navbar-transparent .content {
+	margin-top: 60px;
+}
+.copyright {
+	margin-bottom: 20px;
+}
+/* Portfolio */
+.utf-portfolio-area-item .utf-portfolio-items .pf-item,  .utf-portfolio-area-item .utf-portfolio-items.col-2 .pf-item,  .utf-portfolio-area-item .utf-portfolio-items.col-3 .pf-item,  .utf-portfolio-area-item .utf-portfolio-items.col-4 .pf-item,  .utf-portfolio-area-item .utf-portfolio-items .pf-item.width {
+	width: 50%;
+}
+.portfolio-details-area .right-info {
+	margin-top: 30px;
+	padding-left: 15px;
+}
+/* Contact */
+.utf-contact-area .right-info {
+	margin-top: 40px;
+	padding-left: 15px;
+}
+/* Footer */
+footer {
+	text-align: center;
+	line-height: inherit;
+}
+footer .text-left,  footer .text-right {
+	text-align: center;
+}
+footer .logo {
+	margin-bottom: 20px;
+}
+footer.centerd .logo {
+	margin-bottom: 20px;
+}
+footer.centerd .copyright {
+	margin-top: 20px;
+	padding-top: 20px;
+}
+footer .copyright.border {
+	margin-top: 20px;
+}
+footer .menu {
+	margin-bottom: 20px;
+}
+footer p {
+	line-height: inherit;
+}
+footer.copyright-center .utf-footer-social {
+	margin-top: 20px;
+}
+footer.centerd .menu {
+	margin-bottom: 0;
+}
+}
+
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) {
+/* Heading */
+h1 {
+	font-size: 36px;
+}
+h2 {
+	font-size: 26px;
+}
+h3 {
+	font-size: 20px;
+}
+h4 {
+	font-size: 18px;
+	line-height: 1.5;
+}
+h5 {
+	font-size: 16px;
+	line-height: 1.4;
+}
+h6 {
+	font-size: 14px;
+	line-height: 1.4;
+}
+.bg-fixed {
+    background-attachment: fixed;
+    background-position: center right;
+    background-size: cover;
+}
+.utf-box-cell .content h3 {
+    font-size: 18px;
+}
+.default-padding {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+.padding-xl {
+	padding-bottom: 50px;
+	padding-top: 50px;
+}
+.default-padding.bottom-less {
+	padding-bottom: 20px;
+	padding-top: 50px;
+}
+.default-padding-bottom {
+	padding-bottom: 50px;
+}
+.default-padding-top {
+	padding-top: 50px;
+}
+.default-padding.bottom-30 {
+	padding-bottom: 0;
+	padding-top: 50px;
+}
+.default-padding.bottom-20 {
+	padding-bottom: 20px;
+	padding-top: 50px;
+}
+.utf-page-heading {
+	padding: 50px 0;
+}
+nav.navbar .navbar-brand img.logo {
+    height: 35px;
+}
+.utf-site-heading {
+	margin-bottom: 30px;
+}
+.utf-site-heading.center-mobile {
+	text-align: center;
+}
+.utf-site-heading.center-mobile h2::before {
+	left: 50%;
+	margin-left: -10px;
+}
+.utf-site-heading.center-mobile h2::after {
+	left: 50%;
+	margin-left: -40px;
+}
+.carousel-shadow .utf-site-heading {
+	margin-bottom: 15px;
+}
+.copyright {
+	margin-bottom: 20px;
+}
+/* Breadcrumb */
+.utf-page-heading h1 {
+	font-size: 36px;
+	line-height:44px;
+}
+/* Side Nav */
+.side {
+	padding: 50px 30px;
+	width: 320px;
+}
+/* Banner */
+
+.utf-banner-area-block.navbar-transparent .content {
+	margin-top: 60px;
+}
+.utf-banner-area-block.content-shadow .content {
+	padding: 30px;
+}
+.utf-banner-area-block, .utf-banner-area-block div {
+	height: auto;
+}
+.utf-banner-area-block .utf-box-cell {
+	padding: 100px 0 !important;
+}
+.utf-banner-area-block.text-normal h1 {
+	font-size: 36px;
+	line-height:44px;
+	margin-bottom: 20px;
+}
+.utf-banner-area-block.content-shadow h1 {
+	font-size: 36px;
+	line-height: 1.2;
+}
+.utf-banner-area-block.content-shadow h2 {
+	font-size: 24px;
+    font-weight: 700;
+}
+.utf-banner-area-block.heading-only h2 {
+	font-weight: 400;
+	line-height: 1.2;
+}
+.utf-banner-area-block.typed-text h1 {
+	font-size: 36px;
+	line-height: 1.2;
+	margin-bottom: 20px;
+}
+.utf-banner-area-block.typed-text a {
+	margin-top: 15px;
+	padding:10px 15px;
+}
+.utf-banner-area-block.large-heading h1 {
+	font-size: 36px;
+	line-height: 1.2;
+	margin-bottom: 20px;
+}
+.utf-banner-area-block.large-heading a, .utf-banner-area-block.typed-text a, .utf-banner-area-block.large-heading a, .utf-box-table a.btn {
+	margin-top: 15px;
+	padding:10px 15px;
+}
+.utf-banner-area-block.content-shadow.text-normal h1 {
+	font-size: 36px;
+}
+.utf-banner-area-block.auto-height h1 {
+	font-size: 40px;
+	line-height: 1.2;
+	margin-bottom: 15px !important;
+}
+.utf-portfolio-area-item.info-shadow .item-info{
+	padding:22px 20px;
+}
+/* About */
+.utf-about-area-item .right-info {
+	padding-left: 15px;
+	margin-top: 30px;
+}
+.utf-about-area-item.about-us .left-info .thumb {
+	margin-bottom: 15px;
+}
+.utf-about-area-item.about-us .left-info .thumb:last-child {
+	margin-bottom: 0;
+}
+/* Services */
+.utf-services-area .utf-services-carousel .item {
+	text-align: center;
+}
+.utf-services-area .utf-services-carousel.utf-services-items .owl-nav {
+	text-align: center;
+}
+/* Portfolio */
+.utf-portfolio-area-item.default-padding {
+	padding-bottom: 35px;
+}
+.utf-portfolio-area-item .utf-portfolio-items .pf-item,  .utf-portfolio-area-item .utf-portfolio-items.col-2 .pf-item,  .utf-portfolio-area-item .utf-portfolio-items.col-3 .pf-item,  .utf-portfolio-area-item .utf-portfolio-items.col-4 .pf-item,  .utf-portfolio-area-item .utf-portfolio-items .pf-item.width {
+	width: 100%;
+}
+.mix-item-menu {
+	text-align: center;
+}
+.mix-item-menu.text-left button, .mix-item-menu button {
+	margin-bottom: 10px;	
+}
+.mix-item-menu.active-border button.active::after {
+	left: 50%;
+	margin-left: -15px;
+}
+.mix-item-menu.category-count button.active::after {
+	display: none;
+}
+.mix-item-menu.category-count button {
+	padding: 6px 20px;
+	margin-bottom:12px
+}
+.portfolio-details-area .right-info {
+	margin-top: 30px;
+	padding-left: 15px;
+}
+.related-projects .owl-dots {
+	margin-bottom: -15px;
+}
+.mix-item-menu.dots button::after {
+	display: none;
+}
+.mix-item-menu.dots button {
+	margin-bottom:10px;
+}
+/* Team */
+.utf-team-area .utf-team-items .owl-dots {
+	margin-bottom: -15px;
+	margin-top: 10px !important;
+}
+/* Fun Factor */
+.utf-fun-factor-area.bottom-less.default-padding {
+	padding-bottom: 15px;
+}
+.utf-fun-factor-area .item {
+	margin-bottom: 25px;
+}
+/* Clients */
+.utf-clients-area .clients-items.utf-clients-carousel .owl-dots {
+	margin-bottom: -15px;
+	margin-top: 20px;
+}
+.utf-clients-area .clients-items .owl-nav .owl-prev,  .utf-clients-area .clients-items .owl-nav .owl-next {
+	left: 0px;
+}
+.utf-clients-area .clients-items .owl-nav .owl-next {
+	left: auto;
+	right: 0px;
+}
+/* Contact */
+.utf-contact-area .right-info {
+	margin-top: 40px;
+	padding-left: 15px;
+}
+.google-maps-area iframe {
+	height: 300px;
+}
+/* Error Page */
+.utf-error-page-area h1 {
+	font-size: 120px;
+	line-height: 90px;
+	margin-bottom: 30px;
+}
+.utf-services-area .utf-services-carousel.utf-services-items .owl-nav .owl-prev {
+	left: -10px;    
+}
+.utf-services-area .utf-services-carousel.utf-services-items .owl-nav .owl-next {
+    right: -10px;
+}
+/* Footer */
+footer {
+	text-align: center;
+	line-height: inherit;
+}
+footer .text-left,  footer .text-right {
+	text-align: center;
+}
+footer .logo {
+	margin-bottom: 20px;
+}
+footer.centerd .logo {
+	margin-bottom: 20px;
+}
+footer.centerd .copyright {
+	margin-top: 20px;
+	padding-top: 20px;
+}
+footer .copyright.border {
+	margin-top: 20px;
+}
+footer .menu li a::after {
+	display: none;
+}
+footer .menu {
+	margin-bottom: 20px;
+}
+footer .menu li a {
+	padding: 0 8px;
+}
+footer p {
+	line-height: inherit;
+}
+footer.copyright-center .utf-footer-social {
+	margin-top: 20px;
+}
+footer.centerd .menu {
+	margin-bottom: 0;
+}
+}
+
+@media only screen and (min-width: 580px) and (max-width: 767px) {
+.utf-portfolio-area-item .utf-portfolio-items .pf-item,  .utf-portfolio-area-item .utf-portfolio-items.col-2 .pf-item,  .utf-portfolio-area-item .utf-portfolio-items.col-3 .pf-item,  .utf-portfolio-area-item .utf-portfolio-items.col-4 .pf-item,  .utf-portfolio-area-item .utf-portfolio-items .pf-item.width {
+	width: 50%;
+}
+}

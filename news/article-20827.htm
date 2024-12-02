@@ -2,12 +2,12 @@
 <html lang="zh-CN">
 
 <head>
-        <link rel="canonical" href="https://clashxpro.github.io/news/article-18979.htm" />
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-20827.htm" />
     <meta name="theme-color" content="#c70039">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>机器学习笔记：Python底层实现逻辑回归</title>
-        <meta name="description" content="历史文章： 1、Python底层实现KNN:https://blog.csdn.net/cccccyyyyy12345678/article/details/117911220 2、Python底层实" />
+    <title>国密算法(SM2，SM3，SM4)辅助工具升级版(OTP+PBOC3.0)</title>
+        <meta name="description" content="从编写最初版本用于验算SM2，SM3和SM4算法的辅助工具已有一年多的时间了，国密算法的应用和普及也是不温不火的。编写最初算法代码和工具时所参考的文档还非正式的国密标准文件，而目前国密标准文件发布了几" />
         <link rel="icon" href="__ADDON__/img/clashxpro/favicon.ico" type="image/x-icon"/>
     <!-- Start Stylesheet -->
     <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
@@ -72,7 +72,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>机器学习笔记：Python底层实现逻辑回归</h1>
+                    <h1>国密算法(SM2，SM3，SM4)辅助工具升级版(OTP+PBOC3.0)</h1>
                     <div class="utf-breadcrumb-items">
                         <ul class="breadcrumb">
                             <li><a href="/">首页</a></li>
@@ -90,10 +90,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                                      				  				  				<div id="content_views" class="htmledit_views"> <p><strong><em>历史文章：</em></strong></p> <p><em>1、Python底层实现KNN:</em><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/117911220"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/117911220</a></p> <p><em>2、Python底层实现决策树：</em><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/118389088"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/118389088</a></p> <p>3、Python底层实现贝叶斯：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/118411638"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/118411638</a></p> <p>4、Python线性回归：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/118486796"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/118486796</a></p> <hr/> </h1> <p>逻辑回归虽然叫回归，但是它是分类模型。将回归转化为分类的关键是sigmoid函数。</p> <hr/> </h1> <pre><code class="language-python">def read_xlsx(path):     data = pd.read_excel(path)     print(data)     return data</code></pre> <h2>2、归一化</h2> <p>因为逻辑回归也用到梯度下降，为了增加梯度下降速度，需要对数据进行消除量纲处理。</p> <pre><code class="language-python">def MinMaxScaler(data):     col = data.shape[1]     for i in range(0, col-1):         arr = data.iloc[:, i]         arr = np.array(arr)         min = np.min(arr)         max = np.max(arr)         arr = (arr-min)/(max-min)         data.iloc[:, i] = arr     return data</code></pre> </h1> <pre><code class="language-python">def train_test_split(data, test_size=0.2, random_state=None):     col = data.shape[1]     x = data.iloc[:, 0:col-1]     y = data.iloc[:, -1]     x = np.array(x)     y = np.array(y)     # 设置随机种子，当随机种子非空时，将锁定随机数     if random_state:         np.random.seed(random_state)         # 将样本集的索引值进行随机打乱         # permutation随机生成0-len(data)随机序列     shuffle_indexs = np.random.permutation(len(x))     # 提取位于样本集中20%的那个索引值     test_size = int(len(x) * test_size)     # 将随机打乱的20%的索引值赋值给测试索引     test_indexs = shuffle_indexs[:test_size]     # 将随机打乱的80%的索引值赋值给训练索引     train_indexs = shuffle_indexs[test_size:]     # 根据索引提取训练集和测试集     x_train = x[train_indexs]     y_train = y[train_indexs]     x_test = x[test_indexs]     y_test = y[test_indexs]     # 将切分好的数据集返回出去     # print(y_train)     return x_train, x_test, y_train, y_test</code></pre> </h1> <pre><code class="language-python">def sigmoid(x, theta):     # 线性回归模型，中间模型,np.dot为向量点积     z = np.dot(x, theta)     h = 1/(1 + np.exp(-z))     return h</code></pre> </h1> <p>这一步很巧妙的根据sigmoid函数特性定义出损失函数。</p> <pre><code class="language-python">def costFunction(h, y):     m = len(h)     J = -1/m * np.sum(y * np.log(h) + (1-y) * np.log(1-h))     return J</code></pre> </h1> <pre><code class="language-python">def gradeDesc(x,y,alpha=0.01,iter_num=2000):     m = x.shape[0]     n = x.shape[1]     xMatrix = np.mat(x)     yMatrix = np.mat(y).transpose()     J_history = np.zeros(iter_num)   # 初始化J_history, np.zero生成1行iter_num列都是0的矩阵     theta = np.ones((n, 1))    # 初始化theta, np.zero生成n行1列都是0的矩阵     # 执行梯度下降     for i in range(iter_num):         h = sigmoid(xMatrix, theta)  # sigmoid 函数         J_history[i] = costFunction(h, y)         theta = theta + alpha * xMatrix.transpose() * (yMatrix - h)  # 梯度     return J_history, theta</code></pre> </h1> <pre><code class="language-python">def score(h, y):     m = len(h)     # 定义计数变量     count = 0     for i in range(m):         if np.where(h[i] &gt;= 0.5, 1, 0) == y[i]:             count += 1     accuracy = count/m     print("Accuracy:", accuracy)     return accuracy</code></pre> <hr/> </h1> <p>线性回归的输出作为逻辑回归sigmoid函数的输入</p> <p>完整代码：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/chenyi369/LogisticRegression"  rel="nofollow">https://github.com/chenyi369/LogisticRegression</a></p> </div> 			                <div class="clearfix"></div>
+                                      				  				  				<div id="content_views" class="htmledit_views"> <p><span style="font-size:24px"></span><span style="font-size:18px">从编写最初版本用于<span style="font-size:18px">验算</span>SM2，SM3和SM4算法的辅助工具已有一年多的时间了，国密算法的应用和普及也是不温不火的。编写最初算法代码和工具时所参考的文档还非正式的国密标准文件，而目前国密标准文件发布了几个系列了，为国密算法应用提供了有力的参考和帮助，特别人行发布了PBOC3.0标准，其增强部分的国密算法应用部分，为国密算法在金融领域应用打下标准基础，也为厂商和开发提供了有力的帮助和指导。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;国密局同时也发布了使用国密SM3和SM4算法的OTP算法标准，并首推在金融领域应用，笔者有幸参与了某股份制银行使用国密OTP算法的应用工作，最初参考标准为讨论稿，使用的算法为SM1和SM3算法，与最新的国家标准区别为把SM1改为SM4，但应用和算法上区别不大，在笔者同各厂家（其中包括国家标准的编制厂商）交流和合作过程中，对其他标准部分体会还不深，但至少对OTP标准这部分体会颇多，发布的标准和数据说明相当的不够严谨，数据与算法描述完全不同，最新公布的正式版OTP部分也是如此（算法说明与数据样例不一致），还需要开发者自己去鉴别和理解，还希望以国家身份的标准制定和审定要谨慎啊。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PBOC3.0标准重点描述了SM4、SM3和SM2算法应用，对称部分应用描述的比较完善可以参考进行工程开发，而SM2证书部分只说明了发卡行和IC部分，而根CA部分的就没有涉及，这一点上同PBOC2.0相同，要进行系统开发还需要找到CA部分标准，目前还没有正式规范发布。SM2的IC证书与RSA的证书最大区别在于RSA对数据进行了私钥加密，之后用公钥解密，而SM2对数据使用私钥签名，数据为明文，使用时对数据进行验证，这点在证书应用上是不同，同时SM2证书的数据量要少，私钥不需要CRT，公钥也没有余项。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 笔者编写的升级版的工具增加了功能为4项，1.OTP算法（SM3和SM4应用，用于动态口令生成），2.PBOC（对称算法SM4，MAC计算、数据加密解密、ARQC和ARPC、子密钥离散），3.SM2根CA部分（使用SM2算法，签发CA根证书、验证根证书、验证发卡行证书输入和签发发卡行证书），4.SM2发卡行证书（生成发卡行证书输入文件，签发IC证书和验证IC证书），需要说明的是，PBOC3.0的SM2证书部分实现为参考国密算法IC根CA证书方案的草案完成，与最终的正式版可能会有所出入。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 新增算法工具界面如下：</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/3201354ec3ef20f25afdc049b5f2ae1f.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.&nbsp;OTP算法功能界面</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/be0a66dbf3ec566902b1bc7f53cc5f6a.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.PBOC对称算法功能界面</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/61bfa967817ab3ae2eadcebcfd12e540.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 3.SM2根CA证书功能界面</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/3068828028897f925f0b3ca5f1719bc8.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 4.SM2发卡行证书功能界面</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果有相关测试数据的朋友，可提供一些数据，用于验证工具功能正确性。</span></p> <p><span style="font-size:18px"></span></p> <p><span style="font-size:24px"></span></p> <p><span style="font-size:24px"></span></p> <p><span style="font-size:24px"></span></p> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
-                                        <p>上一个：<a href="/news/article-18978.htm">00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰</a></p>
-                                        <p>下一个：<a href="/news/article-19453.htm">狗狗领养协议图片高清（狗狗领养协议怎么写）</a></p>
+                                        <p>上一个：<a href="/news/article-20372.htm">宠物粮怎么卖（宠物粮食怎么卖）</a></p>
+                                        <p>下一个：<a href="/news/article-20829.htm">被猫抓伤怎么观察是否生病（被猫抓了怎么观察有没有感染到?）</a></p>
                                     </div>
                                 </div>
                 <div class="col-md-3">
@@ -103,16 +103,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-11-24-node-share.htm" title="ClashX Pro节点订阅每天更新18.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-19453.htm" title="狗狗领养协议图片高清（狗狗领养协议怎么写）">狗狗领养协议图片高清（狗狗领养协议怎么写）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-27-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-21-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/free-nodes/2024-11-30-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-20371.htm" title="动物疫苗行业排名前十（动物疫苗行业排名前十名）">动物疫苗行业排名前十（动物疫苗行业排名前十名）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-1-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新19.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.6M/S免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/free-nodes/2024-11-18-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新22.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-10-node-share.htm" title="ClashX Pro节点订阅每天更新18.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.8M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-8-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新19.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-19915.htm" title="开宠物医院的基本要求怎么写（开宠物医院需要哪些资质）">开宠物医院的基本要求怎么写（开宠物医院需要哪些资质）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-14-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新22.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.2M/S免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/free-nodes/2024-11-25-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新18M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-28-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新20.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-7-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-20-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新21.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.2M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-20372.htm" title="宠物粮怎么卖（宠物粮食怎么卖）">宠物粮怎么卖（宠物粮食怎么卖）</a></li>
                     </ul>
     </div>
 </div>
@@ -124,7 +124,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">9</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>机器学习笔记：Python底层实现逻辑回归</title>
         <meta name="description" content="历史文章： 1、Python底层实现KNN:https://blog.csdn.net/cccccyyyyy12345678/article/details/117911220 2、Python底层实" />
-        <link rel="icon" href="__ADDON__/img/clashxpro/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
     <!-- Start Stylesheet -->
     <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
     <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
@@ -23,8 +23,7 @@
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
-    
-<!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -90,7 +89,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                                      				  				  				<div id="content_views" class="htmledit_views"> <p><strong><em>历史文章：</em></strong></p> <p><em>1、Python底层实现KNN:</em><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/117911220"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/117911220</a></p> <p><em>2、Python底层实现决策树：</em><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/118389088"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/118389088</a></p> <p>3、Python底层实现贝叶斯：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/118411638"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/118411638</a></p> <p>4、Python线性回归：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/118486796"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/118486796</a></p> <hr/> </h1> <p>逻辑回归虽然叫回归，但是它是分类模型。将回归转化为分类的关键是sigmoid函数。</p> <hr/> </h1> <pre><code class="language-python">def read_xlsx(path):     data = pd.read_excel(path)     print(data)     return data</code></pre> <h2>2、归一化</h2> <p>因为逻辑回归也用到梯度下降，为了增加梯度下降速度，需要对数据进行消除量纲处理。</p> <pre><code class="language-python">def MinMaxScaler(data):     col = data.shape[1]     for i in range(0, col-1):         arr = data.iloc[:, i]         arr = np.array(arr)         min = np.min(arr)         max = np.max(arr)         arr = (arr-min)/(max-min)         data.iloc[:, i] = arr     return data</code></pre> </h1> <pre><code class="language-python">def train_test_split(data, test_size=0.2, random_state=None):     col = data.shape[1]     x = data.iloc[:, 0:col-1]     y = data.iloc[:, -1]     x = np.array(x)     y = np.array(y)     # 设置随机种子，当随机种子非空时，将锁定随机数     if random_state:         np.random.seed(random_state)         # 将样本集的索引值进行随机打乱         # permutation随机生成0-len(data)随机序列     shuffle_indexs = np.random.permutation(len(x))     # 提取位于样本集中20%的那个索引值     test_size = int(len(x) * test_size)     # 将随机打乱的20%的索引值赋值给测试索引     test_indexs = shuffle_indexs[:test_size]     # 将随机打乱的80%的索引值赋值给训练索引     train_indexs = shuffle_indexs[test_size:]     # 根据索引提取训练集和测试集     x_train = x[train_indexs]     y_train = y[train_indexs]     x_test = x[test_indexs]     y_test = y[test_indexs]     # 将切分好的数据集返回出去     # print(y_train)     return x_train, x_test, y_train, y_test</code></pre> </h1> <pre><code class="language-python">def sigmoid(x, theta):     # 线性回归模型，中间模型,np.dot为向量点积     z = np.dot(x, theta)     h = 1/(1 + np.exp(-z))     return h</code></pre> </h1> <p>这一步很巧妙的根据sigmoid函数特性定义出损失函数。</p> <pre><code class="language-python">def costFunction(h, y):     m = len(h)     J = -1/m * np.sum(y * np.log(h) + (1-y) * np.log(1-h))     return J</code></pre> </h1> <pre><code class="language-python">def gradeDesc(x,y,alpha=0.01,iter_num=2000):     m = x.shape[0]     n = x.shape[1]     xMatrix = np.mat(x)     yMatrix = np.mat(y).transpose()     J_history = np.zeros(iter_num)   # 初始化J_history, np.zero生成1行iter_num列都是0的矩阵     theta = np.ones((n, 1))    # 初始化theta, np.zero生成n行1列都是0的矩阵     # 执行梯度下降     for i in range(iter_num):         h = sigmoid(xMatrix, theta)  # sigmoid 函数         J_history[i] = costFunction(h, y)         theta = theta + alpha * xMatrix.transpose() * (yMatrix - h)  # 梯度     return J_history, theta</code></pre> </h1> <pre><code class="language-python">def score(h, y):     m = len(h)     # 定义计数变量     count = 0     for i in range(m):         if np.where(h[i] &gt;= 0.5, 1, 0) == y[i]:             count += 1     accuracy = count/m     print("Accuracy:", accuracy)     return accuracy</code></pre> <hr/> </h1> <p>线性回归的输出作为逻辑回归sigmoid函数的输入</p> <p>完整代码：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/chenyi369/LogisticRegression"  rel="nofollow">https://github.com/chenyi369/LogisticRegression</a></p> </div> 			                <div class="clearfix"></div>
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p><strong><em>历史文章：</em></strong></p> <p><em>1、Python底层实现KNN:</em><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/117911220"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/117911220</a></p> <p><em>2、Python底层实现决策树：</em><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/118389088"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/118389088</a></p> <p>3、Python底层实现贝叶斯：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/118411638"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/118411638</a></p> <p>4、Python线性回归：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/cccccyyyyy12345678/article/details/118486796"  rel="nofollow">https://blog.csdn.net/cccccyyyyy12345678/article/details/118486796</a></p> <hr/> </h1> <p>逻辑回归虽然叫回归，但是它是分类模型。将回归转化为分类的关键是sigmoid函数。</p> <hr/> </h1> <pre><code class="language-python">def read_xlsx(path):     data = pd.read_excel(path)     print(data)     return data</code></pre> <h2>2、归一化</h2> <p>因为逻辑回归也用到梯度下降，为了增加梯度下降速度，需要对数据进行消除量纲处理。</p> <pre><code class="language-python">def MinMaxScaler(data):     col = data.shape[1]     for i in range(0, col-1):         arr = data.iloc[:, i]         arr = np.array(arr)         min = np.min(arr)         max = np.max(arr)         arr = (arr-min)/(max-min)         data.iloc[:, i] = arr     return data</code></pre> </h1> <pre><code class="language-python">def train_test_split(data, test_size=0.2, random_state=None):     col = data.shape[1]     x = data.iloc[:, 0:col-1]     y = data.iloc[:, -1]     x = np.array(x)     y = np.array(y)     # 设置随机种子，当随机种子非空时，将锁定随机数     if random_state:         np.random.seed(random_state)         # 将样本集的索引值进行随机打乱         # permutation随机生成0-len(data)随机序列     shuffle_indexs = np.random.permutation(len(x))     # 提取位于样本集中20%的那个索引值     test_size = int(len(x) * test_size)     # 将随机打乱的20%的索引值赋值给测试索引     test_indexs = shuffle_indexs[:test_size]     # 将随机打乱的80%的索引值赋值给训练索引     train_indexs = shuffle_indexs[test_size:]     # 根据索引提取训练集和测试集     x_train = x[train_indexs]     y_train = y[train_indexs]     x_test = x[test_indexs]     y_test = y[test_indexs]     # 将切分好的数据集返回出去     # print(y_train)     return x_train, x_test, y_train, y_test</code></pre> </h1> <pre><code class="language-python">def sigmoid(x, theta):     # 线性回归模型，中间模型,np.dot为向量点积     z = np.dot(x, theta)     h = 1/(1 + np.exp(-z))     return h</code></pre> </h1> <p>这一步很巧妙的根据sigmoid函数特性定义出损失函数。</p> <pre><code class="language-python">def costFunction(h, y):     m = len(h)     J = -1/m * np.sum(y * np.log(h) + (1-y) * np.log(1-h))     return J</code></pre> </h1> <pre><code class="language-python">def gradeDesc(x,y,alpha=0.01,iter_num=2000):     m = x.shape[0]     n = x.shape[1]     xMatrix = np.mat(x)     yMatrix = np.mat(y).transpose()     J_history = np.zeros(iter_num)   # 初始化J_history, np.zero生成1行iter_num列都是0的矩阵     theta = np.ones((n, 1))    # 初始化theta, np.zero生成n行1列都是0的矩阵     # 执行梯度下降     for i in range(iter_num):         h = sigmoid(xMatrix, theta)  # sigmoid 函数         J_history[i] = costFunction(h, y)         theta = theta + alpha * xMatrix.transpose() * (yMatrix - h)  # 梯度     return J_history, theta</code></pre> </h1> <pre><code class="language-python">def score(h, y):     m = len(h)     # 定义计数变量     count = 0     for i in range(m):         if np.where(h[i] &gt;= 0.5, 1, 0) == y[i]:             count += 1     accuracy = count/m     print("Accuracy:", accuracy)     return accuracy</code></pre> <hr/> </h1> <p>线性回归的输出作为逻辑回归sigmoid函数的输入</p> <p>完整代码：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/chenyi369/LogisticRegression"  rel="nofollow">https://github.com/chenyi369/LogisticRegression</a></p> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-18978.htm">00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰</a></p>
                                         <p>下一个：<a href="/news/article-19453.htm">狗狗领养协议图片高清（狗狗领养协议怎么写）</a></p>
@@ -103,16 +103,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2024-11-30-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-20371.htm" title="动物疫苗行业排名前十（动物疫苗行业排名前十名）">动物疫苗行业排名前十（动物疫苗行业排名前十名）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-18-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新22.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-10-node-share.htm" title="ClashX Pro节点订阅每天更新18.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.8M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-8-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新19.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-25-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新18M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-28-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新20.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-7-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-20-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新21.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-16-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-14-node-share.htm" title="ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/news/article-20372.htm" title="宠物粮怎么卖（宠物粮食怎么卖）">宠物粮怎么卖（宠物粮食怎么卖）</a></li>
+                        <li class="py-2"><a href="/news/article-19453.htm" title="狗狗领养协议图片高清（狗狗领养协议怎么写）">狗狗领养协议图片高清（狗狗领养协议怎么写）</a></li>
+                        <li class="py-2"><a href="/news/article-20371.htm" title="动物疫苗行业排名前十（动物疫苗行业排名前十名）">动物疫苗行业排名前十（动物疫苗行业排名前十名）</a></li>
+                        <li class="py-2"><a href="/news/article-24037.htm" title="哈尔滨王允海宠物医院怎么样（哈尔滨王允海动物医院）">哈尔滨王允海宠物医院怎么样（哈尔滨王允海动物医院）</a></li>
+                        <li class="py-2"><a href="/news/article-23565.htm" title="广州在哪里可以领养狗狗（广州在哪里可以领养狗狗狗）">广州在哪里可以领养狗狗（广州在哪里可以领养狗狗狗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-24-node-share.htm" title="ClashX Pro节点订阅每天更新18.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-19-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新20.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-28229.htm" title="PDCA循环——快速提升软件质量的必备工具">PDCA循环——快速提升软件质量的必备工具</a></li>
                     </ul>
     </div>
 </div>
@@ -124,7 +124,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
@@ -143,6 +143,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
                     <p>
                         <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
                     </p>

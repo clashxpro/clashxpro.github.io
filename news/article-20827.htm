@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>国密算法(SM2，SM3，SM4)辅助工具升级版(OTP+PBOC3.0)</title>
         <meta name="description" content="从编写最初版本用于验算SM2，SM3和SM4算法的辅助工具已有一年多的时间了，国密算法的应用和普及也是不温不火的。编写最初算法代码和工具时所参考的文档还非正式的国密标准文件，而目前国密标准文件发布了几" />
-        <link rel="icon" href="__ADDON__/img/clashxpro/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
     <!-- Start Stylesheet -->
     <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
     <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
@@ -23,8 +23,7 @@
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
-    
-<!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -90,7 +89,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                                      				  				  				<div id="content_views" class="htmledit_views"> <p><span style="font-size:24px"></span><span style="font-size:18px">从编写最初版本用于<span style="font-size:18px">验算</span>SM2，SM3和SM4算法的辅助工具已有一年多的时间了，国密算法的应用和普及也是不温不火的。编写最初算法代码和工具时所参考的文档还非正式的国密标准文件，而目前国密标准文件发布了几个系列了，为国密算法应用提供了有力的参考和帮助，特别人行发布了PBOC3.0标准，其增强部分的国密算法应用部分，为国密算法在金融领域应用打下标准基础，也为厂商和开发提供了有力的帮助和指导。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;国密局同时也发布了使用国密SM3和SM4算法的OTP算法标准，并首推在金融领域应用，笔者有幸参与了某股份制银行使用国密OTP算法的应用工作，最初参考标准为讨论稿，使用的算法为SM1和SM3算法，与最新的国家标准区别为把SM1改为SM4，但应用和算法上区别不大，在笔者同各厂家（其中包括国家标准的编制厂商）交流和合作过程中，对其他标准部分体会还不深，但至少对OTP标准这部分体会颇多，发布的标准和数据说明相当的不够严谨，数据与算法描述完全不同，最新公布的正式版OTP部分也是如此（算法说明与数据样例不一致），还需要开发者自己去鉴别和理解，还希望以国家身份的标准制定和审定要谨慎啊。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PBOC3.0标准重点描述了SM4、SM3和SM2算法应用，对称部分应用描述的比较完善可以参考进行工程开发，而SM2证书部分只说明了发卡行和IC部分，而根CA部分的就没有涉及，这一点上同PBOC2.0相同，要进行系统开发还需要找到CA部分标准，目前还没有正式规范发布。SM2的IC证书与RSA的证书最大区别在于RSA对数据进行了私钥加密，之后用公钥解密，而SM2对数据使用私钥签名，数据为明文，使用时对数据进行验证，这点在证书应用上是不同，同时SM2证书的数据量要少，私钥不需要CRT，公钥也没有余项。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 笔者编写的升级版的工具增加了功能为4项，1.OTP算法（SM3和SM4应用，用于动态口令生成），2.PBOC（对称算法SM4，MAC计算、数据加密解密、ARQC和ARPC、子密钥离散），3.SM2根CA部分（使用SM2算法，签发CA根证书、验证根证书、验证发卡行证书输入和签发发卡行证书），4.SM2发卡行证书（生成发卡行证书输入文件，签发IC证书和验证IC证书），需要说明的是，PBOC3.0的SM2证书部分实现为参考国密算法IC根CA证书方案的草案完成，与最终的正式版可能会有所出入。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 新增算法工具界面如下：</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/3201354ec3ef20f25afdc049b5f2ae1f.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.&nbsp;OTP算法功能界面</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/be0a66dbf3ec566902b1bc7f53cc5f6a.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.PBOC对称算法功能界面</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/61bfa967817ab3ae2eadcebcfd12e540.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 3.SM2根CA证书功能界面</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/3068828028897f925f0b3ca5f1719bc8.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 4.SM2发卡行证书功能界面</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果有相关测试数据的朋友，可提供一些数据，用于验证工具功能正确性。</span></p> <p><span style="font-size:18px"></span></p> <p><span style="font-size:24px"></span></p> <p><span style="font-size:24px"></span></p> <p><span style="font-size:24px"></span></p> </div> 			                <div class="clearfix"></div>
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p><span style="font-size:24px"></span><span style="font-size:18px">从编写最初版本用于<span style="font-size:18px">验算</span>SM2，SM3和SM4算法的辅助工具已有一年多的时间了，国密算法的应用和普及也是不温不火的。编写最初算法代码和工具时所参考的文档还非正式的国密标准文件，而目前国密标准文件发布了几个系列了，为国密算法应用提供了有力的参考和帮助，特别人行发布了PBOC3.0标准，其增强部分的国密算法应用部分，为国密算法在金融领域应用打下标准基础，也为厂商和开发提供了有力的帮助和指导。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;国密局同时也发布了使用国密SM3和SM4算法的OTP算法标准，并首推在金融领域应用，笔者有幸参与了某股份制银行使用国密OTP算法的应用工作，最初参考标准为讨论稿，使用的算法为SM1和SM3算法，与最新的国家标准区别为把SM1改为SM4，但应用和算法上区别不大，在笔者同各厂家（其中包括国家标准的编制厂商）交流和合作过程中，对其他标准部分体会还不深，但至少对OTP标准这部分体会颇多，发布的标准和数据说明相当的不够严谨，数据与算法描述完全不同，最新公布的正式版OTP部分也是如此（算法说明与数据样例不一致），还需要开发者自己去鉴别和理解，还希望以国家身份的标准制定和审定要谨慎啊。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PBOC3.0标准重点描述了SM4、SM3和SM2算法应用，对称部分应用描述的比较完善可以参考进行工程开发，而SM2证书部分只说明了发卡行和IC部分，而根CA部分的就没有涉及，这一点上同PBOC2.0相同，要进行系统开发还需要找到CA部分标准，目前还没有正式规范发布。SM2的IC证书与RSA的证书最大区别在于RSA对数据进行了私钥加密，之后用公钥解密，而SM2对数据使用私钥签名，数据为明文，使用时对数据进行验证，这点在证书应用上是不同，同时SM2证书的数据量要少，私钥不需要CRT，公钥也没有余项。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 笔者编写的升级版的工具增加了功能为4项，1.OTP算法（SM3和SM4应用，用于动态口令生成），2.PBOC（对称算法SM4，MAC计算、数据加密解密、ARQC和ARPC、子密钥离散），3.SM2根CA部分（使用SM2算法，签发CA根证书、验证根证书、验证发卡行证书输入和签发发卡行证书），4.SM2发卡行证书（生成发卡行证书输入文件，签发IC证书和验证IC证书），需要说明的是，PBOC3.0的SM2证书部分实现为参考国密算法IC根CA证书方案的草案完成，与最终的正式版可能会有所出入。</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 新增算法工具界面如下：</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/3201354ec3ef20f25afdc049b5f2ae1f.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.&nbsp;OTP算法功能界面</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/be0a66dbf3ec566902b1bc7f53cc5f6a.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.PBOC对称算法功能界面</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/61bfa967817ab3ae2eadcebcfd12e540.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 3.SM2根CA证书功能界面</span></p> <p><span style="font-size:18px"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220820/3068828028897f925f0b3ca5f1719bc8.jpg"></span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 4.SM2发卡行证书功能界面</span></p> <p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果有相关测试数据的朋友，可提供一些数据，用于验证工具功能正确性。</span></p> <p><span style="font-size:18px"></span></p> <p><span style="font-size:24px"></span></p> <p><span style="font-size:24px"></span></p> <p><span style="font-size:24px"></span></p> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-20372.htm">宠物粮怎么卖（宠物粮食怎么卖）</a></p>
                                         <p>下一个：<a href="/news/article-20829.htm">被猫抓伤怎么观察是否生病（被猫抓了怎么观察有没有感染到?）</a></p>
@@ -103,16 +103,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-18979.htm" title="机器学习笔记：Python底层实现逻辑回归">机器学习笔记：Python底层实现逻辑回归</a></li>
+                        <li class="py-2"><a href="/news/article-27293.htm" title="宠物店弃养协议（宠物弃养协议书）">宠物店弃养协议（宠物弃养协议书）</a></li>
+                        <li class="py-2"><a href="/news/article-28229.htm" title="PDCA循环——快速提升软件质量的必备工具">PDCA循环——快速提升软件质量的必备工具</a></li>
+                        <li class="py-2"><a href="/news/article-21286.htm" title="React中事件的写法总结">React中事件的写法总结</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-2-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新18.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.6M/S免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/news/article-19915.htm" title="开宠物医院的基本要求怎么写（开宠物医院需要哪些资质）">开宠物医院的基本要求怎么写（开宠物医院需要哪些资质）</a></li>
-                        <li class="py-2"><a href="/news/article-18978.htm" title="00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰">00022.16 序列化与反序列化三：有些属性不需要序列化的处理办法用transient或者static修饰</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-14-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新22.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.2M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-19453.htm" title="狗狗领养协议图片高清（狗狗领养协议怎么写）">狗狗领养协议图片高清（狗狗领养协议怎么写）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-18-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新22.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-29-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-21-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-1-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新19.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.6M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-28-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新20.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-13-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新22.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-22663.htm" title="动物疫苗一般多少钱一针啊视频（动物疫苗的作用）">动物疫苗一般多少钱一针啊视频（动物疫苗的作用）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-24-node-share.htm" title="ClashX Pro节点订阅每天更新18.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-26381.htm" title="什么叫领养宠物的人呢（领养宠物狗是什么意思）">什么叫领养宠物的人呢（领养宠物狗是什么意思）</a></li>
+                        <li class="py-2"><a href="/news/article-28231.htm" title="动物防疫站几点关门 动物防疫站几点关门啊">动物防疫站几点关门 动物防疫站几点关门啊</a></li>
                     </ul>
     </div>
 </div>
@@ -124,7 +124,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">15</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
@@ -143,6 +143,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
                     <p>
                         <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
                     </p>

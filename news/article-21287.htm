@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centos7系统离线安装nginx步骤(亲测，超详细步骤)</title>
         <meta name="description" content="1.整理离线安装需要的包，打包成nginxOfflinePack.tar.gz 压缩包复制到centos相应目录 我整理的包已上传到csdn资源库 ，下载地址 https://download.csd" />
-        <link rel="icon" href="__ADDON__/img/clashxpro/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
     <!-- Start Stylesheet -->
     <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
     <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
@@ -23,8 +23,7 @@
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
-    
-<!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -90,7 +89,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                                      				  				  				<div id="content_views" class="htmledit_views"> <p>1.整理离线安装需要的包，打包成nginxOfflinePack.tar.gz 压缩包复制到centos相应目录</p> <p>我整理的包已上传到csdn资源库 ，下载地址</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://download.csdn.net/download/qq445829096/12451908"  rel="nofollow">https://download.csdn.net/download/qq445829096/12451908</a></p> <p><img fetchpriority="high" decoding="async" alt="" height="485" src="http://img.555519.xyz/uploads3/20220608/969e703e903b5f72c2f57ec5130f3167.jpg"></p> <p>2.下载完成后复制到centos相应目录，推荐一个linux远程神器MobaXterm</p> <p>执行命令，文件复制功能都很好用，还有小游戏...</p> <p><img decoding="async" alt="" height="518" src="http://img.555519.xyz/uploads3/20220608/d5080a6a949250d78109f5a63d29df6e.jpg"></p> <p>3.解压nginxOfflinePack.tar.gz&nbsp; ，我这边是解压到/dev/nginxOfflinePack 目录</p> <p>cd到存放nginxOfflinePack.tar.gz的目录</p> <p>执行tar zxvf nginxOfflinePack.tar.gz</p> <p><img decoding="async" alt="" height="310" src="http://img.555519.xyz/uploads3/20220608/49e1c3ee512b88d51f00df467a77f5a7.jpg"></p> <p>4.</p> <p>安装<br /> 开始安装</p> <p>把包放在一个文件夹中，cd到nginxOfflinePack目录</p> <p><strong>然后运行命令：rpm -Uvh *.rpm --nodeps --force</strong></p> <p><img loading="lazy" decoding="async" alt="" height="313" src="http://img.555519.xyz/uploads3/20220608/cae8aa8fe60e6f5d48204e1752ca7c4c.jpg"><br /><strong>安装pcre：</strong><br /> nginxOfflinePack目录 执行</p> <p>tar -zxvf pcre-8.43.tar.gz</p> <p>之后cd到pcre-8.43目录 依次执行以下3个指令安装<br /> ./configure<br /> make<br /> make install</p> <p><strong>安装openssl：</strong></p> <p>nginxOfflinePack目录 执行<br /> tar -zxvf openssl-1.0.2r.tar.gz<br /> 之后cd到openssl-1.0.2r目录 依次执行以下3个指令安装</p> <p><strong><img loading="lazy" decoding="async" alt="" height="69" src="http://img.555519.xyz/uploads3/20220608/702dd6ecb75a0117c6ce995ce7f1986a.jpg"><br /> ./configure或者./config&nbsp; (如果./configure提示上图错误，则使用./config)</strong><br /> make<br /> make install</p> <p><strong>安装zlib：</strong></p> <p>nginxOfflinePack目录 执行<br /> tar -zxvf zlib-1.2.11.tar.gz</p> <p>之后cd到zlib-1.2.11目录 依次执行以下3个指令安装<br /> ./configure<br /> make<br /> make install</p> <p><img loading="lazy" decoding="async" alt="" height="393" src="http://img.555519.xyz/uploads3/20220608/bbbd977f4caf29303f33239e8472c606.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="250" src="http://img.555519.xyz/uploads3/20220608/0964aa6adfa7263590dd364ace3df907.jpg"><br /><strong>安装nginx：</strong></p> <p>nginxOfflinePack目录 执行<br /> tar -zxvf nginx-1.16.0.tar.gz</p> <p><img loading="lazy" decoding="async" alt="" height="137" src="http://img.555519.xyz/uploads3/20220608/507373a94e71445f0e7031e57cd526a1.jpg"></p> <p>之后cd到nginx-1.16.0目录 依次执行以下3个指令安装<br /> ./configure<br /> make<br /> make install</p> <p><img loading="lazy" decoding="async" alt="" height="143" src="http://img.555519.xyz/uploads3/20220608/1ea5b6fe858effd825aed33a701cb16c.jpg"></p> <p>注意 执行make install后 nginx的安装目录会打印出来，不指定的话默认都是该目录</p> <p><img loading="lazy" decoding="async" alt="" height="351" src="http://img.555519.xyz/uploads3/20220608/179d6f33cbc7c8f7b3bffa0c22ce32a9.jpg"></p> <p><strong>初次启动</strong><br /> cd /usr/local/nginx/sbin<br /><strong>执行指令</strong> ./nginx</p> <p>./表示是当前目录<br /> 浏览器已可访问nginx，打开浏览器访问此机器的 IP，如果浏览器出现 Welcome to nginx! 则表示 Nginx 安装并运行成功。；</p> <p>如果暂没有window电脑可以访问到也可以执行指令查看</p> <p>任意路径执行执行&nbsp;curl http://127.0.0.1&nbsp; &nbsp;(nginx配置文件配置的默认端口是80)</p> <p><img loading="lazy" decoding="async" alt="" height="419" src="http://img.555519.xyz/uploads3/20220608/48dcad8996ee498925ca94a0ab270762.jpg"></p> <p></p> <p>停止nginx</p> <p>cd /usr/local/nginx/sbin</p> <p>执行指令./nginx -s stop</p> <p>重启nginx</p> <p>cd /usr/local/nginx/sbin</p> <p><strong>执行指令</strong>./nginx -s reload</p> <p>查看nginx是够启动</p> <p><strong>ps -ef|grep nginx</strong></p> </div> 			                <div class="clearfix"></div>
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p>1.整理离线安装需要的包，打包成nginxOfflinePack.tar.gz 压缩包复制到centos相应目录</p> <p>我整理的包已上传到csdn资源库 ，下载地址</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://download.csdn.net/download/qq445829096/12451908"  rel="nofollow">https://download.csdn.net/download/qq445829096/12451908</a></p> <p><img fetchpriority="high" decoding="async" alt="" height="485" src="http://img.555519.xyz/uploads3/20220608/969e703e903b5f72c2f57ec5130f3167.jpg"></p> <p>2.下载完成后复制到centos相应目录，推荐一个linux远程神器MobaXterm</p> <p>执行命令，文件复制功能都很好用，还有小游戏...</p> <p><img decoding="async" alt="" height="518" src="http://img.555519.xyz/uploads3/20220608/d5080a6a949250d78109f5a63d29df6e.jpg"></p> <p>3.解压nginxOfflinePack.tar.gz&nbsp; ，我这边是解压到/dev/nginxOfflinePack 目录</p> <p>cd到存放nginxOfflinePack.tar.gz的目录</p> <p>执行tar zxvf nginxOfflinePack.tar.gz</p> <p><img decoding="async" alt="" height="310" src="http://img.555519.xyz/uploads3/20220608/49e1c3ee512b88d51f00df467a77f5a7.jpg"></p> <p>4.</p> <p>安装<br /> 开始安装</p> <p>把包放在一个文件夹中，cd到nginxOfflinePack目录</p> <p><strong>然后运行命令：rpm -Uvh *.rpm --nodeps --force</strong></p> <p><img loading="lazy" decoding="async" alt="" height="313" src="http://img.555519.xyz/uploads3/20220608/cae8aa8fe60e6f5d48204e1752ca7c4c.jpg"><br /><strong>安装pcre：</strong><br /> nginxOfflinePack目录 执行</p> <p>tar -zxvf pcre-8.43.tar.gz</p> <p>之后cd到pcre-8.43目录 依次执行以下3个指令安装<br /> ./configure<br /> make<br /> make install</p> <p><strong>安装openssl：</strong></p> <p>nginxOfflinePack目录 执行<br /> tar -zxvf openssl-1.0.2r.tar.gz<br /> 之后cd到openssl-1.0.2r目录 依次执行以下3个指令安装</p> <p><strong><img loading="lazy" decoding="async" alt="" height="69" src="http://img.555519.xyz/uploads3/20220608/702dd6ecb75a0117c6ce995ce7f1986a.jpg"><br /> ./configure或者./config&nbsp; (如果./configure提示上图错误，则使用./config)</strong><br /> make<br /> make install</p> <p><strong>安装zlib：</strong></p> <p>nginxOfflinePack目录 执行<br /> tar -zxvf zlib-1.2.11.tar.gz</p> <p>之后cd到zlib-1.2.11目录 依次执行以下3个指令安装<br /> ./configure<br /> make<br /> make install</p> <p><img loading="lazy" decoding="async" alt="" height="393" src="http://img.555519.xyz/uploads3/20220608/bbbd977f4caf29303f33239e8472c606.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="250" src="http://img.555519.xyz/uploads3/20220608/0964aa6adfa7263590dd364ace3df907.jpg"><br /><strong>安装nginx：</strong></p> <p>nginxOfflinePack目录 执行<br /> tar -zxvf nginx-1.16.0.tar.gz</p> <p><img loading="lazy" decoding="async" alt="" height="137" src="http://img.555519.xyz/uploads3/20220608/507373a94e71445f0e7031e57cd526a1.jpg"></p> <p>之后cd到nginx-1.16.0目录 依次执行以下3个指令安装<br /> ./configure<br /> make<br /> make install</p> <p><img loading="lazy" decoding="async" alt="" height="143" src="http://img.555519.xyz/uploads3/20220608/1ea5b6fe858effd825aed33a701cb16c.jpg"></p> <p>注意 执行make install后 nginx的安装目录会打印出来，不指定的话默认都是该目录</p> <p><img loading="lazy" decoding="async" alt="" height="351" src="http://img.555519.xyz/uploads3/20220608/179d6f33cbc7c8f7b3bffa0c22ce32a9.jpg"></p> <p><strong>初次启动</strong><br /> cd /usr/local/nginx/sbin<br /><strong>执行指令</strong> ./nginx</p> <p>./表示是当前目录<br /> 浏览器已可访问nginx，打开浏览器访问此机器的 IP，如果浏览器出现 Welcome to nginx! 则表示 Nginx 安装并运行成功。；</p> <p>如果暂没有window电脑可以访问到也可以执行指令查看</p> <p>任意路径执行执行&nbsp;curl http://127.0.0.1&nbsp; &nbsp;(nginx配置文件配置的默认端口是80)</p> <p><img loading="lazy" decoding="async" alt="" height="419" src="http://img.555519.xyz/uploads3/20220608/48dcad8996ee498925ca94a0ab270762.jpg"></p> <p></p> <p>停止nginx</p> <p>cd /usr/local/nginx/sbin</p> <p>执行指令./nginx -s stop</p> <p>重启nginx</p> <p>cd /usr/local/nginx/sbin</p> <p><strong>执行指令</strong>./nginx -s reload</p> <p>查看nginx是够启动</p> <p><strong>ps -ef|grep nginx</strong></p> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-21286.htm">React中事件的写法总结</a></p>
                                         <p>下一个：<a href="/news/article-21770.htm">宠物粮食制作（宠物粮食制作教程）</a></p>
@@ -103,16 +103,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2024-11-12-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新22M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-29-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-11-node-share-links.htm" title="ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-19-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-7-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-22195.htm" title="Java程序扩展给范围的数字">Java程序扩展给范围的数字</a></li>
                         <li class="py-2"><a href="/free-nodes/2024-12-5-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新21.1M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.1M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-19453.htm" title="狗狗领养协议图片高清（狗狗领养协议怎么写）">狗狗领养协议图片高清（狗狗领养协议怎么写）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-19-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-9-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/free-nodes/2024-12-2-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新18.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.6M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-22-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-23-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-4-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-26833.htm" title="宠物领养收费吗现在多少钱（宠物领养是什么意思,免费的嘛）">宠物领养收费吗现在多少钱（宠物领养是什么意思,免费的嘛）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-16-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-14-node-share.htm" title="ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-11-node-share-links.htm" title="ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -124,7 +124,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
@@ -143,6 +143,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
                     <p>
                         <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
                     </p>

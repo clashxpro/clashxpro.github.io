@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-37261.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux环境下安装MySQL数据库_Mysql</title>
+        <meta name="description" content="目录  1.概述 2.前期准备  2.1下载mysql二进制安装包 2.2导入mysql二进制安装包  3.mysql部署  4.修改mysql密码  5.配置mysql阿里云安全组策略     1." />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                                <li><a href="#">关于</a></li>
+                        <li><a href="#">联系</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Linux环境下安装MySQL数据库_Mysql</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">1.概述</a></li> <li><a href="#_label1" rel="nofollow">2.前期准备</a></li> <ul class="second_class_ul"> <li><a href="#_lab2_1_0" rel="nofollow">2.1下载mysql二进制安装包</a></li> <li><a href="#_lab2_1_1" rel="nofollow">2.2导入mysql二进制安装包</a></li> </ul> <li><a href="#_label2" rel="nofollow">3.mysql部署</a></li> <ul class="second_class_ul"></ul> <li><a href="#_label3" rel="nofollow">4.修改mysql密码</a></li> <ul class="second_class_ul"></ul> <li><a href="#_label4" rel="nofollow">5.配置mysql阿里云安全组策略</a></li> <ul class="second_class_ul"></ul> </ul> </div> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>1.概述</h2> <p>对于mysql二进制安装，优点是可以安装到任何路径下，灵活性好，一台服务器可以安装多个mysql。缺点是已经编译过，性能不如源码编译得好，不能灵活定制编译参数。如果用户即不想安装最简单却不够灵活的RPM包，又不想安装复杂费时的源码包，那么已编译好的二进制包将是最好的选择，下面让我们来介绍如何在linux系统下安装mysql服务端。</p> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>2.前期准备</h2> <p class="maodian"><a name="_lab2_1_0" rel="nofollow"></a></p> <h3>2.1下载mysql二进制安装包</h3> <p>mysql官网：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://dev.mysql.com/downloads/mysql/"   target="_blank" rel="nofollow">https://dev.mysql.com/downloads/mysql/</a></p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/fa5542266beb570af496a9f461ce1fa6.jpg"></p> <p>因为我下载的是mysql-8.0.23-linux-glibc2.12-x86_64.tar版本，如果有最新版本，则下载最新版本就好了。</p> <p class="maodian"><a name="_lab2_1_1" rel="nofollow"></a></p> <h3>2.2导入mysql二进制安装包</h3> <p>通过Xftp工具把安装包传输到linux系统package目录去：</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/24c9c9d3b3bbc9cdd6748b10722fa6fe.jpg"></p> <p class="maodian"><a name="_label2" rel="nofollow"></a></p> <h2>3.mysql部署</h2> <p>解压mysql安装包</p> <div class="ay1code"> <pre class="brush:bash;">--切换到安装目录  cd /app  --解压xz压缩文件  tar -xvf /app/package/mysql-8.0.23-linux-glibc2.12-x86_64.tar.xz</pre> </div> <p>修改mysql文件夹名称</p> <div class="ay1code"> <pre class="brush:bash;">--把mysql-8.0.23-linux-glibc2.12-x86_64修改为mysql文件夹名称  mv /app/mysql-8.0.23-linux-glibc2.12-x86_64 /app/mysql</pre> </div> <p>创建data目录</p> <div class="ay1code"> <pre class="brush:bash;">--在mysql根目录下创建data目录，用于存放数据  mkdir /app/mysql/data</pre> </div> <p>创建mysql用户组和mysql用户</p> <div class="ay1code"> <pre class="brush:bash;">--创建mysql用户组和mysql用户  groupadd mysql  useradd -g mysql mysql</pre> </div> <p>修改mysql目录权限</p> <div class="ay1code"> <pre class="brush:bash;">--修改mysql目录权限  chown -R mysql.mysql /app/mysql/</pre> </div> <p>初始化数据库</p> <div class="ay1code"> <pre class="brush:bash;">--先切换到mysql安装目录  cd /app/mysql  --初始化数据库  bin/mysqld --initialize --user=mysql --basedir=/app/mysql --datadir=/app/mysql/data</pre> </div> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/ae8fa791fc6cf527ce6a9b51d700bbf9.jpg"></p> <p>配置mysql</p> <div class="ay1code"> <pre class="brush:bash;">--先切换到mysql.support-files目录  cd /app/mysql/support-files  --在mysql/support-files创建文件my-default.cnf  touch my-default.cnf  --复制配置文件到/etc/my.cnf  cp -a ./my-default.cnf /etc/my.cnf  --编辑my.cnf  vim /etc/my.cnf</pre> </div> <p>my.cnf输入如下配置内容：</p> <div class="ay1code"> <pre class="brush:plain;">[client]  port=3306  socket=/tmp/mysql.sock    [mysqld]  port=3306  user=mysql  socket=/tmp/mysql.sock  basedir=/app/mysql  datadir=/app/mysql/data</pre> </div> <p>配置环境变量</p> <div class="ay1code"> <pre class="brush:bash;">--编辑profile文件  vim /etc/profile  --配置mysql环境变量  PATH=/data/mysql/bin:/data/mysql/lib:$PATH  export PATH  --使mysql环境变量生效  source /etc/profile  --看环境变量是否生效  echo $PATH</pre> </div> <p>启动mysql</p> <div class="ay1code"> <pre class="brush:bash;">cd /app/mysql/bin  systemctl start mysqld  or  service mysql start</pre> </div> <p>启动mysql时候可能会遇到如下错误：</p> <blockquote> <p>Failed to start mysqld.service: Unit not found.</p> </blockquote> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/c5b15db58ded1a6015e6498f7db1cb84.jpg"></p> <p>or</p> <blockquote> <p>Starting MySQL.Logging to '/app/mysql/data/dengwu.err'.</p> <p>... ERROR! The server quit without updating PID file (/app/mysql/data/dengwu.pid).</p> </blockquote> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/4a24838590d4f6cfdf6e4aafab4d5c53.jpg"></p> <p>解决方法如下:</p> <div class="ay1code"> <pre class="brush:bash;">--需要安装mariadb-server  yum install -y mariadb-server  --然后启动mariadb服务  systemctl start mariadb.service  --需要的可以添加mariadb服务开机启动  systemctl enable mariadb.service</pre> </div> <blockquote> <p>Job for mariadb.service failed because the control process exited with error code. See "systemctl status mariadb.service" and "journalctl -xe" for details.</p> </blockquote> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/7a57284f17aac2cc6180ff5921aabfe8.jpg"></p> <p>解决方法如下:</p> <div class="ay1code"> <pre class="brush:bash;">chown -R mysql.mysql /app/mysql/</pre> </div> <blockquote> <p>Starting MySQL... ERROR! The server quit without updating PID file (/app/mysql/data/dengwu.pid).</p> </blockquote> <p>解决方法如下:</p> <div class="ay1code"> <pre class="brush:bash;">--查看mysql进程  ps -ef|grep mysqld  --杀死mysql进程  kill -9 mysql进程ID</pre> </div> <p>然后重新启动下mysql：</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/89dffa3d2e3b7cfc676e6b2842e6ff3d.jpg"></p> <p class="maodian"><a name="_label3" rel="nofollow"></a></p> <h2>4.修改mysql密码</h2> <p>root用户第一次登录mysql，因为初始密码我们并不知道，一般情况下我们都会重新设置一个新的密码，具体操作如下：</p> <div class="ay1code"> <pre class="brush:bash;">--编辑my.cnf  vim /etc/my.cnf</pre> </div> <p>输入如下命令行：</p> <div class="ay1code"> <pre class="brush:bash;">default_authentication_plugin=mysql_native_password</pre> </div> <p>如果忘记了密码再加上：</p> <div class="ay1code"> <pre class="brush:bash;">--跳过密码验证(等设置了密码就去掉)  skip-grant-tables</pre> </div> <p>然后登录mysql：</p> <div class="ay1code"> <pre class="brush:bash;">--登录mysql  mysql -u root -p</pre> </div> <p>然后输入命令查看mysql用户组：</p> <div class="ay1code"> <pre class="brush:sql;">--查看mysql用户表  select user,host,authentication_string from mysql.user;</pre> </div> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/964f539b9bc66771ff5b853546ba832f.jpg"></p> <p>看看root用户没有开启远程连接权限，如果没有则执行如下命令：</p> <div class="ay1code"> <pre class="brush:sql;">--修改root用户可以远程连接  update mysql.user set host='%' where user='root';</pre> </div> <p>开启远程连接权限后，再来修改root用户密码：</p> <div class="ay1code"> <pre class="brush:sql;">--如果host是localhost则@字符后面是localhost，反之则是%，以host结果为准  --修改加密规则  alter user 'root'@'%' identified by 'qwer1234' password expire never;  --更新一下用户的密码  alter user 'root'@'%' identified with mysql_native_password by 'qwer1234';  --刷新权限  flush privileges;  --修改root用户密码  alter user 'root'@'%' identified by 'qwer1234';</pre> </div> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/d0f8a246475aaab3f777ef73ccd5344c.jpg"></p> <p>如果防火墙开启了，则需要加入允许mysql端口访问权限，具体命令如下：</p> <div class="ay1code"> <pre class="brush:bash;">--允许访问  firewall-cmd --permanent --zone=public --add-port=3306/tcp  --重新加载  firewall-cmd --reload  --查看是否开通访问权限  firewall-cmd --permanent --zone=public --query-port=3306/tcp</pre> </div> <p>然后重新启动mysql：</p> <div class="ay1code"> <pre class="brush:bash;">--重新启动mysql  service mysql restart;</pre> </div> <p class="maodian"><a name="_label4" rel="nofollow"></a></p> <h2>5.配置mysql阿里云安全组策略</h2> <p>登录阿里云-&gt;安全组规则-&gt;访问规则-&gt;入方向-&gt;手动添加如下策略：</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/fe82033d6cd37329b992095b04b74f64.jpg"></p> <p>使用Navicat连接成功：</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/d7179abbec5dd4b00e8bfefe5e17d547.jpg"></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-36775.htm">领养宠物协议书范本大全下载 领养宠物协议书范本大全下载图片</a></p>
+                                        <p>下一个：<a href="/news/article-37263.htm">动物医院有哪些岗位工作内容（动物医院工作怎么样）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-32962.htm" title="为啥家猫不需要打疫苗宠物猫要打呢怎么回事（为什么猫不用打狂犬疫苗）">为啥家猫不需要打疫苗宠物猫要打呢怎么回事（为什么猫不用打狂犬疫苗）</a></li>
+                        <li class="py-2"><a href="/news/article-23119.htm" title="宠物医生资质好考吗（考取宠物医生资格证）">宠物医生资质好考吗（考取宠物医生资格证）</a></li>
+                        <li class="py-2"><a href="/news/article-27750.htm" title="简单实现JS浅拷贝和深拷贝">简单实现JS浅拷贝和深拷贝</a></li>
+                        <li class="py-2"><a href="/news/article-30045.htm" title="猫咪3针疫苗一共多少元 猫咪打疫苗一共几针?多少钱?">猫咪3针疫苗一共多少元 猫咪打疫苗一共几针?多少钱?</a></li>
+                        <li class="py-2"><a href="/news/article-32471.htm" title="vue-element-admin 配置接口请求，跨域，版本4">vue-element-admin 配置接口请求，跨域，版本4</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-15-node-share-links.htm" title="ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-34857.htm" title="动物防疫注射器（动物防疫注射器使用方法）">动物防疫注射器（动物防疫注射器使用方法）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-14-node-share.htm" title="ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-24036.htm" title="长沙猫咪领养平台（长沙市猫咪领养）">长沙猫咪领养平台（长沙市猫咪领养）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-23-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

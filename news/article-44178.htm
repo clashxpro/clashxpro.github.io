@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-44178.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dask使用kerberos认证读取hive数据库</title>
+        <meta name="description" content="dask使用kerberos认证读取hive数据库 1、首先主机需要有KERBEROS客户端，测试kinit命令是否存在； 2、执行 kinit -kt  xxx.keytab  xxx/zzzz@E" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-44178.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="dask使用kerberos认证读取hive数据库" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/c4d0d4991f2dfde9a326c95fce138cf3.webp" />
+        <meta property="og:release_date" content="2025-01-21T09:51:03" />
+    <meta property="og:updated_time" content="2025-01-21T09:51:03" />
+        <meta property="og:description" content="dask使用kerberos认证读取hive数据库 1、首先主机需要有KERBEROS客户端，测试kinit命令是否存在； 2、执行 kinit -kt  xxx.keytab  xxx/zzzz@E" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="dask使用kerberos认证读取hive数据库">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                                <li><a href="#">关于</a></li>
+                        <li><a href="#">联系</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>dask使用kerberos认证读取hive数据库</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>dask使用kerberos认证读取hive数据库</p> <p>1、首先主机需要有KERBEROS客户端，测试kinit命令是否存在；</p> <p>2、执行</p> <pre><code class="prism language-linux">kinit -kt  xxx.keytab  xxx/zzzz@EXAMPLE.COM  </code></pre> <p>在此之前需要确认xxx.keytab 文件正确，以及/etc/krb5.conf配置文件配置正确</p> <p>下面是krb5.conf, 以下的配置和代码中的Example需要替换为自己的目标配置</p> <p>kerberos.example.com 这个配置是hive所在主机的映射名，可在/etc/hosts中配置映射</p> <pre><code># Configuration snippets may be placed in this directory as well includedir /etc/krb5.conf.d/  [logging]  default = FILE:/var/log/krb5libs.log  kdc = FILE:/var/log/krb5kdc.log  admin_server = FILE:/var/log/kadmind.log  [libdefaults]  dns_lookup_realm = false  ticket_lifetime = 24h  renew_lifetime = 7d  forwardable = true  rdns = false  pkinit_anchors = FILE:/etc/pki/tls/certs/ca-bundle.crt # default_realm = EXAMPLE.COM # default_ccache_name = KEYRING:persistent:%{uid}  [realms] # EXAMPLE.COM = { #  kdc = kerberos.example.com #  admin_server = kerberos.example.com # }  [domain_realm] # .example.com = EXAMPLE.COM # example.com = EXAMPLE.COM  </code></pre> <p>3、</p> <pre><code class="prism language-python">con <span class="token operator">=</span> <span class="token string">"hive://ipaddr:10000/database?auth=KERBEROS&amp;kerberos_service_name=hive"</span> </code></pre> <p>ipaddr是远程hive数据库主机地址，database是要连接的数据库名；</p> <p>这里设置auth=KERBEROS 使用kerberos方式连接hive数据库，不需要密码，但是需要keytab认证文件，设置kerberos_service_name=hive</p> <p>4、使用sqlalchemy构建sql查询语句</p> <pre><code class="prism language-python"><span class="token keyword">from</span> sqlalchemy <span class="token keyword">import</span> Column<span class="token punctuation">,</span> MetaData<span class="token punctuation">,</span> Table<span class="token punctuation">,</span> text <span class="token keyword">from</span> sqlalchemy<span class="token punctuation">.</span>sql <span class="token keyword">import</span> select  metadata <span class="token operator">=</span> MetaData<span class="token punctuation">(</span><span class="token punctuation">)</span> columns <span class="token operator">=</span> <span class="token string">"col1,col2,col3,col4"</span> li <span class="token operator">=</span> <span class="token punctuation">[</span>Column<span class="token punctuation">(</span>col<span class="token punctuation">)</span> <span class="token keyword">for</span> col <span class="token keyword">in</span> columns<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">","</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token operator">*</span>li<span class="token punctuation">)</span> t <span class="token operator">=</span> Table<span class="token punctuation">(</span><span class="token string">'tableName'</span><span class="token punctuation">,</span> metadata<span class="token punctuation">,</span>           <span class="token operator">*</span>li<span class="token punctuation">,</span>           schema<span class="token operator">=</span><span class="token string">'databaseName'</span><span class="token punctuation">)</span> s <span class="token operator">=</span> select<span class="token punctuation">(</span><span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>where<span class="token punctuation">(</span>text<span class="token punctuation">(</span><span class="token string">"col2&gt;4"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> text<span class="token punctuation">(</span><span class="token string">"col3&gt;5"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>limit<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> </code></pre> <p>dask的read_sql_table方法要么就是进行整表查询</p> <p>5、使用krbcontext模块进行认证并进行数据读取</p> <pre><code class="prism language-python">principal <span class="token operator">=</span> <span class="token string">"xxx/zzzz@EXAMPLE.COM"</span> keytab_path <span class="token operator">=</span> <span class="token string">"./xxx.keytab"</span> <span class="token keyword">from</span> krbcontext <span class="token keyword">import</span> krbcontext <span class="token keyword">with</span> krbcontext<span class="token punctuation">(</span>using_keytab<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> principal<span class="token operator">=</span>principal<span class="token punctuation">,</span> keytab_file<span class="token operator">=</span>keytab_path<span class="token punctuation">)</span><span class="token punctuation">:</span> 	df <span class="token operator">=</span> dd<span class="token punctuation">.</span>read_sql_table<span class="token punctuation">(</span>s<span class="token punctuation">,</span> con<span class="token punctuation">,</span> index_col<span class="token operator">=</span><span class="token string">"col1"</span><span class="token punctuation">)</span> </code></pre> <p>有个依赖包需要sasl，这个包在linux上使用conda能够正常安装，在windows上可能会因为缺少一些不确定的东西而装不上，在linux上直接conda install sasl即可。</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-44177.htm">springboot处理时间date，在前后端传输遇到问题，时间插入数据库会提前一天？</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-29150.htm" title="C ++中的虚拟基类">C ++中的虚拟基类</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-10-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-33397.htm" title="适合新手开店的是什么（适合新手开店的是什么职业）">适合新手开店的是什么（适合新手开店的是什么职业）</a></li>
+                        <li class="py-2"><a href="/news/article-21770.htm" title="宠物粮食制作（宠物粮食制作教程）">宠物粮食制作（宠物粮食制作教程）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-27-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-9-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-13-node-share.htm" title="ClashX Pro节点订阅每天更新22.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-33909.htm" title="和田宠物批发市场在哪里 和田宠物批发市场在哪里啊">和田宠物批发市场在哪里 和田宠物批发市场在哪里啊</a></li>
+                        <li class="py-2"><a href="/news/article-24440.htm" title="怎么去除小猫咪身上的跳蚤（如何除去小猫身上的跳蚤）">怎么去除小猫咪身上的跳蚤（如何除去小猫身上的跳蚤）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-13-node-share.htm" title="ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">63</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html xml:lang="zh-CN" lang="zh-CN">
 
 <head>
         <link rel="canonical" href="https://clashxpro.github.io/news/article-21287.htm" />
@@ -9,6 +9,17 @@
     <title>Centos7系统离线安装nginx步骤(亲测，超详细步骤)</title>
         <meta name="description" content="1.整理离线安装需要的包，打包成nginxOfflinePack.tar.gz 压缩包复制到centos相应目录 我整理的包已上传到csdn资源库 ，下载地址 https://download.csd" />
         <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-21287.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="Centos7系统离线安装nginx步骤(亲测，超详细步骤)" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/eba8312c7e47e1dbb298f7d314050d03.webp" />
+        <meta property="og:release_date" content="2024-12-04T08:43:03" />
+    <meta property="og:updated_time" content="2024-12-04T08:43:03" />
+        <meta property="og:description" content="1.整理离线安装需要的包，打包成nginxOfflinePack.tar.gz 压缩包复制到centos相应目录 我整理的包已上传到csdn资源库 ，下载地址 https://download.csd" />
+        
     <!-- Start Stylesheet -->
     <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
     <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
@@ -23,6 +34,23 @@
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Centos7系统离线安装nginx步骤(亲测，超详细步骤)">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
 <script>
@@ -103,16 +131,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/news/article-28682.htm" title="CommonsCollection4反序列化链学习">CommonsCollection4反序列化链学习</a></li>
-                        <li class="py-2"><a href="/news/article-27751.htm" title="Spring Security核心组件之安全上下文">Spring Security核心组件之安全上下文</a></li>
-                        <li class="py-2"><a href="/news/article-31423.htm" title="React中事件的写法总结">React中事件的写法总结</a></li>
-                        <li class="py-2"><a href="/news/article-34380.htm" title="小猫养多久会认主人家（小猫多长时间认家）">小猫养多久会认主人家（小猫多长时间认家）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-16-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-8-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新23M/S免费节点订阅链接">ClashX Pro节点订阅每天更新23M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-27-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-30045.htm" title="猫咪3针疫苗一共多少元 猫咪打疫苗一共几针?多少钱?">猫咪3针疫苗一共多少元 猫咪打疫苗一共几针?多少钱?</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-12-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新19M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-11-node-share-links.htm" title="ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-42712.htm" title="宠物园的宠物（宠物园宠物园）">宠物园的宠物（宠物园宠物园）</a></li>
+                        <li class="py-2"><a href="/news/article-26833.htm" title="宠物领养收费吗现在多少钱（宠物领养是什么意思,免费的嘛）">宠物领养收费吗现在多少钱（宠物领养是什么意思,免费的嘛）</a></li>
                         <li class="py-2"><a href="/news/article-27750.htm" title="简单实现JS浅拷贝和深拷贝">简单实现JS浅拷贝和深拷贝</a></li>
+                        <li class="py-2"><a href="/news/article-28231.htm" title="动物防疫站几点关门 动物防疫站几点关门啊">动物防疫站几点关门 动物防疫站几点关门啊</a></li>
+                        <li class="py-2"><a href="/news/article-30044.htm" title="正规免费领养宠物平台哪个好点（免费领养宠物的网站）">正规免费领养宠物平台哪个好点（免费领养宠物的网站）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-17-node-share.htm" title="ClashX Pro节点订阅每天更新22.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-41205.htm" title="孕妇被猫挠了出了一点点血（孕妇被猫抓了一下有淡淡红痕）">孕妇被猫挠了出了一点点血（孕妇被猫抓了一下有淡淡红痕）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-21-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-49649.htm" title="宠物粮市场规模（中国宠物粮市场）">宠物粮市场规模（中国宠物粮市场）</a></li>
                     </ul>
     </div>
 </div>
@@ -124,7 +152,10 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>

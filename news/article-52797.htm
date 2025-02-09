@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-52797.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用 vscode 插件可视化制作和管理脚手架及原理解析</title>
+        <meta name="description" content="提到脚手架，大家想到的可能就是各种 xxx-cli，本文介绍的是另一种方式：以 vscode 插件的形式实现，提供 web 可视化操作，如下图：  下面介绍如何安装使用，以及实现原理。 安装使用 vs" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-52797.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="使用 vscode 插件可视化制作和管理脚手架及原理解析" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/5fa86981b517773bd1b23506d6b7243d.webp" />
+        <meta property="og:release_date" content="2025-02-07T07:20:17" />
+    <meta property="og:updated_time" content="2025-02-07T07:20:17" />
+        <meta property="og:description" content="提到脚手架，大家想到的可能就是各种 xxx-cli，本文介绍的是另一种方式：以 vscode 插件的形式实现，提供 web 可视化操作，如下图：  下面介绍如何安装使用，以及实现原理。 安装使用 vs" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="使用 vscode 插件可视化制作和管理脚手架及原理解析">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>使用 vscode 插件可视化制作和管理脚手架及原理解析</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<p>提到脚手架，大家想到的可能就是各种 xxx-cli，本文介绍的是另一种方式：以 vscode 插件的形式实现，提供 web 可视化操作，如下图：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/85ed927be2126a7d6ae0b8049063c392.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <p>下面介绍如何安装使用，以及实现原理。</p> <h2 id="安装使用">安装使用</h2> <p>vscode 安装<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://marketplace.visualstudio.com/items?itemName=wjkang.lowcode"  target="_blank" rel="nofollow">lowcode</a> 插件，此插件是一个效率工具，脚手架只是其中一个功能，更多功能可以查看<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://lowcoding.github.io/"  target="_blank" rel="nofollow">文档</a>，这集只讲脚手架相关的。</p> <p>插件安装之后，打开脚手架界面，步骤如下图：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/051b8e40e0716bf7369b1a8d9f2027a1.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <p>可以直接使用分享的脚手架，勾选选项后直接创建即可：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/8f6d218238c491c2cf4ed3c940139dbc.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <h2 id="制作脚手架">制作脚手架</h2> <p>在模板项目根目录下创建<code>lowcode.scaffold.config.json</code> 文件，将需要做内容动态替换的文件加上<code>.ejs</code> 后缀。</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://ejs.bootcss.com/"  target="_blank" rel="nofollow">ejs 语法</a></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/d8c2d46cef9eceea4eb2dcee80e7be5d.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <h3 id="配置">配置</h3> <p>一个完整<code>lowcode.scaffold.config.json</code> 配置：</p> <pre><code class="language-json">{ 	"formSchema": { 		"schema": { 			"type": "object", 			"ui:displayType": "row", 			"ui:showDescIcon": true, 			"properties": { 				"port": { 					"title": "监听端口", 					"type": "string", 					"props": {}, 					"default": "3000" 				}, 				"https": { 					"title": "https", 					"type": "boolean", 					"ui:widget": "switch" 				}, 				"lint": { 					"title": "eslint + prettier", 					"type": "boolean", 					"ui:widget": "switch", 					"default": true 				}, 				"noREADME": { 					"title": "移除README文件", 					"type": "boolean", 					"ui:widget": "switch", 					"ui:width": "100%", 					"ui:labelWidth": 0, 					"ui:hidden": "{{rootValue.emptyREADME === true}}", 					"default": false 				}, 				"emptyREADME": { 					"title": "空README文件", 					"type": "boolean", 					"ui:widget": "switch", 					"ui:hidden": "{{rootValue.noREADME === true}}" 				} 			}, 			"labelWidth": 120, 			"displayType": "row" 		}, 		"formData": { 			"port": 3000, 			"https": false, 			"lint": true, 			"noREADME": false, 			"emptyREADME": false 		} 	}, 	"excludeCompile": ["codeTemplate/", "materials/"], 	"conditionFiles": { 		"noREADME": { 			"value": true, 			"exclude": ["README.md.ejs"] 		}, 		"lint": { 			"value": false, 			"exclude": [".eslintrc.js", ".prettierrc.js"] 		} 	} }</code></pre> <p><code>formSchema</code>：</p> <p><code>formSchema.schema</code> 为<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://x-render.gitee.io/generator/playground"  target="_blank" rel="nofollow">x-render 表单设计器</a> 导出的的 schema，会根据 schema 构建出表单界面，<code>formSchema.formData</code> 为表单默认数据</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/0d3993da36a38a77678e0c5b63d1ab4f.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <p>创建项目的时候会将表单数据传入 ejs 模板中进行编译。</p> <p><code>excludeCompile</code>：配置不需要经过 ejs 编译的文件夹或文件。</p> <p><code>conditionFiles</code>：根据表单项的值，在创建项目的时候将某些文件夹或文件删除，比如：</p> <pre><code class="language-js">"conditionFiles": { 	"noREADME": { 		"value": true, 		"exclude": ["README.md.ejs"] 	}, 	"lint": { 		"value": false, 		"exclude": [".eslintrc.js", ".prettierrc.js"] 	} }</code></pre> <p>当<code>lint</code> 这个表单项的值为<code>false</code> 的时候，配置的文件夹或文件 ".eslintrc.js"，".prettierrc.js"，将会在创建的项目中排除掉。</p> <h3 id="本地调试脚手架">本地调试脚手架</h3> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/84c38d53384c2362c0de81fe14fa22aa.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <h3 id="参考模板">参考模板</h3> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/lowcode-scaffold/lowcode-mock"  target="_blank" rel="nofollow">https://github.com/lowcode-scaffold/lowcode-mock</a></p> <h2 id="发布脚手架">发布脚手架</h2> <p>将脚手架提交到 git 仓库，注意开放项目的公开访问权限。</p> <h2 id="使用脚手架">使用脚手架</h2> <h3 id="直接使用-git-仓库地址">直接使用 git 仓库地址</h3> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/b00f4f4fa9d7030ab67419f06032d397.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <blockquote> <p>注意使用 clone 地址，支持指定分支，比如<code>-b master https://github.com/lowcode-scaffold/lowcode-mock.git</code></p> </blockquote> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/85ed927be2126a7d6ae0b8049063c392.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <h3 id="分享到模板列表中快速创建">分享到模板列表中快速创建</h3> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/9ea9cb6b487ad09d0687a1607e21f0aa.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <p>修改<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/lowcoding/scaffold"  target="_blank" rel="nofollow">仓库</a> 中<code>index.json</code> 内容，提交 pr。</p> <h2 id="实现原理">实现原理</h2> <ol> <li>打开 webview 的时候从 cdn 拉取记录了脚手架列表的 json 文件，渲染列表视图。</li> <li>点击某个脚手架，将脚手架的 git 仓库地址传到插件后台，插件后台根据 git 地址下载模版到临时工作目录，并且读取<code>lowcode.scaffold.config.json</code> 文件中的<code>formSchema</code> 返回给 webview。</li> </ol> <pre><code class="language-js">export const downloadScaffoldFromGit = (remote: string) =&gt; {   fs.removeSync(tempDir.scaffold);   execa.sync('git', ['clone', ...remote.split(' '), tempDir.scaffold]);   fs.removeSync(path.join(tempDir.scaffold, '.git'));   if (     fs.existsSync(path.join(tempDir.scaffold, 'lowcode.scaffold.config.json'))   ) {     return fs.readJSONSync(       path.join(tempDir.scaffold, 'lowcode.scaffold.config.json'),     );   }   return {}; };</code></pre> <ol start="3"> <li>webview 拿到<code>formSchema</code> 后弹框渲染动态表单，点提交后将动态表单数据以及生成目录等信息传给插件后台。</li> <li>插件后台拿到表单数据后，到临时目录中根据<code>conditionFiles</code> 配置删除掉不需要的文件。然后根据表单数据编译所有<code>ejs</code> 文件，最后将所有文件拷贝到生成目录。</li> </ol> <pre><code class="language-js">export const compileScaffold = async (model: any, createDir: string) =&gt; {   if (     fs.existsSync(path.join(tempDir.scaffold, 'lowcode.scaffold.config.json'))   ) {     const config = fs.readJSONSync(       path.join(tempDir.scaffold, 'lowcode.scaffold.config.json'),     );     const excludeCompile: string[] = config.excludeCompile || [];     if (config.conditionFiles) {       Object.keys(model).map((key) =&gt; {         if (           config.conditionFiles[key] &amp;&amp;           config.conditionFiles[key].value === model[key] &amp;&amp;           Array.isArray(config.conditionFiles[key].exclude)         ) {           config.conditionFiles[key].exclude.map((exclude: string) =&gt; {             fs.removeSync(path.join(tempDir.scaffold, exclude));           });         }       });     }     await renderEjsTemplates(model, tempDir.scaffold, excludeCompile);     fs.removeSync(path.join(tempDir.scaffold, 'lowcode.scaffold.config.json'));   }   fs.copySync(tempDir.scaffold, createDir); };</code></pre> <blockquote> <p>本地调试时，就是在步骤 2 中将选择的文件夹内容或者当前 vscode 打开的项目内容拷贝到临时工作目录。</p> </blockquote> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/3303ac2fe1ab82fccd59c22180a2f882.jpg" alt="使用 vscode 插件可视化制作和管理脚手架及原理解析"></p> <p>下集再说插件其他功能，插件源码：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/lowcoding/lowcode-vscode"  target="_blank" rel="nofollow">https://github.com/lowcoding/lowcode-vscode</a></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-52257.htm">动物医院诊疗范围有哪些内容 动物医院诊疗范围有哪些内容呢</a></p>
+                                        <p>下一个：<a href="/news/article-52798.htm">成都兽用疫苗公司 成都兽用疫苗公司有哪些</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-2-4-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-29-node-share.htm" title="ClashX Pro节点订阅每天更新20.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-51225.htm" title="给动物医院的好评评语 给动物医院的好评评语怎么写">给动物医院的好评评语 给动物医院的好评评语怎么写</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-16-node-share.htm" title="ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-36275.htm" title="女人养猫好不好迷信呢（女生养猫对身体不好吗）">女人养猫好不好迷信呢（女生养猫对身体不好吗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-1-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-27750.htm" title="简单实现JS浅拷贝和深拷贝">简单实现JS浅拷贝和深拷贝</a></li>
+                        <li class="py-2"><a href="/news/article-27751.htm" title="Spring Security核心组件之安全上下文">Spring Security核心组件之安全上下文</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-12-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新19M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

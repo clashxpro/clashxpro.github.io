@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-54977.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>linux Centos7离线安装nginx</title>
+        <meta name="description" content="离线安装nginx，摸索了一天的成果，怕自己忘记，也分享给大家，有问题请指出。  	操作系统：centos7 	联网状态：无互联网-内网  			一、准备环境包gcc gcc-c++ 			二、准备准" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-54977.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="linux Centos7离线安装nginx" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/a1e97700d8346ff0f97922fe7e01a0d1.webp" />
+        <meta property="og:release_date" content="2025-02-11T05:44:38" />
+    <meta property="og:updated_time" content="2025-02-11T05:44:38" />
+        <meta property="og:description" content="离线安装nginx，摸索了一天的成果，怕自己忘记，也分享给大家，有问题请指出。  	操作系统：centos7 	联网状态：无互联网-内网  			一、准备环境包gcc gcc-c++ 			二、准备准" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="linux Centos7离线安装nginx">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>linux Centos7离线安装nginx</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-dracula"> <p>离线安装nginx，摸索了一天的成果，怕自己忘记，也分享给大家，有问题请指出。</p> </h1> <pre><code>	操作系统：centos7 	联网状态：无互联网-内网</code></pre> </h1> <pre><code>			一、准备环境包gcc gcc-c++ 			二、准备准备离线安装包 					openssl 					zlib 					pcre 					nginx</code></pre> </h1> <p>推荐大家下载包的网站：<br /><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://rpmfind.net/linux/rpm2html/search.php"  rel="nofollow">http://rpmfind.net/linux/rpm2html/search.php</a><br /><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://centos.pkgs.org/"  rel="nofollow">https://centos.pkgs.org/</a><br /> 这两个网站都可以下载所需要的安装包，不同的就是版本差异，大家各取所取。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220605/bffbb5e294bb2e2d38fdf5dba23db5e7.jpg" alt="linux Centos7离线安装nginx"></p> <h2><a id="_20" rel="nofollow"></a>安装</h2> <p>开始安装</p> <ol> <li>把包放在一个文件夹中，然后运行命令：rpm -Uvh *.rpm --nodeps --force；</li> <li>安装pcre：<br /> tar -zxvf pcre-8.**.tar.gz<br /> ./configure<br /> make<br /> make install<br /> 大家根据自己的版本修改命令；</li> <li>安装openssl：<br /> tar -zxvf openssl-1.0.**.tar.gz<br /> ./configure<br /> make<br /> make install<br /> 大家根据自己的版本修改命令<br /> 注意，这个包安装的时候一定要进文件夹看清楚文件的名称大小写，如果上面命令的不行，就换config；</li> <li>安装zlib：<br /> tar -zxvf zlib-1.2.**.tar.gz<br /> ./configure<br /> make<br /> make install<br /> 大家根据自己的版本修改命令，同上；</li> <li>安装nginx：<br /> tar -zxvf nginx-1.15.**.tar.gz<br /> ./configure<br /> make<br /> make install<br /> 大家根据自己的版本修改命令；</li> <li>执行 nginx命令：<br /> cd /usr/local/nginx/sbin<br /> ./nginx；</li> <li>浏览器已可访问nginx，打开浏览器访问此机器的 IP，如果浏览器出现 Welcome to nginx! 则表示 Nginx 安装并运行成功。；</li> <li>部分命令如下：<br /> 重启：<br /> /usr/local/nginx/sbin/nginx –s reload<br /> 停止：<br /> /usr/local/nginx/sbin/nginx –s stop<br /> 测试配置文件是否正常：<br /> /usr/local/nginx/sbin/nginx –t<br /> 强制关闭：<br /> pkill nginx</li> </ol> <h2><a id="_67" rel="nofollow"></a>完成</h2> <pre><code>	以上就是我在内网搭建nginx的方法，希望能帮助到大家，如果有误的话请告知我，我及时改正，谢谢！ 	这是我整理的包： 	https://download.csdn.net/download/weixin_44245604/11341357</code></pre> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-54424.htm">重庆有领养宠物狗或猫的吗最近（重庆有领养宠物狗或猫的吗最近的地方）</a></p>
+                                        <p>下一个：<a href="/news/article-54978.htm">动物疫苗接种时间表图片高清 动物疫苗接种时间表图片高清版</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-49649.htm" title="宠物粮市场规模（中国宠物粮市场）">宠物粮市场规模（中国宠物粮市场）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-15-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新20M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-44178.htm" title="dask使用kerberos认证读取hive数据库">dask使用kerberos认证读取hive数据库</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-11-node-share-links.htm" title="ClashX Pro节点订阅每天更新21.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.6M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-20827.htm" title="国密算法(SM2，SM3，SM4)辅助工具升级版(OTP+PBOC3.0)">国密算法(SM2，SM3，SM4)辅助工具升级版(OTP+PBOC3.0)</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-22-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新21M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-38259.htm" title="兽用疫苗可以网上销售吗（兽用疫苗可以网上销售吗知乎）">兽用疫苗可以网上销售吗（兽用疫苗可以网上销售吗知乎）</a></li>
+                        <li class="py-2"><a href="/news/article-46670.htm" title="关于Hadoop在java客户端进行下载时的异常java.io.FileNotFoundException: Hadoop home directory is no existed的解决办法">关于Hadoop在java客户端进行下载时的异常java.io.FileNotFoundException: Hadoop home directory is no existed的解决办法</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-20-node-share.htm" title="ClashX Pro节点订阅每天更新19.4M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-33395.htm" title="pycharm 的虚拟环境【陷阱】，你中招了吗？_在线工具">pycharm 的虚拟环境【陷阱】，你中招了吗？_在线工具</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">36</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

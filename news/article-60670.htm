@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-60670.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue前端js循环遍历数组八种方法总结最新</title>
+        <meta name="description" content="前五种常用，第三种个人觉得常用最多，自己复制代码打印试试 var arr = [1, 2, 3, 4, 5, 6];      // 第一种   for循环遍历     var newArr = []" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-60670.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="Vue前端js循环遍历数组八种方法总结最新" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/6e38e2e66dcad7091ad22e9a687d446d.webp" />
+        <meta property="og:release_date" content="2025-02-21T09:22:27" />
+    <meta property="og:updated_time" content="2025-02-21T09:22:27" />
+        <meta property="og:description" content="前五种常用，第三种个人觉得常用最多，自己复制代码打印试试 var arr = [1, 2, 3, 4, 5, 6];      // 第一种   for循环遍历     var newArr = []" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Vue前端js循环遍历数组八种方法总结最新">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Vue前端js循环遍历数组八种方法总结最新</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <p><strong>前五种常用，第三种个人觉得常用最多，自己复制代码打印试试</strong></p> <pre><code>var arr = [1, 2, 3, 4, 5, 6];      // 第一种   for循环遍历     var newArr = [];     for(var i = 0; i &lt; arr.length; i++){       newArr.push(arr[i])       console.log(newArr)     }      // 第二种 es6语法  arr.forEach()遍历     var newArr = [];     arr.forEach((item) =&gt; {       newArr.push(arr[item])       console.log(newArr)     })      // 第三种   Object.keys()遍历     // (个人推荐比较好用：枚举方法)   (返回一个数组,包括对象自身的(不含继承的)所有可枚举属性(不含Symbol属性).)     var newArr = [];     Object.keys(arr).forEach((item) =&gt; {       newArr.push(arr[item])       console.log(newArr)     })        // 第四种   arr.map(function callback(currentValue[, index[, array]]) 或者这样 array.map(item,index,arr)      // currentValue: callback一系列中正在处理的当前元素 index: callback一系列中正在处理的当前元素的索引。array:  map 调用方法的目录     var newArr = []     arr.map((item) =&gt; {       newArr.push(arr[item])       console.log(newArr)     })      // 第五种   for...in...遍历     //  循环遍历对象自身的和继承的可枚举属性(循环遍历对象自身的和继承的可枚举属性(不含Symbol属性).).     var newArr = []     for(var i in arr ) {       newArr.push(arr[i])       console.log(newArr,'1111111')     }      // 第六种   for-of遍历     //不仅支持数组,还支持大多数类数组对象,例如DOM NodeList对象.     //也支持字符串遍历,它将字符串视为一系列的Unicode字符来进行遍历.     var newArr = []     for(var i of arr){       newArr.push(arr[i])       console.log(newArr)     }      // 第七种   Object.getOwnPropertyNames(obj) 遍历     //  返回一个数组,包含对象自身的所有属性(不含Symbol属性,但是包括不可枚举属性).     var newArr = [];     Object.getOwnPropertyNames(arr).forEach((item) =&gt; {       newArr.push(arr[item])       console.log(newArr,'!!!!')     })      // 第八种   Reflect.ownKeys(obj)遍历       // 返回一个数组,包含对象自身的所有属性,不管属性名是Symbol或字符串,也不管是否可枚举.     var newArr = [];     Reflect.ownKeys(arr).forEach((item) =&gt; {       newArr.push(arr[item])       console.log(newArr)        //  数组可以全部打印出来特别！！！！     })</code></pre> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-60669.htm">SpringMVC学习笔记&#8211;文件上传与MultipartResolver</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-51224.htm" title="Feign远程调用以及Feign的最优使用">Feign远程调用以及Feign的最优使用</a></li>
+                        <li class="py-2"><a href="/news/article-31424.htm" title="农大动物医院电话号码是多少（农大动物医院急诊电话）">农大动物医院电话号码是多少（农大动物医院急诊电话）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-8-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新23M/S免费节点订阅链接">ClashX Pro节点订阅每天更新23M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-14-node-share.htm" title="ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-25-node-share-links.htm" title="ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.1M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-56077.htm" title="js穿梭框；将两个table中的数据选中移动">js穿梭框；将两个table中的数据选中移动</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-8-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-29-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-19915.htm" title="开宠物医院的基本要求怎么写（开宠物医院需要哪些资质）">开宠物医院的基本要求怎么写（开宠物医院需要哪些资质）</a></li>
+                        <li class="py-2"><a href="/news/article-45188.htm" title="1970年农历四月二十七是几号呢怎么读（1970年农历4月24日是什么星座）">1970年农历四月二十七是几号呢怎么读（1970年农历4月24日是什么星座）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">63</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

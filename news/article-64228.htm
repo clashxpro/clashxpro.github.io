@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-64228.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring的事务管理机制和传播机制</title>
+        <meta name="description" content="问：Spring的事务管理是怎么搞的？ Spring&nbsp;的事务，可以说是&nbsp;Spring&nbsp;AOP&nbsp;的一种实现。 AOP面向切面编程，即在不修改源代码的情况下，对原有" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-64228.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="Spring的事务管理机制和传播机制" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/6f03a797bb88d3342cc6ba45fee54fd1.webp" />
+        <meta property="og:release_date" content="2025-02-27T05:57:20" />
+    <meta property="og:updated_time" content="2025-02-27T05:57:20" />
+        <meta property="og:description" content="问：Spring的事务管理是怎么搞的？ Spring&nbsp;的事务，可以说是&nbsp;Spring&nbsp;AOP&nbsp;的一种实现。 AOP面向切面编程，即在不修改源代码的情况下，对原有" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Spring的事务管理机制和传播机制">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Spring的事务管理机制和传播机制</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p><span style="font-size:14px">问：Spring的事务管理是怎么搞的？</span></p> <p><span style="font-size:14px">Spring&nbsp;的事务，可以说是&nbsp;Spring&nbsp;AOP&nbsp;的一种实现。</span></p> <p><span style="font-size:14px">AOP面向切面编程，即在不修改源代码的情况下，对原有功能进行扩展，通过代理类来对具体类进行操作。</span></p> <p><span style="font-size:14px"><span style="font-family:Microsoft YaHei; font-size:14px; font-size:16px"><span style="font-family:'Microsoft YaHei'; font-size:16px"><span style="font-family:'Microsoft YaHei'; font-size:16px"><span style="color:#FF0000">Spring声明式事务让我们从复杂的事务处理中得到解脱。使得我们再也无需要去处理获得连接、关闭连接、事务提交和回滚等这些操作。再也无需要我们在与事务相关的方法中处理大量的try…catch…finally代码。</span></span></span></span><br /></span></p> <p><span style="font-family:Microsoft YaHei; font-size:14px">Spring的事务管理分为<span style="color:#FF0000">声明式</span>和<span style="color:#FF0000">编程式</span>。声明式就是在Spring的配置文件中进行相关配置；编程式就是用注解的方式写到代码里。</span></p> <p><span style="font-family:Microsoft YaHei; font-size:14px"><br /></span></p> <p><span style="font-size:14px"><span style="color:#FF0000">核心接口</span>：</span></p> <p><span style="font-size:14px"><span id="Label3">Spring事务管理涉及的接口的联系如下：</span><br /></span></p> <p><span style="font-size:14px"><img decoding="async" src="http://img.555519.xyz/uploads3/20220708/231b8489544bcd6f5c9b9f6eda8df46d.jpg" alt="Spring的事务管理机制和传播机制"><br /></span></p> <p><span style="font-size:14px"><br /></span></p> <p><span style="font-size:14px"><span id="Label3">Spring并不直接管理事务，而是提供了多种事务管理器，他们将事务管理的职责委托给Hibernate或者JTA等持久化机制所提供的相关平台框架的事务来实现。 Spring事务管理器的接口是<span style="color:#FF0000">org.springframework.transaction.PlatformTransactionManager</span>，通过这个接口，Spring为各个平台如JDBC、Hibernate等都提供了对应的事务管理器，但是具体的实现就是各个平台自己的事情了。此接口的内容如下：</span><br /></span></p> <p><span style="font-size:14px"></span></p> <pre><code class="language-java">public interface PlatformTransactionManager()...{       // 由TransactionDefinition得到TransactionStatus对象     TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;      // 提交     void commit(TransactionStatus status) throws TransactionException;       // 回滚     void rollback(TransactionStatus status) throws TransactionException;   }</code></pre> <p><span style="font-size:14px">Spring在TransactionDefinition接口中定义这些属性,以供PlatfromTransactionManager使用。<span style="font-size:14px">TransactionDefinition</span>接口定义如下：</span></p> <p><span style="font-size:14px"></span></p> <pre><code class="language-java">public interface TransactionDefinition {     int getPropagationBehavior();//返回事务的传播行为。     int getIsolationLevel();//返回事务的隔离级别，事务管理器根据它来控制另外一个事务可以看到本事务内的哪些数据。     int getTimeout();//返回事务必须在多少秒内完成。     boolean isReadOnly();//事务是否只读，事务管理器能够根据这个返回值进行优化，确保事务是只读的。 }</code></pre> <p> 上述接口定义了以下五种属性：</p> <p><span style="font-size:14px"><img decoding="async" src="http://img.555519.xyz/uploads3/20220708/761a5cbdf724187b83347c2647ef710f.jpg" alt="Spring的事务管理机制和传播机制"><br /></span></p> <p><span style="font-size:14px"><br /></span></p> <p><span style="font-size:14px"><span style="color:#FF0000">传播行为</span>：</span></p> <p><span style="font-size:14px"></span></p> <p><span style="font-family:Microsoft YaHei; font-size:16px"><strong>PROPAGATION_REQUIRED</strong>--支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。</span></p> <p><span style="font-family:Microsoft YaHei; font-size:16px"><strong>PROPAGATION_SUPPORTS</strong>--支持当前事务，如果当前没有事务，就以非事务方式执行。</span></p> <p><span style="font-family:Microsoft YaHei; font-size:16px"><strong>PROPAGATION_MANDATORY</strong>--支持当前事务，如果当前没有事务，就抛出异常。</span></p> <p><span style="font-family:Microsoft YaHei; font-size:16px"><strong>PROPAGATION_REQUIRES_NEW</strong>--新建事务，如果当前存在事务，把当前事务挂起。</span></p> <p><span style="font-family:Microsoft YaHei; font-size:16px"><strong>PROPAGATION_NOT_SUPPORTED</strong>--以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。</span></p> <p><span style="font-family:Microsoft YaHei; font-size:16px"><strong>PROPAGATION_NEVER</strong>--以非事务方式执行，如果当前存在事务，则抛出异常。</span></p> <p><span style="font-family:Microsoft YaHei; font-size:16px"><strong>PROPAGATION_NESTED</strong>--如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则进行与PROPAGATION_REQUIRED类似的操作</span></p> <p><span style="font-size:14px"><br /></span></p> <p><span style="font-size:14px"><span style="color:#FF0000">声明式事务管理配置</span>：<br /></span></p> <p><span style="font-family:'Microsoft YaHei'; font-size:16px"><span style="font-size:14px">Spring配置文件</span>中关于事务配置总是由三个组成部分，分别是DataSource、TransactionManager和代理机制（切面配置）</span><span style="font-family:'Microsoft YaHei'">。</span></p> <p><span style="font-family:'Microsoft YaHei'; font-size:16px"><span style="font-family:'Microsoft YaHei'; font-size:16px">比如使用Hibernate进行数据访问时，DataSource实际为SessionFactory，TransactionManager的实现为HibernateTransactionManager。</span></span></p> <p><span style="font-family:'Microsoft YaHei'; font-size:16px"><span style="font-family:'Microsoft YaHei'; font-size:16px"><br /></span></span></p> <p><span style="font-family:'Microsoft YaHei'; font-size:16px"><span style="font-family:'Microsoft YaHei'; font-size:16px">参考文献：</span></span></p> <p><span style="font-family:'Microsoft YaHei'; font-size:16px"><span style="font-family:'Microsoft YaHei'; font-size:16px">http://www.mamicode.com/info-detail-1248286.html<br /></span></span></p> <p><span style="font-family:'Microsoft YaHei'; font-size:16px"><span style="font-family:'Microsoft YaHei'; font-size:16px">http://www.cnblogs.com/newsouls/p/3988216.html<br /></span></span></p> <p><span style="font-family:'Microsoft YaHei'; font-size:16px"><span style="font-family:'Microsoft YaHei'; font-size:16px">http://bbs.csdn.net/topics/390632361<br /></span></span></p> <p></p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-64226.htm">SpringCloud Gateway及相关概念简介</a></p>
+                                        <p>下一个：<a href="/news/article-64843.htm">spring boot不使用内置tomcat</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-2-6-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-20-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新19.4M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-36775.htm" title="领养宠物协议书范本大全下载 领养宠物协议书范本大全下载图片">领养宠物协议书范本大全下载 领养宠物协议书范本大全下载图片</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-31-node-share-links.htm" title="ClashX Pro节点订阅每天更新18.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-19-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新18.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-56653.htm" title="宠物粮食市场前景分析论文题目怎么写（宠物粮调研）">宠物粮食市场前景分析论文题目怎么写（宠物粮调研）</a></li>
+                        <li class="py-2"><a href="/news/article-57776.htm" title="猫咪三针疫苗包括哪些（猫咪三针疫苗叫什么名字）">猫咪三针疫苗包括哪些（猫咪三针疫苗叫什么名字）</a></li>
+                        <li class="py-2"><a href="/news/article-47637.htm" title="动物疫苗合格证怎么办理的呢（动物疫苗合格证怎么办理的呢图片）">动物疫苗合格证怎么办理的呢（动物疫苗合格证怎么办理的呢图片）</a></li>
+                        <li class="py-2"><a href="/news/article-56077.htm" title="js穿梭框；将两个table中的数据选中移动">js穿梭框；将两个table中的数据选中移动</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-11-node-share.htm" title="ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">28</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-71884.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经历了源码的痛苦，掌握DRF的核心序列化器</title>
+        <meta name="description" content="目录  DRF的核心--序列化器 序列化器  什么是序列化和反序列化? 序列化  序列化demo   字段类型 字段参数 序列化自定制返回字段  方法一：在序列化类（serializers.py）中写" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-71884.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="经历了源码的痛苦，掌握DRF的核心序列化器" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/5e656f8f5b721c50b12e12708d6e3670.webp" />
+        <meta property="og:release_date" content="2025-03-11T07:48:40" />
+    <meta property="og:updated_time" content="2025-03-11T07:48:40" />
+        <meta property="og:description" content="目录  DRF的核心--序列化器 序列化器  什么是序列化和反序列化? 序列化  序列化demo   字段类型 字段参数 序列化自定制返回字段  方法一：在序列化类（serializers.py）中写" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="经历了源码的痛苦，掌握DRF的核心序列化器">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>经历了源码的痛苦，掌握DRF的核心序列化器</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div class="toc"> <div class="toc-container-header">目录</div> <ul> <li><a href="#drf%E7%9A%84%E6%A0%B8%E5%BF%83--%E5%BA%8F%E5%88%97%E5%8C%96%E5%99%A8" rel="nofollow">DRF的核心--序列化器</a></li> <li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%99%A8" rel="nofollow">序列化器</a> <ul> <li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96" rel="nofollow">什么是序列化和反序列化?</a></li> <li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96" rel="nofollow">序列化</a> <ul> <li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96demo" rel="nofollow">序列化demo</a></li> </ul> </li> <li><a href="#%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B" rel="nofollow">字段类型</a></li> <li><a href="#%E5%AD%97%E6%AE%B5%E5%8F%82%E6%95%B0" rel="nofollow">字段参数</a></li> <li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96%E8%87%AA%E5%AE%9A%E5%88%B6%E8%BF%94%E5%9B%9E%E5%AD%97%E6%AE%B5" rel="nofollow">序列化自定制返回字段</a> <ul> <li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80%E5%9C%A8%E5%BA%8F%E5%88%97%E5%8C%96%E7%B1%BBserializerspy%E4%B8%AD%E5%86%99" rel="nofollow">方法一：在序列化类（serializers.py）中写</a></li> <li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8C%E5%9C%A8%E8%A1%A8%E6%A8%A1%E5%9E%8Bmodelspy%E4%B8%AD%E5%86%99" rel="nofollow">方法二：在表模型（models.py）中写</a></li> </ul> </li> <li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96" rel="nofollow">反序列化</a> <ul> <li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96demo" rel="nofollow">反序列化demo</a></li> <li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8B%E5%B1%80%E9%83%A8%E5%92%8C%E5%85%A8%E5%B1%80%E9%92%A9%E5%AD%90" rel="nofollow">反序列化之局部和全局钩子</a></li> </ul> </li> <li><a href="#modelserializer%E6%A8%A1%E5%9E%8B%E7%B1%BB%E5%BA%8F%E5%88%97%E5%8C%96%E5%99%A8" rel="nofollow">ModelSerializer模型类序列化器</a> <ul> <li><a href="#%E5%AD%97%E6%AE%B5%E5%8F%82%E6%95%B0-1" rel="nofollow">字段参数</a></li> </ul> </li> </ul> </li> </ul> </div> </h1> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/42129090e7ac91b146e1a1aaa33872a6.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <blockquote> <p>上一篇介绍了很多有关视图类以及DRF中的APIView执行流程、Request对象的源码分析，源码都get了????；</p> <p>DRF的核心当然不是知道视图类执行流程就可以了，DRF框架的核心那就是<strong>序列化器的使用</strong>，如何使用序列化器实现<strong>序列化</strong>、<strong>反序列化</strong>，以及<strong>视图</strong>，这篇会介绍到~</p> </blockquote> </h1> <h2 id="什么是序列化和反序列化">什么是序列化和反序列化?</h2> <ul> <li><strong>序列化</strong>：序列化器会把模型对象（QuerySet对象，比如book）转换成字典，经过response以后变成了json字符串</li> <li><strong>反序列化</strong>：将客户端（前端）发送过来的数据，经过request以后变成字典（data），序列化器可以把字典转换成模型存到数据库中 <ul> <li><strong>存数据库需要校验，反序列化就可以帮我们完成数据的校验功能</strong></li> </ul> </li> <li>通俗理解为： <ul> <li>响应给前端的内容需要序列化（给前端看），存数据库的数据就反序列化；</li> <li>序列化：模型对象----字典---json字符串</li> <li>反序列化：json数据---字典----模型对象</li> </ul> </li> </ul> <p>导入：<code>from rest_framework.serializers import Serializer</code></p> <h2 id="序列化">序列化</h2> <h3 id="序列化demo">序列化demo</h3> <ol> <li>在app中新建serializer.py，自定义类，继承DRF框架的<strong>Serializer</strong>及其子类</li> <li>在类中写要序列化的字段（序列化哪些就写哪些，不序列化的不写）</li> <li>使用序列化类，视图类中用，得到序列化类对象，对象.data，通过Response返回给前端</li> </ol> <p><strong>serializer.py：序列化类</strong></p> <pre><code class="language-python">from rest_framework import serializers   # 继承Serializer class BookSerializer(serializers.Serializer):     '''     max_length=32     min_length=3  反序列化保存校验数据的时候用，序列化不用     '''     # 写要序列化的字段     title = serializers.CharField()     #  models中使用了DecimalField，这个位置使用了CharField会把小数类型转成字符串,使用CharField或者DecimalField都可以     # 这里不需要担心反序列化存的问题     price = serializers.CharField()     authors = serializers.CharField()</code></pre> <p><strong>views.py：视图类</strong></p> <pre><code class="language-python">from rest_framework.views import APIView from .models import Book from .serializer import BookSerializer from rest_framework.response import Response   # Create your views here. class BookView(APIView):     def get(self, request):         # 从数据库查数据，做序列化         book_list = Book.objects.all()         # 实例化类，传入初始化的参数，instance和many         '''         instance:要序列化的对象  qs，单个对象         many:如果是qs对象，many=True，如果是单个对象many=False         '''         ser = BookSerializer(instance=book_list, many=True)         # ser.data使用模型类的对象得到序列化后的字典         return Response(ser.data)</code></pre> <p><strong>urls.py：路由</strong></p> <pre><code class="language-python">path('books/', views.BookView.as_view()),</code></pre> <p><strong>model.py：模型类</strong></p> <pre><code class="language-python">from django.db import models  class Book(models.Model):     title = models.CharField(max_length=32)     price = models.DecimalField(max_digits=5,decimal_places=2)     authors = models.CharField(max_length=32)</code></pre> <p><strong>测试</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/be4f49f270f371a9d73994ecb6c347e0.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <p><strong>注意</strong></p> <ul> <li>视图类中的参数<code>instance</code>和<code>many</code>的使用，<strong>instance</strong>是要序列化的对象，一般从数据库中获取到的，<strong>many=True</strong>代表要序列化多个对象，如果是单个对象就等于<strong>False</strong></li> <li>序列化器中不要写<strong>max_length</strong>等参数，反序列化验证字段用</li> <li>在对<code>BookSerializer</code>类实例化传入的参数不知道传什么，由于我们没有写构造函数，去父类看需要什么参数传什么就可以了</li> <li>使用浏览器测得时候一定要注册<code>rest_framework</code></li> </ul> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/02463c3d70dd9ba749a68f519dceecec.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <pre><code class="language-python"># 源码 class BaseSerializer(Field):     """     The BaseSerializer class provides a minimal class which may be used     for writing custom serializer implementations.      Note that we strongly restrict the ordering of operations/properties     that may be used on the serializer in order to enforce correct usage.      In particular, if a `data=` argument is passed then:      .is_valid() - Available.     .initial_data - Available.     .validated_data - Only available after calling `is_valid()`     .errors - Only available after calling `is_valid()`     .data - Only available after calling `is_valid()`      If a `data=` argument is not passed then:      .is_valid() - Not available.     .initial_data - Not available.     .validated_data - Not available.     .errors - Not available.     .data - Available.     """      BaseSerializer类提供了一个可以使用的最小类 用于编写自定义序列化器实现。 注意，我们严格限制了操作/属性的顺序 可以在序列化器上使用，以强制正确的使用。 特别是，如果传递了' data= '参数，则: .is_valid()——可用。 .initial_data——可用。 .validated_data -仅在调用' is_valid() '后可用 .errors -仅在调用' is_valid() '后可用 .data -仅在调用' is_valid() '后可用 如果没有传递' data= '参数，则: .is_valid() -不可用。 .initial_data -不可用。 .validated_data -不可用。 .errors -不可用。 . data -可用。</code></pre> <h2 id="字段类型">字段类型</h2> <p><strong>serializer.py文件中常用的字段</strong></p> <table> <thead> <tr> <th>字段</th> <th>字段构造方式</th> </tr> </thead> <tbody> <tr> <td><strong>BooleanField</strong></td> <td>BooleanField()</td> </tr> <tr> <td><strong>NullBooleanField</strong></td> <td>NullBooleanField()</td> </tr> <tr> <td><strong>CharField</strong></td> <td>CharField(max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)</td> </tr> <tr> <td><strong>EmailField</strong></td> <td>EmailField(max_length=None, min_length=None, allow_blank=False)</td> </tr> <tr> <td><strong>RegexField</strong></td> <td>RegexField(regex, max_length=None, min_length=None, allow_blank=False)</td> </tr> <tr> <td><strong>SlugField</strong></td> <td>SlugField(max<em>length=50, min_length=None, allow_blank=False) 正则字段，验证正则模式 [a-zA-Z0-9</em>-]+</td> </tr> <tr> <td><strong>URLField</strong></td> <td>URLField(max_length=200, min_length=None, allow_blank=False)</td> </tr> <tr> <td><strong>UUIDField</strong></td> <td>UUIDField(format=’hex_verbose’) format: 1)<code>'hex_verbose'</code> 如<code>"5ce0e9a5-5ffa-654b-cee0-1238041fb31a"</code> 2）<code>'hex'</code> 如<code>"5ce0e9a55ffa654bcee01238041fb31a"</code> 3）<code>'int'</code> - 如:<code>"123456789012312313134124512351145145114"</code> 4）<code>'urn'</code> 如:<code>"urn:uuid:5ce0e9a5-5ffa-654b-cee0-1238041fb31a"</code></td> </tr> <tr> <td><strong>IPAddressField</strong></td> <td>IPAddressField(protocol=’both’, unpack_ipv4=False, **options)</td> </tr> <tr> <td><strong>IntegerField</strong></td> <td>IntegerField(max_value=None, min_value=None)</td> </tr> <tr> <td><strong>FloatField</strong></td> <td>FloatField(max_value=None, min_value=None)</td> </tr> <tr> <td><strong>DecimalField</strong></td> <td>DecimalField(max_digits, decimal_places, coerce_to_string=None, max_value=None, min_value=None) max_digits: 最多位数 decimal_palces: 小数点位置</td> </tr> <tr> <td><strong>DateTimeField</strong></td> <td>DateTimeField(format=api_settings.DATETIME_FORMAT, input_formats=None)</td> </tr> <tr> <td><strong>DateField</strong></td> <td>DateField(format=api_settings.DATE_FORMAT, input_formats=None)</td> </tr> <tr> <td><strong>TimeField</strong></td> <td>TimeField(format=api_settings.TIME_FORMAT, input_formats=None)</td> </tr> <tr> <td><strong>DurationField</strong></td> <td>DurationField()</td> </tr> <tr> <td><strong>ChoiceField</strong></td> <td>ChoiceField(choices) choices与Django的用法相同</td> </tr> <tr> <td><strong>MultipleChoiceField</strong></td> <td>MultipleChoiceField(choices)</td> </tr> <tr> <td><strong>FileField</strong></td> <td>FileField(max_length=None, allow_empty_file=False, use_url=UPLOADED_FILES_USE_URL)</td> </tr> <tr> <td><strong>ImageField</strong></td> <td>ImageField(max_length=None, allow_empty_file=False, use_url=UPLOADED_FILES_USE_URL)</td> </tr> <tr> <td><strong>ListField</strong></td> <td>ListField(child=, min_length=None, max_length=None)</td> </tr> <tr> <td><strong>DictField</strong></td> <td>DictField(child=)</td> </tr> </tbody> </table> <p><strong>常用的有：</strong></p> <pre><code class="language-python">  CharField   IntegerField   FloatField   DecimalField   DateTimeField   DateField</code></pre> <p><strong>注意：</strong></p> <pre><code class="language-python">''' ListField和DictField原来的models是没有的，主要用来做反序列,处理前端传入的数据 ''' 比如我们从前端接收json格式数据 "hobby":["篮球","足球"] 可以用ListField处理 "wife":{"name":"wh","age":20}  DictField类似使用</code></pre> <h2 id="字段参数">字段参数</h2> <blockquote> <p>写在类中的参数</p> </blockquote> <p><strong>选项参数：</strong></p> <table> <thead> <tr> <th>参数名称</th> <th>作用</th> </tr> </thead> <tbody> <tr> <td><strong>max_length</strong></td> <td>最大长度（CharField）</td> </tr> <tr> <td><strong>min_lenght</strong></td> <td>最小长度（CharField）</td> </tr> <tr> <td><strong>allow_blank</strong></td> <td>是否允许为空（CharField）</td> </tr> <tr> <td><strong>trim_whitespace</strong></td> <td>是否截断空白字符（CharField）</td> </tr> <tr> <td><strong>max_value</strong></td> <td>最小值 （IntegerField）</td> </tr> <tr> <td><strong>min_value</strong></td> <td>最大值（IntegerField）</td> </tr> </tbody> </table> <p><strong>通用参数</strong>：</p> <table> <thead> <tr> <th>参数名称</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td><strong>read_only</strong></td> <td>表明该字段仅用于序列化输出，默认False</td> </tr> <tr> <td><strong>write_only</strong></td> <td>表明该字段仅用于反序列化输入，默认False</td> </tr> <tr> <td><strong>required</strong></td> <td>表明该字段在反序列化时必须输入，默认True</td> </tr> <tr> <td><strong>default</strong></td> <td>反序列化时使用的默认值</td> </tr> <tr> <td><strong>allow_null</strong></td> <td>表明该字段是否允许传入None，默认False</td> </tr> <tr> <td><strong>validators</strong></td> <td>该字段使用的验证器(不太用)</td> </tr> <tr> <td><strong>error_messages</strong></td> <td>包含错误编号与错误信息的字典</td> </tr> <tr> <td><strong>label</strong></td> <td>用于HTML展示API页面时，显示的字段名称</td> </tr> <tr> <td><strong>help_text</strong></td> <td>用于HTML展示API页面时，显示的字段帮助提示信息</td> </tr> </tbody> </table> <p>总结：</p> <pre><code class="language-python"># 重点记忆： read_only：表示该字段仅用于序列化输出，默认为Fasle，如果read_only = True,这个字段只用来做序列化（对象---json---前端）  write_only:表明该字段仅用于反序列化输入，默认False，如果write_only = True,那么这个字段只用来做反序列化（前端---json---存数据库）      # 注意 如果不写read_only和write_only表示及序列化又反序列化 千万不要同时写read_only=True和write_only=True逻辑矛盾了，都要实现直接省略即可</code></pre> <p><strong>demo</strong></p> <pre><code class="language-python">title=serializers.CharField(max_length=32,min_length=3) price=serializers.CharField(write_only=True,) author=serializers.CharField(write_only=True)  # 上面title字段及序列化也反序列化，price，author字段只反序列化 # 序列化给前端，前端看到的字段样子---》只能看到name # 反序列化，前端需要传什么过name,price,author都传</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/e60c2e665e8d9987da015ac224245c62.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <h2 id="序列化自定制返回字段">序列化自定制返回字段</h2> <blockquote> <p>如果我们想自定制序列化返回字段的样式，可以使用，有两种方法</p> </blockquote> <h3 id="方法一在序列化类serializerspy中写">方法一：在序列化类（serializers.py）中写</h3> <pre><code class="language-python">'''serializer.py''' from rest_framework import serializers  # 继承Serializer class BookSerializer(serializers.Serializer):     # 写要序列化的字段     title = serializers.CharField(read_only=True)     price = serializers.CharField(write_only=True)     authors = serializers.CharField(write_only=True)      # 自定制返回字段     author_info = serializers.SerializerMethodField()     # 搭配方法，方法名必须是get_字段名，该方法返回什么字段，显示什么     def get_author_info(self,obj):         # obj是当前数据库book对象         return obj.authors+'牛掰'         # 注意字符串拼接的问题      price = serializers.SerializerMethodField()     def get_price(self,obj):         return "价格是："+str(obj.price)</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/df0673e7e873058bf95cb4f70f3a7111.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <p><strong>总结：</strong></p> <ul> <li>可以自定义返回的key或者value，比如price可以自定义成price_down，通过返回值来控制value</li> <li>在序列化类中写需要搭配<code>get_字段</code>的方法，来自定制字段</li> </ul> <h3 id="方法二在表模型modelspy中写">方法二：在表模型（models.py）中写</h3> <pre><code class="language-python">'''models.py''' from django.db import models  # Create your models here. class Book(models.Model):     title = models.CharField(max_length=32)     price = models.DecimalField(max_digits=5,decimal_places=2)     authors = models.CharField(max_length=32)       @property     def price_info(self):         return '价格是：'+str(self.price)</code></pre> <pre><code class="language-python">'''serializer.py''' from rest_framework import serializers  # 继承Serializer class BookSerializer(serializers.Serializer):     # 写要序列化的字段     title = serializers.CharField(read_only=True)     price = serializers.CharField(write_only=True)     authors = serializers.CharField(write_only=True)          # 该字段是从models的price_info返回值获取到的，price_info方法返回什么，这个字段就是什么     price_info = serializers.CharField()</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/cdca7e0d27abb8b53947b9c69bed914d.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <p><strong>总结:</strong></p> <ul> <li>在models中写和序列化类中写的区别是，models中处理完返回给序列化类中继续当成字段处理了</li> </ul> <p><strong>注意:</strong></p> <p>如果是返回的是这种格式的数据，需要那么序列化类中就不能指定<code>CharField</code>类型，这样会直接返回字符串类型，不方便后期的处理，需要指定成ListField等类型</p> <pre><code class="language-python">'''models.py''' def authors(self):         return [{"name":"Hammer","age":18},{"name":"Hans","age":28}] '''serializer.py'''   authors = serializers.ListField()</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/6eb0bfd0ca6e64efb0aeb5e7bc884d49.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/9e5949eab8accd017d2c17599c15c090.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <hr/> <h2 id="反序列化">反序列化</h2> <h3 id="反序列化demo">反序列化demo</h3> <ul> <li> <p>把前端传入的数据，放到Serializer对象中:ser=BookSerializer(data=request.data)</p> </li> <li> <p>校验数据：ser.is_valid()</p> </li> <li> <p>保存，ser.save()，但是必须重写create，在序列化类中</p> <p><strong>反序列化新增</strong></p> <blockquote> <p>POST请求处理新增</p> </blockquote> <pre><code class="language-python">'''views.py''' from rest_framework.views import APIView from .models import Book from rest_framework.response import Response from app01.serializer import  BookSerializer  class BookView(APIView):          def post(self,request):         # 反序列化，保存到数据库使用data参数         deser = BookSerializer(data=request.data)         # 校验数据         if deser.is_valid():             # 保存需要重写create方法,不然不知道存到哪个表             deser.save()             return Response(deser.data)         return Response({'code':101,'msg':'校验不通过','errors':deser.errors})</code></pre> <blockquote> <p>重写create方法</p> </blockquote> <pre><code class="language-python">'''serializer.py'''     def create(self, validated_data):         # validated_data是校验通过的数据，将校验通过的数据打散存入数据库         book = Book.objects.create(**validated_data)         return book</code></pre> </li> </ul> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/7262651da65a4a46885b42448f3c2942.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <p></p> <p><strong>反序列化修改</strong></p> <pre><code class="language-python"># 处理修改再写一个视图类，防止get冲突 class BookDetailView(APIView):     # 获取一条的     def get(self,request,pk):         book = Book.objects.filter(pk=pk).first()         ser = BookSerializer(instance=book)  # 这里设置了主键值，单条记录many不需要写         return Response(ser.data)     # 删除一条的     def delete(self,request,pk):         res = Book.objects.filter(pk=pk).delete()         print(res) # (1, {'app01.Book': 1})         # res是影响的行数         if res[0]&gt;0:             return Response({'code': 100, 'msg': '删除成功'})         else:             return  Response({'code': 103, 'msg': '要删除的数据不存在'})      # 反序列化修改     def put(self,request,pk):         # 修改处理单条数据用过pk确定求改哪条数据         book = Book.objects.filter(pk=pk).first()         # 序列化器类实例化需要传入instance，data才表示修改         ser = BookSerializer(instance=book,data=request.data)         if ser.is_valid():             # 重写update方法才能存入             ser.save()             return Response(ser.data)         return Response({'code':101,'msg':'校验未通过','error':ser.errors})</code></pre> <blockquote> <p>重写update方法</p> </blockquote> <pre><code class="language-python">'''serializer.py'''        def update(self, instance, validated_data):         '''         :param instance: 表示要修改的对象         :param validated_data: 校验通过的数据         :return: instance         '''         # 如果只修改一个的情况，从校验通过的数据中get到其他数据是none，做一层校验         instance.title = validated_data.get('title')         instance.price = validated_data.get('price')         instance.authors = validated_data.get('authors')         instance.save()  # 保存到数据库中         return instance  # 返回instance对象</code></pre> <p><strong>路由</strong></p> <pre><code class="language-python">urlpatterns = [     path('admin/', admin.site.urls),     path('books/', views.BookView.as_view()),     path('books/&lt;int:pk&gt;', views.BookDetailView.as_view()), ]</code></pre> <p><strong>为什么不重写就会抛异常？</strong></p> <pre><code class="language-python"># 源码 def save(self, **kwargs):         assert hasattr(self, '_errors'), (             'You must call `.is_valid()` before calling `.save()`.'         )                def update(self, instance, validated_data):         raise NotImplementedError('`update()` must be implemented.')      def create(self, validated_data):         raise NotImplementedError('`create()` must be implemented.')      def save(self, **kwargs):         assert hasattr(self, '_errors'), (             'You must call `.is_valid()` before calling `.save()`.'  ·····         if self.instance is not None:             self.instance = self.update(self.instance, validated_data)             assert self.instance is not None, (                 '`update()` did not return an object instance.'             )         else:             self.instance = self.create(validated_data)             assert self.instance is not None, (                 '`create()` did not return an object instance.'             )          return self.instance ''' 发现如果我们传了instance不是空的，那么就是修改(update)，不传就是新增(create)，调用save，父类不然就抛异常 '''</code></pre> <p><strong>总结</strong></p> <ul> <li>不管是序列化使用get方法或者反序列化使用post方法都需要序列化类实例化，如果有<code>instance参数</code>代表是序列化，如果有<code>data参数</code>代表是新增，如果都有就是修改</li> </ul> <p><strong>注意</strong></p> <ul> <li> <p>如果保存不重写create方法，报错</p> <pre><code class="language-python">NotImplementedError at /books/ `create()` must be implemented.</code></pre> </li> <li> <p>如果修改不重写update方法，报错</p> <pre><code class="language-python">NotImplementedError at /books/1 `update()` must be implemented.</code></pre> </li> </ul> <h3 id="反序列化之局部和全局钩子">反序列化之局部和全局钩子</h3> <pre><code class="language-python"> '''serializer.py'''          # 局部钩子     def validate_title(self,attr):         # attr就是前端传入的数据         # 局部校验书名         if attr.startswith('sb'):             from django.core.exceptions import ValidationError             raise ValidationError("名字不能以sb开头")         else:             return attr  # 没有问题，正常返回       '''     校验顺序:先走字段自己规则，再走局部钩子，再走全局钩子     '''     # 全局钩子     def validate(self,attrs):         # attrs校验过后的数据,通过了前面校验的规则         if attrs.get('title') == attrs.get('authors'):             from django.core.exceptions import ValidationError             raise ValidationError('作者名不能等于书名')         else:             return attrs</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/3ff447b6e500122f0676e275235694d8.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/d6a6d8e6e0d54599e6fd522caa832c13.jpg" alt="经历了源码的痛苦，掌握DRF的核心序列化器"></p> <h2 id="modelserializer模型类序列化器">ModelSerializer模型类序列化器</h2> <pre><code class="language-python"># ModelSerializer和表模型有绑定关系 class BookSerializer1(serializers.ModelSerializer):     class Meta:         model = Book  # 指定和哪个表有关系         # 所有字段         # fields = '__all__'         # 这里注意id字段是从表模型映射过来的，auto自增的，不传也可以         # 自定制的字段不传必须注册，在列表中         fields = ['id', 'title', 'price', 'price_info']  # 指定字段         extra_kwargs = {             'title': {'write_only': True, 'max_length': 8, 'min_length': 3}         }     # 指定序列化的字段：两种写法：在序列化类中写；models中写     price_info = serializers.SerializerMethodField()     def get_price_info(self, obj):         return "价格是：" + str(obj.price)     '''     注意：自定制字段如果和表模型获取到的字段是同名，那么自定制返回给前端的字段值就被自定制覆盖了，比如：     title = serializers.SerializerMethodField()     def get_title(self, obj):         return "书名是：" + str(obj.title)     '''      #  局部和全局钩子，跟之前一样，但是要注意写在Meta外</code></pre> <p>ps：视图类，路由处理方式和Serializer是一样的</p> <p><strong>注意</strong><br /> 字段也是可以重写的：</p> <pre><code class="language-python">重写字段 	 name_info = serializer.CharField(max_length=32)</code></pre> <h3 id="字段参数-1">字段参数</h3> <blockquote> <p>ModelSerializer中的字段传参不需要在去括号内指定了，通过extra_kwargs传</p> </blockquote> <pre><code class="language-python">extra_kwargs = {             'title': {'write_only': True, 'max_length': 8, 'min_length': 3}         }</code></pre> <p><strong>总结</strong></p> <ul> <li>ModelSerializer类序列化器不需要重写create方法和update方法了，因为明确指定了操作哪个表</li> <li>固定写法，ModelSerializer类内写Meta类，用来指定一些字段和表模型</li> </ul> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-71219.htm">小程序自定义导航栏组件</a></p>
+                                        <p>下一个：<a href="/news/article-71885.htm">动物防疫工作总结报告范文（动物防疫工作总结及下步工作开展）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-60061.htm" title="动物医院大众点评回复文案模板图片（动物医院大众点评100字通用评论）">动物医院大众点评回复文案模板图片（动物医院大众点评100字通用评论）</a></li>
+                        <li class="py-2"><a href="/news/article-63608.htm" title="Oracle模糊查询，不区分大小写">Oracle模糊查询，不区分大小写</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-26-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新22M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-63609.htm" title="违背宠物领养协议怎么处理的（宠物领养条约）">违背宠物领养协议怎么处理的（宠物领养条约）</a></li>
+                        <li class="py-2"><a href="/news/article-35778.htm" title="开宠物店亏本经历怎么写（开宠物店失败的经验）">开宠物店亏本经历怎么写（开宠物店失败的经验）</a></li>
+                        <li class="py-2"><a href="/news/article-72534.htm" title="广州哪里有领养猫咪的地方（广州哪里有领养猫咪的地方）">广州哪里有领养猫咪的地方（广州哪里有领养猫咪的地方）</a></li>
+                        <li class="py-2"><a href="/news/article-65449.htm" title="动物疫苗英文怎么说（常用动物疫苗的种类）">动物疫苗英文怎么说（常用动物疫苗的种类）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-27-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新20.4M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-45696.htm" title="送养一个孩子怎样写协议书呢视频（送养一个孩子怎样写协议书呢视频教程）">送养一个孩子怎样写协议书呢视频（送养一个孩子怎样写协议书呢视频教程）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-10-node-share.htm" title="ClashX Pro节点订阅每天更新20.4M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.4M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">39</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

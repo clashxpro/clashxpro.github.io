@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-76579.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python中Pyyaml模块的使用</title>
+        <meta name="description" content="一、YAML是什么 YAML是专门用来写配置文件的语言，远比JSON格式方便。 YAML语言的设计目标，就是方便人类读写。 YAML是一种比XML和JSON更轻的文件格式，也更简单更强大，它可以通过缩" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-76579.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="Python中Pyyaml模块的使用" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/5955a825108a95694082dc1fdfd15e5c.webp" />
+        <meta property="og:release_date" content="2025-03-18T06:14:16" />
+    <meta property="og:updated_time" content="2025-03-18T06:14:16" />
+        <meta property="og:description" content="一、YAML是什么 YAML是专门用来写配置文件的语言，远比JSON格式方便。 YAML语言的设计目标，就是方便人类读写。 YAML是一种比XML和JSON更轻的文件格式，也更简单更强大，它可以通过缩" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Python中Pyyaml模块的使用">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Python中Pyyaml模块的使用</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <h2> <a id="YAML_0" rel="nofollow"></a>一、YAML是什么</h2> <p>YAML是专门用来写配置文件的语言，远比JSON格式方便。</p> <p>YAML语言的设计目标，就是方便人类读写。</p> <p>YAML是一种比XML和JSON更轻的文件格式，也更简单更强大，它可以通过缩进来表示结构，是不是听起来就和Python很搭？</p> <p>顾名思义，用语言编写的文件就可以称之为YAML文件。PyYaml是Python的一个专门针对YAML文件操作的模块，使用起来非常简单</p> <pre><code>安装 pip install pyyaml   # 如果是py2，使用 pip install yaml </code></pre> <h2> <a id="PyYaml_14" rel="nofollow"></a>二、PyYaml的简单使用</h2> <p>使用起来非常简单，就像json、pickle一样，load、dump就足够我们使用了。</p> <p>load()示例：返回一个对象</p> <pre><code>import yaml  yaml_str = """ name: 一条大河 age: 1956 job: Singer """  y = yaml.load(yaml_str, Loader=yaml.SafeLoader) print(y) </code></pre> <p><strong>运行结果：</strong></p> <pre><code>{'name': '一条大河', 'age': 1956, 'job': 'Singer'} </code></pre> <p>load_all()示例：生成一个迭代器</p> <p>如果string或文件包含几块yaml文档，可以使用yaml.load_all来解析全部的文档。</p> <p>yaml_test.yaml文件内容：</p> <pre><code>  --- name: qiyu age: 20岁 --- name: qingqing age: 19岁 </code></pre> <p>操作yaml文件的test.py文件如下：</p> <pre><code>import yaml  with open("./yaml_test", 'r', encoding='utf-8') as ymlfile:     cfg = yaml.load_all(ymlfile, Loader=yaml.SafeLoader)     for data in cfg:         print(data) </code></pre> <p><strong>运行结果：</strong></p> <pre><code>{'name': 'qiyu', 'age': '20岁'} {'name': 'qingqing', 'age': '19岁'} </code></pre> <p>dump()示例：将一个python对象生成为yaml文档</p> <pre><code>import yaml  json_data = {'name': '一条大河',              'age': 1956,              'job': ['Singer','Dancer']}  y = yaml.dump(json_data, default_flow_style=False).encode('utf-8').decode('unicode_escape') print(y) </code></pre> <p><strong>运行结果：</strong></p> <pre><code>age: 1956 job: - Singer - Dancer name: "一条大河" </code></pre> <p>使用dump()传入参数，可以直接把内容写入到yaml文件：</p> <pre><code>import yaml  json_data = {'name': '一条大河',              'age': 1956,              'job': ['Singer', 'Dancer']} with open('./yaml_write.yaml', 'w') as f:     y = yaml.dump(json_data, f)     print(y) </code></pre> <p>写入内容后的yaml_write.yaml：<br /><img decoding="async" src="http://img.555519.xyz/uploads/20221230/9d99b1e63a0117ab8ef2af7e994b91d0.jpg" alt="Python中Pyyaml模块的使用"><br /> yaml.dump_all()示例：将多个段输出到一个文件中</p> <pre><code>import yaml  obj1 = {"name": "river", "age": 2019} obj2 = ["Lily", 1956] obj3 = {"gang": "ben", "age": 1963} obj4 = ["Zhuqiyu", 1994]  with open('./yaml_write_all.yaml', 'w', encoding='utf-8') as f:     y = yaml.dump([obj1, obj2, obj3, obj4], f)     print(y)  with open('./yaml_write_all.yaml', 'r') as r:     y1 = yaml.load(r, Loader=yaml.SafeLoader)     print(y1) </code></pre> <p>写入内容后的yaml_write_all.yaml：<br /><img decoding="async" src="http://img.555519.xyz/uploads/20221230/ed572ae869b3cbd2fd30719a675896d0.jpg" alt="Python中Pyyaml模块的使用"><br /> 为什么写入文件后的格式有的带1个“-”，有的带2个“-”？</p> <p>为什么yaml文件读出来的的格式是List？</p> <h2> <a id="YAML_128" rel="nofollow"></a>三、YAML的语法规则和数据结构</h2> <p>看完了以上4个简单的示例，现在就来总结下YAML语言的基本语法</p> <p>YAML 基本语法规则如下：</p> <pre><code>1、大小写敏感  2、使用缩进表示层级关系  3、缩进时不允许使用Tab键，只允许使用空格。  4、缩进的空格数目不重要，只要相同层级的元素左侧对齐即可  5、# 表示注释，从这个字符一直到行尾，都会被解析器忽略，这个和python的注释一样  6、列表里的项用"-"来代表，字典里的键值对用":"分隔 </code></pre> <p>知道了语法规则，现在来回答下上面的2个问题：</p> <p>1、带1个“-”表示不同的模块（单个数组或者字典），带2个“-”是因为数组中元素以“-”开始，加上表示不同模块的那一个“-”，呈现出来就是2个“-”</p> <p>2、因为yaml文件中包含多个模块（多个数组或者字典），读取出来的是这些模块的一个集合</p> <p>3、有且只有当yaml文件中只有1个字典时，读取出来的数据的类型也是字典</p> <p><strong>YAML 支持的数据结构有3种：</strong></p> <pre><code>1、对象：键值对的集合2、数组：一组按次序排列的值，序列（sequence） 或 列表（list）  3、纯量（scalars）：单个的、不可再分的值，如：字符串、布尔值、整数、浮点数、Null、时间、日期 </code></pre> <p>支持数据示例：</p> <p>yaml_test_data.yaml的内容：</p> <pre><code>str: "Big River"                           #字符串 int: 1548                                 #整数 float: 3.14                               #浮点数 boolean: true                              #布尔值 None: null                                # 也可以用 ~ 号来表示 null time: '2019-11-20T08:47:46.576701+00:00'       # 时间，ISO8601  date: 2019-11-20 16:47:46.576702                # 日期 </code></pre> <p><strong>操作代码：</strong></p> <pre><code>import yaml import datetime import pytz  yaml_data = {     "str": "Big River",     "int": 1548,     "float": 3.14,     'boolean': True,     "None": None,     'time': datetime.datetime.now(tz=pytz.timezone('UTC')).isoformat(),     'date': datetime.datetime.today() }  with open('./yaml_test', 'w') as f:     y = yaml.dump(yaml_data, f)     print(y)  with open('./yaml_test', 'r') as r:     y1 = yaml.load(r, Loader=yaml.SafeLoader)     print(y1) </code></pre> <p><strong>控制台输出：</strong><br /><img decoding="async" src="http://img.555519.xyz/uploads/20221230/0f1dddd96785cd7ccf8dadc821c6431e.jpg" alt="Python中Pyyaml模块的使用"><br /> 其他语法规则</p> <p><strong>1、如果字符串没有空格或特殊字符，不需要加引号，但如果其中有空格或特殊字符，就需要加引号了</strong><br /><img decoding="async" src="http://img.555519.xyz/uploads/20221230/c5ba01a3749414c96ab9fb4efef2ebde.jpg" alt="Python中Pyyaml模块的使用"><br /><strong>2、引用</strong></p> <p>&amp; 和 * 用于引用</p> <pre><code>name: &amp;name SKP tester: *name </code></pre> <p>运行结果：</p> <pre><code>{'name': 'SKP', 'tester': 'SKP'} </code></pre> <p><strong>3、强制转换</strong></p> <p>用 !! 实现</p> <pre><code>str: !!str 3.14 int: !!int "123" </code></pre> <p><strong>运行结果：</strong></p> <pre><code>{'int': 123, 'str': '3.14'} </code></pre> <p><strong>4、分段</strong></p> <p>在同一个yaml文件中，可以用“—”3个“-”来分段，这样可以将多个文档写在一个文件中</p> <p>举例见上述load_all()示例</p> <h2> <a id="pythonyaml_238" rel="nofollow"></a>四、python对象生成yaml文档</h2> <p><strong>1、yaml.dump()方法</strong></p> <pre><code>import yaml import os  def generate_yaml_doc(yaml_file):     py_object = {'school': 'zhu',                  'students': ['a', 'b']}     file = open(yaml_file, 'w', encoding='utf-8')     yaml.dump(py_object, file)     file.close()  current_path = os.path.abspath(".") yaml_path = os.path.join(current_path, "generate.yaml") generate_yaml_doc(yaml_path) """结果 school: zhu students: - a - b """ </code></pre> <p><strong>2、使用ruamel模块中的yaml方法生成标准的yaml文档</strong></p> <pre><code>import os from ruamel import yaml     # pip3 install ruamel.yaml  def generate_yaml_doc_ruamel(yaml_file):     py_object = {'school': 'zhu',                  'students': ['a', 'b']}     file = open(yaml_file, 'w', encoding='utf-8')     yaml.dump(py_object, file, Dumper=yaml.RoundTripDumper)     file.close()  current_path = os.path.abspath(".") yaml_path = os.path.join(current_path, "generate.yaml") generate_yaml_doc_ruamel(yaml_path) """结果 school: zhu students: - a - b """ </code></pre> <p>使用ruamel模块中的yaml方法读取yaml文档（用法与单独import yaml模块一致）</p> <pre><code>import os from ruamel import yaml  def get_yaml_data_ruamel(yaml_file):     file = open(yaml_file, 'r', encoding='utf-8')     data = yaml.load(file, Loader=yaml.Loader)     file.close()     print(data)  current_path = os.path.abspath(".") yaml_path = os.path.join(current_path, "generate.yaml") get_yaml_data_ruamel(yaml_path) </code></pre> <p><strong>点赞关注~~持续分享。加入我们，642830685，群内免费领取最新软件测试大厂面试资料和Python自动化、接口、框架搭建学习资料！技术大牛解惑答疑，同行一起交流。</strong></p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-75892.htm">12种最适合学生养的宠物,不会长大的（适合学生养的小宠）</a></p>
+                                        <p>下一个：<a href="/news/article-76580.htm">0元开网店无货源（0元开网店无货源拼多多可以吗）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-1-11-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新18.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-4-node-share.htm" title="ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-47637.htm" title="动物疫苗合格证怎么办理的呢（动物疫苗合格证怎么办理的呢图片）">动物疫苗合格证怎么办理的呢（动物疫苗合格证怎么办理的呢图片）</a></li>
+                        <li class="py-2"><a href="/news/article-47136.htm" title="济南宠物狗领养中心电话号码（济南宠物狗领养中心电话号码是多少）">济南宠物狗领养中心电话号码（济南宠物狗领养中心电话号码是多少）</a></li>
+                        <li class="py-2"><a href="/news/article-66062.htm" title="在哪里免费领养边牧 在哪里免费领养边牧狗">在哪里免费领养边牧 在哪里免费领养边牧狗</a></li>
+                        <li class="py-2"><a href="/news/article-45696.htm" title="送养一个孩子怎样写协议书呢视频（送养一个孩子怎样写协议书呢视频教程）">送养一个孩子怎样写协议书呢视频（送养一个孩子怎样写协议书呢视频教程）</a></li>
+                        <li class="py-2"><a href="/news/article-56653.htm" title="宠物粮食市场前景分析论文题目怎么写（宠物粮调研）">宠物粮食市场前景分析论文题目怎么写（宠物粮调研）</a></li>
+                        <li class="py-2"><a href="/news/article-50690.htm" title="幼猫体内驱虫药推荐（幼猫体内驱虫注意事项）">幼猫体内驱虫药推荐（幼猫体内驱虫注意事项）</a></li>
+                        <li class="py-2"><a href="/news/article-57203.htm" title="宠物粮食店一年利润怎么样计算出来呢（宠物粮食店铺）">宠物粮食店一年利润怎么样计算出来呢（宠物粮食店铺）</a></li>
+                        <li class="py-2"><a href="/news/article-69272.htm" title="动物园宠物医院电话号码（动物园宠物店）">动物园宠物医院电话号码（动物园宠物店）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

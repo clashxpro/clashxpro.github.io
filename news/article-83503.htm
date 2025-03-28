@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-83503.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring cache源码分析</title>
+        <meta name="description" content="Spring cache是一个缓存API层，封装了对多种缓存的通用操作，可以借助注解方便地为程序添加缓存功能。 常见的注解有@Cacheable、@CachePut、@CacheEvict，有没有想过" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-83503.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="Spring cache源码分析" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/b4c9552af3e763c74540fc598c320762.webp" />
+        <meta property="og:release_date" content="2025-03-28T09:56:40" />
+    <meta property="og:updated_time" content="2025-03-28T09:56:40" />
+        <meta property="og:description" content="Spring cache是一个缓存API层，封装了对多种缓存的通用操作，可以借助注解方便地为程序添加缓存功能。 常见的注解有@Cacheable、@CachePut、@CacheEvict，有没有想过" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Spring cache源码分析">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Spring cache源码分析</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<p>Spring cache是一个缓存API层，封装了对多种缓存的通用操作，可以借助注解方便地为程序添加缓存功能。<br /> 常见的注解有@Cacheable、@CachePut、@CacheEvict，有没有想过背后的原理是什么？楼主带着疑问，阅读完Spring cache的源码后，做一个简要总结。<br /><strong>先说结论，核心逻辑在CacheAspectSupport类</strong>，封装了所有的缓存操作的主体逻辑，下面详细介绍。</p> </h1> <p>有2种方法，可以结合起来使用：</p> <ul> <li><strong>静态代码阅读</strong>：查找关键类、方法的usage之处，熟练使用find usages功能，找到所有相关的类、方法，静态分析核心逻辑的执行过程，一步步追根问底，直至建立全貌</li> <li><strong>运行时debug</strong>：在关键方法上加上断点，并且写一个单元测试调用类库/框架，熟练使用step into/step over/resume来动态分析代码的执行过程</li> </ul> </h1> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/e8e049fb6a56a760a332d90416f45241.jpg" alt="Spring cache源码分析"></p> <p>如图所示，可以分成以下几类class：</p> <ul> <li>Cache、CacheManager：Cache抽象了缓存的通用操作，如get、put，而CacheManager是Cache的集合，之所以需要多个Cache对象，是因为需要多种缓存失效时间、缓存条目上限等</li> <li>CacheInterceptor、CacheAspectSupport、AbstractCacheInvoker：CacheInterceptor是一个AOP方法拦截器，在方法前后做额外的逻辑，也即查询缓存、写入缓存等，它继承了CacheAspectSupport（缓存操作的主体逻辑）、AbstractCacheInvoker（封装了对Cache的读写）</li> <li>CacheOperation、AnnotationCacheOperationSource、SpringCacheAnnotationParser：CacheOperation定义了缓存操作的缓存名字、缓存key、缓存条件condition、CacheManager等，AnnotationCacheOperationSource是一个获取缓存注解对应CacheOperation的类，而SpringCacheAnnotationParser是真正解析注解的类，解析后会封装成CacheOperation集合供AnnotationCacheOperationSource查找</li> </ul> </h1> <p>下面对Spring cache源码做分析，带注释解释，只摘录核心代码片段。</p> <h2 id="1解析注解">1、解析注解</h2> <p>首先看看注解是如何解析的。注解只是一个标记，要让它真正工作起来，需要对注解做解析操作，并且还要有对应的实际逻辑。</p> <h3 id="springcacheannotationparser负责解析注解返回cacheoperation集合">SpringCacheAnnotationParser：负责解析注解，返回CacheOperation集合</h3> <pre><code class="language-java">public class SpringCacheAnnotationParser implements CacheAnnotationParser, Serializable {          // 解析类级别的缓存注解 	@Override 	public Collection&lt;CacheOperation&gt; parseCacheAnnotations(Class&lt;?&gt; type) { 		DefaultCacheConfig defaultConfig = getDefaultCacheConfig(type); 		return parseCacheAnnotations(defaultConfig, type); 	}          // 解析方法级别的缓存注解 	@Override 	public Collection&lt;CacheOperation&gt; parseCacheAnnotations(Method method) { 		DefaultCacheConfig defaultConfig = getDefaultCacheConfig(method.getDeclaringClass()); 		return parseCacheAnnotations(defaultConfig, method); 	}          // 解析缓存注解 	private Collection&lt;CacheOperation&gt; parseCacheAnnotations(DefaultCacheConfig cachingConfig, AnnotatedElement ae) { 		Collection&lt;CacheOperation&gt; ops = null;                  // 解析@Cacheable注解 		Collection&lt;Cacheable&gt; cacheables = AnnotatedElementUtils.getAllMergedAnnotations(ae, Cacheable.class); 		if (!cacheables.isEmpty()) { 			ops = lazyInit(ops); 			for (Cacheable cacheable : cacheables) { 				ops.add(parseCacheableAnnotation(ae, cachingConfig, cacheable)); 			} 		}                  // 解析@CacheEvict注解 		Collection&lt;CacheEvict&gt; evicts = AnnotatedElementUtils.getAllMergedAnnotations(ae, CacheEvict.class); 		if (!evicts.isEmpty()) { 			ops = lazyInit(ops); 			for (CacheEvict evict : evicts) { 				ops.add(parseEvictAnnotation(ae, cachingConfig, evict)); 			} 		}                  // 解析@CachePut注解 		Collection&lt;CachePut&gt; puts = AnnotatedElementUtils.getAllMergedAnnotations(ae, CachePut.class); 		if (!puts.isEmpty()) { 			ops = lazyInit(ops); 			for (CachePut put : puts) { 				ops.add(parsePutAnnotation(ae, cachingConfig, put)); 			} 		}                  // 解析@Caching注解 		Collection&lt;Caching&gt; cachings = AnnotatedElementUtils.getAllMergedAnnotations(ae, Caching.class); 		if (!cachings.isEmpty()) { 			ops = lazyInit(ops); 			for (Caching caching : cachings) { 				Collection&lt;CacheOperation&gt; cachingOps = parseCachingAnnotation(ae, cachingConfig, caching); 				if (cachingOps != null) { 					ops.addAll(cachingOps); 				} 			} 		}  		return ops; 	}</code></pre> <h3 id="annotationcacheoperationsource调用springcacheannotationparser获取注解对应cacheoperation">AnnotationCacheOperationSource：调用SpringCacheAnnotationParser获取注解对应CacheOperation</h3> <pre><code class="language-java">public class AnnotationCacheOperationSource extends AbstractFallbackCacheOperationSource implements Serializable {          // 查找类级别的CacheOperation列表 	@Override 	protected Collection&lt;CacheOperation&gt; findCacheOperations(final Class&lt;?&gt; clazz) { 		return determineCacheOperations(new CacheOperationProvider() { 			@Override 			public Collection&lt;CacheOperation&gt; getCacheOperations(CacheAnnotationParser parser) { 				return parser.parseCacheAnnotations(clazz); 			} 		});  	}          // 查找方法级别的CacheOperation列表 	@Override 	protected Collection&lt;CacheOperation&gt; findCacheOperations(final Method method) { 		return determineCacheOperations(new CacheOperationProvider() { 			@Override 			public Collection&lt;CacheOperation&gt; getCacheOperations(CacheAnnotationParser parser) { 				return parser.parseCacheAnnotations(method); 			} 		}); 	}  }</code></pre> <h3 id="abstractfallbackcacheoperationsourceannotationcacheoperationsource的父类实现了获取cacheoperation的通用逻辑">AbstractFallbackCacheOperationSource：AnnotationCacheOperationSource的父类，实现了获取CacheOperation的通用逻辑</h3> <pre><code class="language-java">public abstract class AbstractFallbackCacheOperationSource implements CacheOperationSource {  	/** 	 * Cache of CacheOperations, keyed by method on a specific target class. 	 * &lt;p&gt;As this base class is not marked Serializable, the cache will be recreated 	 * after serialization - provided that the concrete subclass is Serializable. 	 */ 	private final Map&lt;Object, Collection&lt;CacheOperation&gt;&gt; attributeCache = 			new ConcurrentHashMap&lt;Object, Collection&lt;CacheOperation&gt;&gt;(1024);   	// 根据Method、Class反射信息，获取对应的CacheOperation列表 	@Override 	public Collection&lt;CacheOperation&gt; getCacheOperations(Method method, Class&lt;?&gt; targetClass) { 		if (method.getDeclaringClass() == Object.class) { 			return null; 		}  		Object cacheKey = getCacheKey(method, targetClass); 		Collection&lt;CacheOperation&gt; cached = this.attributeCache.get(cacheKey);                  // 因解析反射信息较耗时，所以用map缓存，避免重复计算                 // 如在map里已记录，直接返回 		if (cached != null) { 			return (cached != NULL_CACHING_ATTRIBUTE ? cached : null); 		}                 // 否则做一次计算，然后写入map 		else { 			Collection&lt;CacheOperation&gt; cacheOps = computeCacheOperations(method, targetClass); 			if (cacheOps != null) { 				if (logger.isDebugEnabled()) { 					logger.debug("Adding cacheable method '" + method.getName() + "' with attribute: " + cacheOps); 				} 				this.attributeCache.put(cacheKey, cacheOps); 			} 			else { 				this.attributeCache.put(cacheKey, NULL_CACHING_ATTRIBUTE); 			} 			return cacheOps; 		} 	}          // 计算缓存操作列表，优先用target代理类的方法上的注解，如果不存在则其次用target代理类，再次用原始类的方法，最后用原始类 	private Collection&lt;CacheOperation&gt; computeCacheOperations(Method method, Class&lt;?&gt; targetClass) { 		// Don't allow no-public methods as required. 		if (allowPublicMethodsOnly() &amp;&amp; !Modifier.isPublic(method.getModifiers())) { 			return null; 		}  		// The method may be on an interface, but we need attributes from the target class. 		// If the target class is null, the method will be unchanged. 		Method specificMethod = ClassUtils.getMostSpecificMethod(method, targetClass); 		// If we are dealing with method with generic parameters, find the original method. 		specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);                  // 调用findCacheOperations（由子类AnnotationCacheOperationSource实现），最终通过SpringCacheAnnotationParser来解析 		// First try is the method in the target class. 		Collection&lt;CacheOperation&gt; opDef = findCacheOperations(specificMethod); 		if (opDef != null) { 			return opDef; 		}  		// Second try is the caching operation on the target class. 		opDef = findCacheOperations(specificMethod.getDeclaringClass()); 		if (opDef != null &amp;&amp; ClassUtils.isUserLevelMethod(method)) { 			return opDef; 		}  		if (specificMethod != method) { 			// Fallback is to look at the original method. 			opDef = findCacheOperations(method); 			if (opDef != null) { 				return opDef; 			} 			// Last fallback is the class of the original method. 			opDef = findCacheOperations(method.getDeclaringClass()); 			if (opDef != null &amp;&amp; ClassUtils.isUserLevelMethod(method)) { 				return opDef; 			} 		}  		return null; 	}</code></pre> <h2 id="2逻辑执行">2、逻辑执行</h2> <p>以@Cacheable背后的逻辑为例。预期是先查缓存，如果缓存命中了就直接使用缓存值，否则执行业务逻辑，并把结果写入缓存。</p> <h3 id="proxycachingconfiguration是一个配置类用于生成cacheinterceptor类和cacheoperationsource类的spring-bean">ProxyCachingConfiguration：是一个配置类，用于生成CacheInterceptor类和CacheOperationSource类的Spring bean</h3> <h3 id="cacheinterceptor是一个aop方法拦截器它通过cacheoperationsource获取第1步解析注解的cacheoperation结果如缓存名字缓存keycondition条件本质上是拦截原始方法的执行在之前之后增加逻辑">CacheInterceptor：是一个AOP方法拦截器，它通过CacheOperationSource获取第1步解析注解的CacheOperation结果（如缓存名字、缓存key、condition条件），本质上是拦截原始方法的执行，在之前、之后增加逻辑</h3> <pre><code class="language-java">// 核心类，缓存拦截器 public class CacheInterceptor extends CacheAspectSupport implements MethodInterceptor, Serializable {          // 拦截原始方法的执行，在之前、之后增加逻辑 	@Override 	public Object invoke(final MethodInvocation invocation) throws Throwable { 		Method method = invocation.getMethod();                  // 封装原始方法的执行到一个回调接口，便于后续调用 		CacheOperationInvoker aopAllianceInvoker = new CacheOperationInvoker() { 			@Override 			public Object invoke() { 				try {                                         // 原始方法的执行 					return invocation.proceed(); 				} 				catch (Throwable ex) { 					throw new ThrowableWrapper(ex); 				} 			} 		};  		try {                         // 调用父类CacheAspectSupport的方法 			return execute(aopAllianceInvoker, invocation.getThis(), method, invocation.getArguments()); 		} 		catch (CacheOperationInvoker.ThrowableWrapper th) { 			throw th.getOriginal(); 		} 	}  }</code></pre> <h3 id="cacheaspectsupport缓存切面支持类是cacheinterceptor的父类封装了所有的缓存操作的主体逻辑">CacheAspectSupport：缓存切面支持类，是CacheInterceptor的父类，封装了所有的缓存操作的主体逻辑</h3> <p>主要流程如下：</p> <ol> <li>通过CacheOperationSource，获取所有的CacheOperation列表</li> <li>如果有@CacheEvict注解、并且标记为在调用前执行，则做删除/清空缓存的操作</li> <li>如果有@Cacheable注解，查询缓存</li> <li>如果缓存未命中（查询结果为null），则新增到cachePutRequests，后续执行原始方法后会写入缓存</li> <li>缓存命中时，使用缓存值作为结果；缓存未命中、或有@CachePut注解时，需要调用原始方法，使用原始方法的返回值作为结果</li> <li>如果有@CachePut注解，则新增到cachePutRequests</li> <li>如果缓存未命中，则把查询结果值写入缓存；如果有@CachePut注解，也把方法执行结果写入缓存</li> <li>如果有@CacheEvict注解、并且标记为在调用后执行，则做删除/清空缓存的操作</li> </ol> <pre><code class="language-java">// 核心类，缓存切面支持类，封装了所有的缓存操作的主体逻辑 public abstract class CacheAspectSupport extends AbstractCacheInvoker 		implements BeanFactoryAware, InitializingBean, SmartInitializingSingleton {          // CacheInterceptor调父类的该方法 	protected Object execute(CacheOperationInvoker invoker, Object target, Method method, Object[] args) { 		// Check whether aspect is enabled (to cope with cases where the AJ is pulled in automatically) 		if (this.initialized) { 			Class&lt;?&gt; targetClass = getTargetClass(target);                         // 通过CacheOperationSource，获取所有的CacheOperation列表 			Collection&lt;CacheOperation&gt; operations = getCacheOperationSource().getCacheOperations(method, targetClass); 			if (!CollectionUtils.isEmpty(operations)) {                                 // 继续调一个private的execute方法执行 				return execute(invoker, method, new CacheOperationContexts(operations, method, args, target, targetClass)); 			} 		}                  // 如果spring bean未初始化完成，则直接调用原始方法。相当于原始方法没有缓存功能。 		return invoker.invoke(); 	}          private的execute方法 	private Object execute(final CacheOperationInvoker invoker, Method method, CacheOperationContexts contexts) { 		// Special handling of synchronized invocation 		if (contexts.isSynchronized()) { 			CacheOperationContext context = contexts.get(CacheableOperation.class).iterator().next(); 			if (isConditionPassing(context, CacheOperationExpressionEvaluator.NO_RESULT)) { 				Object key = generateKey(context, CacheOperationExpressionEvaluator.NO_RESULT); 				Cache cache = context.getCaches().iterator().next(); 				try { 					return wrapCacheValue(method, cache.get(key, new Callable&lt;Object&gt;() { 						@Override 						public Object call() throws Exception { 							return unwrapReturnValue(invokeOperation(invoker)); 						} 					})); 				} 				catch (Cache.ValueRetrievalException ex) { 					// The invoker wraps any Throwable in a ThrowableWrapper instance so we 					// can just make sure that one bubbles up the stack. 					throw (CacheOperationInvoker.ThrowableWrapper) ex.getCause(); 				} 			} 			else { 				// No caching required, only call the underlying method 				return invokeOperation(invoker); 			} 		}                  // 如果有@CacheEvict注解、并且标记为在调用前执行，则做删除/清空缓存的操作 		// Process any early evictions 		processCacheEvicts(contexts.get(CacheEvictOperation.class), true, 				CacheOperationExpressionEvaluator.NO_RESULT);                  // 如果有@Cacheable注解，查询缓存 		// Check if we have a cached item matching the conditions 		Cache.ValueWrapper cacheHit = findCachedItem(contexts.get(CacheableOperation.class));                  // 如果缓存未命中（查询结果为null），则新增到cachePutRequests，后续执行原始方法后会写入缓存 		// Collect puts from any @Cacheable miss, if no cached item is found 		List&lt;CachePutRequest&gt; cachePutRequests = new LinkedList&lt;CachePutRequest&gt;(); 		if (cacheHit == null) { 			collectPutRequests(contexts.get(CacheableOperation.class), 					CacheOperationExpressionEvaluator.NO_RESULT, cachePutRequests); 		}  		Object cacheValue; 		Object returnValue;  		if (cacheHit != null &amp;&amp; cachePutRequests.isEmpty() &amp;&amp; !hasCachePut(contexts)) {                         // 缓存命中的情况，使用缓存值作为结果 			// If there are no put requests, just use the cache hit 			cacheValue = cacheHit.get(); 			returnValue = wrapCacheValue(method, cacheValue); 		} 		else {                         // 缓存未命中、或有@CachePut注解的情况，需要调用原始方法 			// Invoke the method if we don't have a cache hit                         // 调用原始方法，得到结果值 			returnValue = invokeOperation(invoker); 			cacheValue = unwrapReturnValue(returnValue); 		}                  // 如果有@CachePut注解，则新增到cachePutRequests 		// Collect any explicit @CachePuts 		collectPutRequests(contexts.get(CachePutOperation.class), cacheValue, cachePutRequests);                  // 如果缓存未命中，则把查询结果值写入缓存；如果有@CachePut注解，也把方法执行结果写入缓存 		// Process any collected put requests, either from @CachePut or a @Cacheable miss 		for (CachePutRequest cachePutRequest : cachePutRequests) { 			cachePutRequest.apply(cacheValue); 		}                  // 如果有@CacheEvict注解、并且标记为在调用后执行，则做删除/清空缓存的操作 		// Process any late evictions 		processCacheEvicts(contexts.get(CacheEvictOperation.class), false, cacheValue);  		return returnValue; 	}  	private Cache.ValueWrapper findCachedItem(Collection&lt;CacheOperationContext&gt; contexts) { 		Object result = CacheOperationExpressionEvaluator.NO_RESULT; 		for (CacheOperationContext context : contexts) {                         // 如果满足condition条件，才查询缓存 			if (isConditionPassing(context, result)) {                                 // 生成缓存key，如果注解中指定了key，则按照Spring表达式解析，否则使用KeyGenerator类生成 				Object key = generateKey(context, result);                                 // 根据缓存key，查询缓存值 				Cache.ValueWrapper cached = findInCaches(context, key); 				if (cached != null) { 					return cached; 				} 				else { 					if (logger.isTraceEnabled()) { 						logger.trace("No cache entry for key '" + key + "' in cache(s) " + context.getCacheNames()); 					} 				} 			} 		} 		return null; 	}  	private Cache.ValueWrapper findInCaches(CacheOperationContext context, Object key) { 		for (Cache cache : context.getCaches()) {                         // 调用父类AbstractCacheInvoker的doGet方法，查询缓存 			Cache.ValueWrapper wrapper = doGet(cache, key); 			if (wrapper != null) { 				if (logger.isTraceEnabled()) { 					logger.trace("Cache entry for key '" + key + "' found in cache '" + cache.getName() + "'"); 				} 				return wrapper; 			} 		} 		return null; 	}</code></pre> <h3 id="abstractcacheinvokercacheaspectsupport的父类封装了最终查询cache接口的逻辑">AbstractCacheInvoker：CacheAspectSupport的父类，封装了最终查询Cache接口的逻辑</h3> <pre><code class="language-java">public abstract class AbstractCacheInvoker {         // 最终查询缓存的方法 	protected Cache.ValueWrapper doGet(Cache cache, Object key) { 		try {                         // 调用Spring Cache接口的查询方法 			return cache.get(key); 		} 		catch (RuntimeException ex) { 			getErrorHandler().handleCacheGetError(ex, cache, key); 			return null;  // If the exception is handled, return a cache miss 		} 	} }</code></pre> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-82794.htm">长沙宠物领养中心官网地址在哪里 长沙宠物领养中心官网地址在哪里啊</a></p>
+                                        <p>下一个：<a href="/news/article-83505.htm">猫咪打的三针疫苗多少钱（猫猫打三针多少钱）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-58348.htm" title="小孩子玩小猫被轻微抓了一下（小孩子玩小猫被轻微抓了一下有事吗）">小孩子玩小猫被轻微抓了一下（小孩子玩小猫被轻微抓了一下有事吗）</a></li>
+                        <li class="py-2"><a href="/news/article-38733.htm" title="vue 动态追加输入框 下拉框 动态v-model绑定">vue 动态追加输入框 下拉框 动态v-model绑定</a></li>
+                        <li class="py-2"><a href="/news/article-66062.htm" title="在哪里免费领养边牧 在哪里免费领养边牧狗">在哪里免费领养边牧 在哪里免费领养边牧狗</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-7-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-39217.htm" title="开宠物食品厂有利润吗多少钱（开个宠物食品厂怎么样）">开宠物食品厂有利润吗多少钱（开个宠物食品厂怎么样）</a></li>
+                        <li class="py-2"><a href="/news/article-80714.htm" title="宠物猫疫苗接种标准化流程表（宠物猫疫苗多少钱价格表）">宠物猫疫苗接种标准化流程表（宠物猫疫苗多少钱价格表）</a></li>
+                        <li class="py-2"><a href="/news/article-69271.htm" title="Android 中的广播机制你了解多少?">Android 中的广播机制你了解多少?</a></li>
+                        <li class="py-2"><a href="/news/article-36775.htm" title="领养宠物协议书范本大全下载 领养宠物协议书范本大全下载图片">领养宠物协议书范本大全下载 领养宠物协议书范本大全下载图片</a></li>
+                        <li class="py-2"><a href="/news/article-80023.htm" title="如何保证redis和数据库的一致性">如何保证redis和数据库的一致性</a></li>
+                        <li class="py-2"><a href="/news/article-69909.htm" title="动物疫苗包括哪些种类 动物疫苗包括哪些种类的疫苗">动物疫苗包括哪些种类 动物疫苗包括哪些种类的疫苗</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

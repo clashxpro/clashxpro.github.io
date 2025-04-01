@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-84945.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器学习系列：LightGBM 可视化调参</title>
+        <meta name="description" content="大家好，在100天搞定机器学习|Day63 彻底掌握 LightGBM一文中，我介绍了LightGBM 的模型原理和一个极简实例。最近我发现Huggingface与Streamlit好像更配，所以就开" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-84945.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="机器学习系列：LightGBM 可视化调参" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/61b4e64e98780d97837d84db7e0bc606.webp" />
+        <meta property="og:release_date" content="2025-03-30T09:36:49" />
+    <meta property="og:updated_time" content="2025-03-30T09:36:49" />
+        <meta property="og:description" content="大家好，在100天搞定机器学习|Day63 彻底掌握 LightGBM一文中，我介绍了LightGBM 的模型原理和一个极简实例。最近我发现Huggingface与Streamlit好像更配，所以就开" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="机器学习系列：LightGBM 可视化调参">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>机器学习系列：LightGBM 可视化调参</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<p>大家好，在<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://mp.weixin.qq.com/s?__biz=MzA4MjYwMTc5Nw==&amp;mid=2648959975&amp;idx=1&amp;sn=de750b7d2d4c68e2e912dbc131c5195e&amp;chksm=879479cdb0e3f0db52c674044d4cee28d525d370284bf99d327ddb64228701965418abfc073e&amp;token=1463794175&amp;lang=en_US#rd"  target="_blank" rel="nofollow">100天搞定机器学习|Day63 彻底掌握 LightGBM</a>一文中，我介绍了LightGBM 的模型原理和一个极简实例。最近我发现Huggingface与Streamlit好像更配，所以就开发了一个简易的 LightGBM 可视化调参的小工具，旨在让大家可以<code>更深入地理解 LightGBM</code>。</p> <blockquote> <p>网址：<br /><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://huggingface.co/spaces/beihai/LightGBM-parameter-tuning"  target="_blank" rel="nofollow">https://huggingface.co/spaces/beihai/LightGBM-parameter-tuning</a></p> </blockquote> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/955fa80d264124eb09904e0fb7e1405c.jpg" alt="机器学习系列：LightGBM 可视化调参"></p> <p>我只随便放了几个参数，调整这些参数可以实时看到模型评估指标的变化。代码我也放到文章中了，大家有好的优化思路可以留言。下面就详细介绍一下实现过程：</p> <h2 id="lightgbm-的参数">LightGBM 的参数</h2> <blockquote> <p>在完成模型构建之后，必须对模型的效果进行评估，根据评估结果来继续调整模型的参数、特征或者算法，以达到满意的结果。</p> </blockquote> <p>LightGBM，有核心参数，学习控制参数，IO参数，目标参数，度量参数，网络参数，GPU参数，模型参数，这里我常修改的便是核心参数，学习控制参数，度量参数等。</p> <table> <thead> <tr> <th>Control Parameters</th> <th>含义</th> <th>用法</th> </tr> </thead> <tbody> <tr> <td>max_depth</td> <td>树的最大深度</td> <td>当模型过拟合时,可以考虑首先降低 max_depth</td> </tr> <tr> <td>min_data_in_leaf</td> <td>叶子可能具有的最小记录数</td> <td>默认20，过拟合时用</td> </tr> <tr> <td>feature_fraction</td> <td>例如 为0.8时，意味着在每次迭代中随机选择80％的参数来建树</td> <td>boosting 为 random forest 时用</td> </tr> <tr> <td>bagging_fraction</td> <td>每次迭代时用的数据比例</td> <td>用于加快训练速度和减小过拟合</td> </tr> <tr> <td>early_stopping_round</td> <td>如果一次验证数据的一个度量在最近的early_stopping_round 回合中没有提高，模型将停止训练</td> <td>加速分析，减少过多迭代</td> </tr> <tr> <td>lambda</td> <td>指定正则化</td> <td>0～1</td> </tr> <tr> <td>min_gain_to_split</td> <td>描述分裂的最小 gain</td> <td>控制树的有用的分裂</td> </tr> <tr> <td>max_cat_group</td> <td>在 group 边界上找到分割点</td> <td>当类别数量很多时，找分割点很容易过拟合时</td> </tr> </tbody> </table> <hr/> <table> <thead> <tr> <th>CoreParameters</th> <th>含义</th> <th>用法</th> </tr> </thead> <tbody> <tr> <td>Task</td> <td>数据的用途</td> <td>选择 train 或者 predict</td> </tr> <tr> <td>application</td> <td>模型的用途</td> <td>选择 regression: 回归时，binary: 二分类时，multiclass: 多分类时</td> </tr> <tr> <td>boosting</td> <td>要用的算法</td> <td>gbdt， rf: random forest， dart: Dropouts meet Multiple Additive Regression Trees， goss: Gradient-based One-Side Sampling</td> </tr> <tr> <td>num_boost_round</td> <td>迭代次数</td> <td>通常 100+</td> </tr> <tr> <td>learning_rate</td> <td>如果一次验证数据的一个度量在最近的 early_stopping_round 回合中没有提高，模型将停止训练</td> <td>常用 0.1, 0.001, 0.003…</td> </tr> <tr> <td>num_leaves</td> <td></td> <td>默认 31</td> </tr> <tr> <td>device</td> <td></td> <td>cpu 或者 gpu</td> </tr> <tr> <td>metric</td> <td></td> <td>mae: mean absolute error ， mse: mean squared error ， binary_logloss: loss for binary classification ， multi_logloss: loss for multi classification</td> </tr> </tbody> </table> <hr/> <table> <thead> <tr> <th>Faster Speed</th> <th>better accuracy</th> <th>over-fitting</th> </tr> </thead> <tbody> <tr> <td>将 max_bin 设置小一些</td> <td>用较大的 max_bin</td> <td>max_bin 小一些</td> </tr> <tr> <td>num_leaves 大一些</td> <td>num_leaves 小一些</td> <td></td> </tr> <tr> <td>用 feature_fraction 来做 sub-sampling</td> <td></td> <td>用 feature_fraction</td> </tr> <tr> <td>用 bagging_fraction 和 bagging_freq</td> <td></td> <td>设定 bagging_fraction 和 bagging_freq</td> </tr> <tr> <td>training data 多一些</td> <td>training data 多一些</td> <td></td> </tr> <tr> <td>用 save_binary 来加速数据加载</td> <td>直接用 categorical feature</td> <td>用 gmin_data_in_leaf 和 min_sum_hessian_in_leaf</td> </tr> <tr> <td>用 parallel learning</td> <td>用 dart</td> <td>用 lambda_l1, lambda_l2 ，min_gain_to_split 做正则化</td> </tr> <tr> <td>num_iterations 大一些，learning_rate 小一些</td> <td>用 max_depth 控制树的深度</td> <td></td> </tr> </tbody> </table> <h2 id="模型评估指标">模型评估指标</h2> <p>以分类模型为例，常见的模型评估指标有一下几种：</p> <p><strong>混淆矩阵</strong><br /> 混淆矩阵是能够比较全面的反映模型的性能，从混淆矩阵能够衍生出很多的指标来。</p> <p><strong>ROC曲线</strong><br /> ROC曲线，全称The Receiver Operating Characteristic Curve，译为受试者操作特性曲线。这是一条以不同阈值 下的假正率FPR为横坐标，不同阈值下的召回率Recall为纵坐标的曲线。让我们衡量模型在尽量捕捉少数类的时候，误伤多数类的情况如何变化的。</p> <p><strong>AUC</strong><br /> AUC（Area Under the ROC Curve）指标是在二分类问题中，模型评估阶段常被用作最重要的评估指标来衡量模型的稳定性。ROC曲线下的面积称为AUC面积，AUC面积越大说明ROC曲线越靠近左上角，模型越优；</p> <h2 id="streamlit-实现">Streamlit 实现</h2> <p>Streamlit我就不再多做介绍了，老读者应该都特别熟悉了。就再列一下之前开发的几个小东西：</p> <ul> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://mp.weixin.qq.com/s?__biz=MzA4MjYwMTc5Nw==&amp;mid=2648960900&amp;idx=1&amp;sn=1ec367b0410d0a50015b93921bffc07a&amp;chksm=87947daeb0e3f4b896b611bae0ee6bf809c4e60783039b89337cee9b88a81c7f8e643b146c4f&amp;token=1599328536&amp;lang=zh_CN#rd"  target="_blank" rel="nofollow">开发机器学习APP，太简单了</a></li> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://mp.weixin.qq.com/s?__biz=MzA4MjYwMTc5Nw==&amp;mid=2648961725&amp;idx=2&amp;sn=f3584999dacddf379a12aebfdd4deb2e&amp;chksm=87946097b0e3e981af4142db1ac86679dd02d7f44a5b706266f5ed05c7569eedd5dd62305073&amp;token=1599328536&amp;lang=zh_CN#rd"  target="_blank" rel="nofollow">为了这个GIF，我专门建了一个网站</a></li> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://mp.weixin.qq.com/s?__biz=MzA4MjYwMTc5Nw==&amp;mid=2648961437&amp;idx=1&amp;sn=b8704d462e9d764a8ed54564b2558802&amp;chksm=879463b7b0e3eaa1a5e6c0a678a7c0c70236e7f338ac5397282ecf92359cd4867043f8fd22ac&amp;token=1599328536&amp;lang=zh_CN#rd"  target="_blank" rel="nofollow">收手吧，华强！我用机器学习帮你挑西瓜</a></li> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://mp.weixin.qq.com/s?__biz=MzA4MjYwMTc5Nw==&amp;mid=2648962389&amp;idx=1&amp;sn=304049ce39d43bf2bfe90552dfd799c9&amp;chksm=8794677fb0e3ee6926526e8fecd9db9518095b9d8a4b8cbb4f0a86aaa678df15a7d5ffdc5324&amp;token=1599328536&amp;lang=zh_CN#rd"  target="_blank" rel="nofollow">耗时一个月，做了一个纯粹的机器学习网站</a></li> </ul> <p>核心代码如下，完整代码我放到Github，欢迎大家给个Star</p> <blockquote> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/tjxj/visual-parameter-tuning-with-streamlit"  target="_blank" rel="nofollow">https://github.com/tjxj/visual-parameter-tuning-with-streamlit</a></p> </blockquote> <pre><code>from definitions import *  st.set_option('deprecation.showPyplotGlobalUse', False) st.sidebar.subheader("请选择模型参数:sunglasses:")  # 加载数据 breast_cancer = load_breast_cancer() data = breast_cancer.data target = breast_cancer.target  # 划分训练数据和测试数据 X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.2)  # 转换为Dataset数据格式 lgb_train = lgb.Dataset(X_train, y_train) lgb_eval = lgb.Dataset(X_test, y_test, reference=lgb_train)  # 模型训练 params = {'num_leaves': num_leaves, 'max_depth': max_depth,             'min_data_in_leaf': min_data_in_leaf,              'feature_fraction': feature_fraction,             'min_data_per_group': min_data_per_group,              'max_cat_threshold': max_cat_threshold,             'learning_rate':learning_rate,'num_leaves':num_leaves,             'max_bin':max_bin,'num_iterations':num_iterations             }  gbm = lgb.train(params, lgb_train, num_boost_round=2000, valid_sets=lgb_eval, early_stopping_rounds=500) lgb_eval = lgb.Dataset(X_test, y_test, reference=lgb_train)   probs = gbm.predict(X_test, num_iteration=gbm.best_iteration)  # 输出的是概率结果    fpr, tpr, thresholds = roc_curve(y_test, probs) st.write('------------------------------------') st.write('Confusion Matrix:') st.write(confusion_matrix(y_test, np.where(probs &gt; 0.5, 1, 0)))  st.write('------------------------------------') st.write('Classification Report:') report = classification_report(y_test, np.where(probs &gt; 0.5, 1, 0), output_dict=True) report_matrix = pd.DataFrame(report).transpose() st.dataframe(report_matrix)  st.write('------------------------------------') st.write('ROC:')  plot_roc(fpr, tpr)</code></pre> <h2 id="上传huggingface">上传Huggingface</h2> <p>Huggingface 前一篇文章（<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://mp.weixin.qq.com/s?__biz=MzA4MjYwMTc5Nw==&amp;mid=2648965011&amp;idx=1&amp;sn=5a16c12fb7396cfd455ee327bbce3aea&amp;chksm=87946db9b0e3e4afb3324c40ff439ab03a069c3b4f6a18c704f02b0172aa68478f72931dc829&amp;token=1463794175&amp;lang=en_US#rd"  target="_blank" rel="nofollow">腾讯的这个算法，我搬到了网上，随便玩！</a>）我已经介绍过了，这里就顺便再讲一下步骤吧。</p> <p>step1：注册Huggingface账号</p> <p>step2：创建Space，SDK记得选择Streamlit<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/9d91e6af846378b151ab580d1c02b01a.jpg" alt="机器学习系列：LightGBM 可视化调参"></p> <p>step3：克隆新建的space代码，然后将改好的代码push上去</p> <pre><code>git lfs install  git add . git commit -m "commit from $beihai" git push</code></pre> <p>push的时候会让输入用户名（就是你的注册邮箱）和密码，解决git总输入用户名和密码的问题:<code>git config --global credential.helper store</code></p> <p>push完成就大功告成了，回到你的space页对应项目，就可以看到效果了。</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-84223.htm">java8新特性详解_JAVA8 十大新特性详解</a></p>
+                                        <p>下一个：<a href="/news/article-84946.htm">北京野生动物园鹦鹉馆电话（北京野生动物园鹦鹉馆电话多少）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-67957.htm" title="动物医院好评模板范文大全集图片（动物医院大众点评评语）">动物医院好评模板范文大全集图片（动物医院大众点评评语）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-3-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-67340.htm" title="有的人是不是不能养猫（有些人是不是不适合养宠物）">有的人是不是不能养猫（有些人是不是不适合养宠物）</a></li>
+                        <li class="py-2"><a href="/news/article-86369.htm" title="宠物粮在哪里买便宜（宠物粮在哪里买比较放心）">宠物粮在哪里买便宜（宠物粮在哪里买比较放心）</a></li>
+                        <li class="py-2"><a href="/news/article-71885.htm" title="动物防疫工作总结报告范文（动物防疫工作总结及下步工作开展）">动物防疫工作总结报告范文（动物防疫工作总结及下步工作开展）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-31-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-12-node-share.htm" title="ClashX Pro节点订阅每天更新20M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-21-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-75892.htm" title="12种最适合学生养的宠物,不会长大的（适合学生养的小宠）">12种最适合学生养的宠物,不会长大的（适合学生养的小宠）</a></li>
+                        <li class="py-2"><a href="/news/article-81400.htm" title="国内动物疫苗龙头企业排行榜（动物疫苗龙头上市公司）">国内动物疫苗龙头企业排行榜（动物疫苗龙头上市公司）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

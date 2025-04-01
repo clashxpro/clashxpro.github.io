@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-85648.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parquet文件格式解析</title>
+        <meta name="description" content="Parquet是目前比较流行的大数据文件列存储格式，主流的大数据计算框架都对其有良好的支持，包括spark,hive,impala等。相对于传统的行存储模式，列存储主要有以下优点： 可以跳过不符合条件" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-85648.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="Parquet文件格式解析" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/c197381f594230bbca5f1fe7d42323cc.webp" />
+        <meta property="og:release_date" content="2025-03-31T08:43:21" />
+    <meta property="og:updated_time" content="2025-03-31T08:43:21" />
+        <meta property="og:description" content="Parquet是目前比较流行的大数据文件列存储格式，主流的大数据计算框架都对其有良好的支持，包括spark,hive,impala等。相对于传统的行存储模式，列存储主要有以下优点： 可以跳过不符合条件" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Parquet文件格式解析">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Parquet文件格式解析</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> </h1> <p> Parquet是目前比较流行的大数据文件列存储格式，主流的大数据计算框架都对其有良好的支持，包括spark,hive,impala等。相对于传统的行存储模式，列存储主要有以下优点：</p> <p>可以跳过不符合条件的数据，只读取需要的数据，降低IO数据量。<br /> 压缩编码可以降低磁盘存储空间。由于同一列的数据类型是一样的，可以使用更高效的压缩编码（例如Run Length Encoding和Delta Encoding）进一步节约存储空间。<br /> 只读取需要的列，支持向量运算，能够获取更好的扫描性能。<br /> 相对于其它的列式存储格式，例如ORC,Parquet主要优势在于支持更为广泛，且对嵌套数据的支持更好。详细的比较可以参考</p> <p>http://dongxicheng.org/mapreduce-nextgen/columnar-storage-parquet-and-orc/</p> </h1> <ul> <li>Parquet文件是以二进制方式存储的，不能直接读取和修改，文件中包括该文件的数据和schema（自解析，可以理解为类似JSON）</li> <li>行组(Row Group)：按照行将数据物理上划分为多个单元，每一个行组包含一定的行数，Row group是数据读写时候的缓存单元，Parquet读写的时候会将整个行组缓存在内存中；</li> <li>列块(Column Chunk)：列块负责存储一个行组中某一列的数据，行组中的所有列连续的存储在这个行组文件中。不同的列块可能使用不同的算法进行压缩。</li> <li>页(Page)：每一个列块又划分为多个页，Page是压缩和编码的最小单元，对数据模型来说是透明的，在同一个列块的不同页可能使用不同的编码方式。</li> </ul> </h1> <p> 如果采用HDFS文件系统，影响Parquet文件读写性能的参数主要有两个，dfs.blocksize和parquet.block.size</p> <ul> <li>dfs.blocksize: 控制HDFS file中每个block的大小，该参数主要影响计算任务的并行度，例如在spark中，一个map操作的默认分区数=（输入文件的大小/dfs.block.size）*输入的文件数（分区数等于该操作产生的任务数），如果dfs.block.size设置过大或过小，都会导致生成的Task数量不合理，因此应根据实际计算所涉及的输入文件大小以及executor数量决定何时的值。</li> <li>parquet.block.size 控制parquet的Row Group大小，一般情况下较大的值可以组织更大的连续存储的Column Chunk，有利于提升I/O性能，但上面也提到Row group是数据读写时候的缓存单元，每个需要读写的parquet文件都需要在内存中占据Row Group size设置的内存空间（读取的情况，由于可能跳过部分列，占据的内存会小于Row Group size），这样更大的Row Group size意味着更多的内存开销。同时设置该值时还需要考虑dfs.blocksize的值，尽量让Row Group size等同于HDFS一个block的大小，因为单个Row Group必须在一个计算任务中被处理，如果一个Row Group跨越了多个hdfs block可能会导致额外的远程数据读取。一般推荐的参数一个Row group大小1G，一个HDFS块大小1G，一个HDFS文件只含有一个块。</li> </ul> <p>在Spark中可以使用如下方式修改默认配置参数：</p> <pre><code>val ONE_GB = 1024 * 1024 * 1024  sc.hadoopConfiguration.setInt("dfs.blocksize", ONE_GB)  sc.hadoopConfiguration.setInt("parquet.block.size", ONE_GB)</code></pre> <p> 参考资料<br /> http://ingest.tips/2015/01/31/parquet-row-group-size</p> <p>http://www.infoq.com/cn/articles/in-depth-analysis-of-parquet-column-storage-format</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-85647.htm">python多线程详解（超详细）</a></p>
+                                        <p>下一个：<a href="/news/article-86369.htm">宠物粮在哪里买便宜（宠物粮在哪里买比较放心）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-67339.htm" title="给动物注射疫苗产生的免疫属于 给动物注射疫苗产生的免疫属于什么免疫">给动物注射疫苗产生的免疫属于 给动物注射疫苗产生的免疫属于什么免疫</a></li>
+                        <li class="py-2"><a href="/news/article-66706.htm" title="动物疫苗接种简报内容有哪些（动物预防接种计划表）">动物疫苗接种简报内容有哪些（动物预防接种计划表）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-7-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-77943.htm" title="猫咪疫苗可以自己打么（猫咪疫苗可以自己打么?）">猫咪疫苗可以自己打么（猫咪疫苗可以自己打么?）</a></li>
+                        <li class="py-2"><a href="/news/article-69272.htm" title="动物园宠物医院电话号码（动物园宠物店）">动物园宠物医院电话号码（动物园宠物店）</a></li>
+                        <li class="py-2"><a href="/news/article-70551.htm" title="深圳宝安领养狗狗群电话（深圳宝安区狗狗宠物店在哪）">深圳宝安领养狗狗群电话（深圳宝安区狗狗宠物店在哪）</a></li>
+                        <li class="py-2"><a href="/news/article-84222.htm" title="Spring Security——【认证、授权、注销及权限控制】">Spring Security——【认证、授权、注销及权限控制】</a></li>
+                        <li class="py-2"><a href="/news/article-79325.htm" title="猫咪疫苗可以自己打吗?（自己在家给猫***图解）">猫咪疫苗可以自己打吗?（自己在家给猫***图解）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-2-node-share-links.htm" title="ClashX Pro节点订阅每天更新20.4M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-70552.htm" title="北京领养狗的有哪些地方 北京领养狗的有哪些地方啊">北京领养狗的有哪些地方 北京领养狗的有哪些地方啊</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

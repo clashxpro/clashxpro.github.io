@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-89241.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>python3操作hdfs库中报错问题总结</title>
+        <meta name="description" content="报错信息： hdfs.util.HdfsError: Permission denied: user=dr.who, access=WRITE, inode="/user/hadoop/output"" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-89241.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="python3操作hdfs库中报错问题总结" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/a1e97700d8346ff0f97922fe7e01a0d1.webp" />
+        <meta property="og:release_date" content="2025-04-05T08:21:15" />
+    <meta property="og:updated_time" content="2025-04-05T08:21:15" />
+        <meta property="og:description" content="报错信息： hdfs.util.HdfsError: Permission denied: user=dr.who, access=WRITE, inode="/user/hadoop/output"" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="python3操作hdfs库中报错问题总结">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>python3操作hdfs库中报错问题总结</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p>报错信息：</p> <pre><code class="language-bash">hdfs.util.HdfsError: Permission denied: user=dr.who, access=WRITE, inode="/user/hadoop/output":hadoop:supergroup:drwxr-xr-x</code></pre> <p>解决方法：</p> <p>因为权限的问题，需要修改配置文件和赋予权限：<br /> 1.赋予权限</p> <pre><code class="language-bash">hadoop fs -chmod 777 /user/hadoop</code></pre> <p>2.修改配置文件</p> <p>hdfs-site.xml</p> <pre><code class="language-bash">&lt;property&gt; &lt;name&gt;dfs.permissions.enabled&lt;/name&gt; &lt;value&gt;false&lt;/value&gt; &lt;/property&gt;</code></pre> <p>报错信息：</p> <pre><code class="language-bash">hdfs.util.HdfsError: Cannot create file/user/hadoop/output/result.txt. Name node is in safe mode.</code></pre> <p>解决方法：</p> <p>因为Name node处于安全模式，需要关闭安全模式</p> <pre><code class="language-bash">hadoop dfsadmin -safemode leave</code></pre> <p>报错信息：</p> <pre><code>requests.exceptions.ConnectionError: HTTPConnectionPool(host='ubuntu', port=50075): Max retries exceeded with url: /webhdfs/v1/user/hadoop/input/file1.txt?op=OPEN&amp;namenoderpcaddress=localhost:9000&amp;length=20&amp;offset=0 (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x11c44f670&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known')) </code></pre> <p>解决方法：</p> <pre><code>问题原因 :出现host='16a187bf3b55', port=50075 表示客户端已经连接成功,但是无法解析域名  通过在python程序运行的机器上修改hosts文件  添加对应连接的ip 以及相关联的别名  如  119.10.1.15&nbsp; &nbsp; 16a187bf3b55&nbsp;&nbsp;namenode </code></pre> <p>&nbsp;</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-88564.htm">动物疫苗要打几针才有效果呀 动物疫苗要打几针才有效果呀视频</a></p>
+                                        <p>下一个：<a href="/news/article-89242.htm">Zookeeper的Watch机制实现配置中心</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-75891.htm" title="国内兽药厂家排名前十强（国内兽药厂家排名前十强）">国内兽药厂家排名前十强（国内兽药厂家排名前十强）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-27-free-node-subscribe-links.htm" title="ClashX Pro节点订阅每天更新20M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-70552.htm" title="北京领养狗的有哪些地方 北京领养狗的有哪些地方啊">北京领养狗的有哪些地方 北京领养狗的有哪些地方啊</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-19-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新20.4M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-71219.htm" title="小程序自定义导航栏组件">小程序自定义导航栏组件</a></li>
+                        <li class="py-2"><a href="/news/article-90010.htm" title="疫苗的种类包括动物疫苗吗为什么（疫苗的种类包括动物疫苗吗为什么没有）">疫苗的种类包括动物疫苗吗为什么（疫苗的种类包括动物疫苗吗为什么没有）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-4-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新18.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-87832.htm" title="宠物粮食品牌代理怎么做营销活动（宠物粮食代理需要多少钱）">宠物粮食品牌代理怎么做营销活动（宠物粮食代理需要多少钱）</a></li>
+                        <li class="py-2"><a href="/news/article-84223.htm" title="java8新特性详解_JAVA8 十大新特性详解">java8新特性详解_JAVA8 十大新特性详解</a></li>
+                        <li class="py-2"><a href="/news/article-80024.htm" title="1970年农历7月1日是什么星座（1970年农历7月是什么命）">1970年农历7月1日是什么星座（1970年农历7月是什么命）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                                        <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

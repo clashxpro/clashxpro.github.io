@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-104131.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue组件跨层级通信详解</title>
+        <meta name="description" content="正常组件间通信　　父-&gt;子组件 是通过属性传递　　子-&gt;父组件 是通过this.$emit()传递　　this.$emit()返回的是this,如果需要一些值 可使用callback方式传" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-104131.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="Vue组件跨层级通信详解" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/5fa86981b517773bd1b23506d6b7243d.webp" />
+        <meta property="og:release_date" content="2025-04-25T07:09:39" />
+    <meta property="og:updated_time" content="2025-04-25T07:09:39" />
+        <meta property="og:description" content="正常组件间通信　　父-&gt;子组件 是通过属性传递　　子-&gt;父组件 是通过this.$emit()传递　　this.$emit()返回的是this,如果需要一些值 可使用callback方式传" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Vue组件跨层级通信详解">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Vue组件跨层级通信详解</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                <div class="xcblog-blog-detail">
+                      				  				  				<div id="content_views" class="htmledit_views"> <div id="cnblogs_post_body" class="blogpost-body"> <p>正常组件间通信<br />　　父-&gt;子组件 是通过属性传递<br />　　子-&gt;父组件 是通过this.$emit()传递<br />　　this.$emit()返回的是this,如果需要一些值 可使用callback方式传递</p> <p><span style="font-family:'宋体';font-size:16px;"><strong>provide 和 inject</strong></span></p> <p><span style="font-size:12px;color:#888888;">　　这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，</span><br /><span style="font-size:12px;color:#888888;">　　不论组件层次有多深，并在起上下游关系成立的时间里始终生效。</span><br /><span style="font-size:12px;color:#888888;">　　provide 和 inject 绑定并不是可响应的。这是刻意为之的。</span><br /><span style="font-size:12px;color:#888888;">　　然而，如果你传入了一个可监听的对象，那么其对象的属性还是可响应的。</span></p> <p><strong>provide提供数据,多层子组件 向上层寻找,只要找到 就不在向上层寻找了.</strong><br /><strong>　　inject 向子组件注入数据</strong></p> <p>使用方式</p> <p>第一种方式(传递对象,使用字符串数组接收)</p> <div class="cnblogs_code"> <pre><span style="color:#008000;">//</span><span style="color:#008000;"> 父级组件提供 'foo'</span><span style="color:#0000ff;">var</span> Provider =<span style="color:#000000;"> { provide: { foo:</span>'bar'<span style="color:#000000;"> },</span><span style="color:#008000;">//</span><span style="color:#008000;"> ...</span><span style="color:#000000;">}</span><span style="color:#008000;">//</span><span style="color:#008000;"> 子组件注入 'foo'</span><span style="color:#0000ff;">var</span> Child =<span style="color:#000000;"> { inject: [</span>'foo'<span style="color:#000000;">], created () { console.log(</span><span style="color:#0000ff;">this</span>.foo)<span style="color:#008000;">//</span><span style="color:#008000;"> =&gt; "bar"</span><span style="color:#000000;">}</span><span style="color:#008000;">//</span><span style="color:#008000;"> ...</span> }</pre> </div> <p>第二种方式(传递返回对象的函数, 使用对象接收)</p> <div class="cnblogs_code"> <pre><span style="color:#000000;">provide() {</span><span style="color:#0000ff;">return</span><span style="color:#000000;"> {</span><span style="color:#008000;">//</span><span style="color:#008000;"> 2.6.0 版本之前 通常传递this. 但这样的话 会传递很多用不到的属性</span><span style="color:#000000;">theme: { color:</span>'xxx'<span style="color:#008000;">//</span><span style="color:#008000;">如果传入可响应的数据,这里的属性还是可响应的</span><span style="color:#000000;">} }; } inject: {</span><span style="color:#008000;">//</span><span style="color:#008000;">这里可以换成其它名字</span><span style="color:#000000;">theme: { from:</span>"theme",<span style="color:#008000;">//</span><span style="color:#008000;"> 数据来源</span><span style="color:#0000ff;">default</span>: () =&gt; ({})<span style="color:#008000;">//</span><span style="color:#008000;">降级情况下使用的 value</span><span style="color:#008000;"> //</span><span style="color:#008000;">可以是 普通值</span><span style="color:#008000;"> //</span><span style="color:#008000;">可以是 对非原始值使用一个工厂方法</span><span style="color:#000000;">} }</span><span style="color:#008000;">//</span><span style="color:#008000;">正常子组件</span><span style="color:#0000ff;">this</span>.theme<span style="color:#008000;">//</span><span style="color:#008000;">即可访问</span><span style="color:#008000;"> //</span><span style="color:#008000;">子组件是函数式组件的使用方式</span> injections.theme.color</pre> </div> <p>Vue.observable( object )<br />让一个对象可响应。Vue 内部会用它来处理 data 函数返回的对象。<br />可以作为最小化的跨组件状态存储器，用于简单的场景</p> <p>提供数据可改为</p> <div class="cnblogs_code"> <pre><span style="color:#000000;">provide() {</span><span style="color:#008000;">//</span><span style="color:#008000;">这时提供的theme 则为可响应的数据</span><span style="color:#0000ff;">this</span>.theme =<span style="color:#000000;"> Vue.observable({ color:</span>"blue"<span style="color:#000000;"> });</span><span style="color:#0000ff;">return</span><span style="color:#000000;"> { theme:</span><span style="color:#0000ff;">this</span><span style="color:#000000;">.theme }; },</span></pre> </div> </div> <p>转载于:https://www.cnblogs.com/LChenglong/p/11468899.html</p> </div> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-103467.htm">重庆宠物领养贴吧论坛最新（重庆宠物领养贴吧论坛最新信息）</a></p>
+                                        <p>下一个：<a href="/news/article-104132.htm">北京中农大动物医院有限公司官网 北京中农大动物医院有限公司官网招聘</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-77257.htm" title="VUEJS实现网页进度条加载效果">VUEJS实现网页进度条加载效果</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-23-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新22M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-96760.htm" title="二手小型饲料颗粒机500元（二手大型饲料颗粒机）">二手小型饲料颗粒机500元（二手大型饲料颗粒机）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-17-node-share-links.htm" title="ClashX Pro节点订阅每天更新21.4M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-76579.htm" title="Python中Pyyaml模块的使用">Python中Pyyaml模块的使用</a></li>
+                        <li class="py-2"><a href="/news/article-77258.htm" title="os和os.path的常用方法">os和os.path的常用方法</a></li>
+                        <li class="py-2"><a href="/news/article-88563.htm" title="SpringCloud系列之五&#8212;集中配置组件Config+消息总线Bus">SpringCloud系列之五&#8212;集中配置组件Config+消息总线Bus</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-11-node-share.htm" title="ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-87101.htm" title="Blazor 发布WebAssembly使用Brotli 压缩提升初次加载速度">Blazor 发布WebAssembly使用Brotli 压缩提升初次加载速度</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-7-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.3M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">75</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                                        <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

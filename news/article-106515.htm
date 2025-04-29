@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-106515.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>谨慎使用Arrays.asList()</title>
+        <meta name="description" content="经过了两个月的【深入学习Java编程方法】课程学习，对Java的一些新特性有了更多的了解。依旧，坑洼遍地。 Java中的Collection类是一个很好用、很常用的类，省去了当年C语言手动链表的麻烦之" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-106515.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="谨慎使用Arrays.asList()" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/abca5d38eac1ed3af4f5eb34dffaa203.webp" />
+        <meta property="og:release_date" content="2025-04-28T09:49:28" />
+    <meta property="og:updated_time" content="2025-04-28T09:49:28" />
+        <meta property="og:description" content="经过了两个月的【深入学习Java编程方法】课程学习，对Java的一些新特性有了更多的了解。依旧，坑洼遍地。 Java中的Collection类是一个很好用、很常用的类，省去了当年C语言手动链表的麻烦之" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="谨慎使用Arrays.asList()">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>谨慎使用Arrays.asList()</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                <div class="xcblog-blog-detail xcblog-blog-detail-defined">
+                      				  				  				<div id="content_views" class="htmledit_views"> <p>经过了两个月的【深入学习Java编程方法】课程学习，对Java的一些新特性有了更多的了解。依旧，坑洼遍地。</p> <p>Java中的Collection类是一个很好用、很常用的类，省去了当年C语言手动链表的麻烦之后，感觉整个人都变懒了。有些时候我们需要将某个或者某几个元素作为Collection类来进行传参之类的操作的时候，new一个新List或者Set再挨个add就感觉十分麻烦。从老师的PPT中学到了一招Arrays.asList(T... a)之后，感觉传参舒爽了很多。但是，在经历了一系列艰苦卓绝的Debug之后，终于找到了这个舒适的方法背后的阴险之处。</p> <p>先说说从别人那里得到的一些结论：</p> <ol> <li>不支持add和remove方法</li> <li>长度不可变</li> <li>该方法将数组与列表链接起来，当更新其中之一时，另一个自动更新</li> <li>对基本类型数组并不十分友好</li> </ol> <p>前两条基本是一个意思，因此就一起讨论。查看一下asList的实现：</p> <pre><code class="language-java">public static &lt;T&gt; List&lt;T&gt; asList(T... a) {         return new ArrayList&lt;&gt;(a);     }</code></pre> <p>看起来好像没什么问题，但是查看了import之后才发现，<strong><u>这个ArrayList不是java.util包下的，而是java.util.Arrays.ArrayList！</u></strong>意思就是，它返回的是Arrays自身的一个内部类，只是和util的那个重名了。这个类的成员变量E[] a是final类型，类本身的内部充满了各种各样的Observer，唯一的一个set(int index, E element)是需要一对一进行替换的方法。因此，这个类内部并没有实现Collection所拥有的add和remove方法。由于成员变量是一个final类型的数组，因此其长度也是不可变的。可以初步认为，asList生成的List给了用户一个【我真的创建了一个Collection】的错觉，实际上这个方法返回的List的本质还是一个数组，并且长度与调用时传入的元素个数相同，不可加长也不可缩短。这种欺骗消费者的行为着实不厚道。</p> <p>这种结构导致某些情境下本来对List可行的操作出错。这里是我遇到的一种情况。</p> <pre><code class="language-java">public class test { 		Map&lt;String, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;(); 		String test = "test"; 		int test1 = 1; 		int test2 = 2; 		map.put(test, Arrays.asList(test1, test2)); 		List&lt;Integer&gt; takeout = map.get(test); 		int test3 = 3; 		takeout.add(test3); // 运行到这里报错 	} }</code></pre> <p>我使用asList向map中传入了一个List，然后我将其取出，进行List的add操作，运行时则会报错：</p> <pre><code class="language-plain">Exception in thread "main" java.lang.UnsupportedOperationException 	at java.util.AbstractList.add(AbstractList.java:148) 	at java.util.AbstractList.add(AbstractList.java:108) 	at test.test.main(test.java:48) // 对应 takeout.add(test3) 这行</code></pre> <p>也就是说，即使我定义这个列表的类型是List，我把它放进Map中再拿出来，还是会导致无法及进行正常的add操作。remove操作同理。</p> <p>知道了这一点，以后如果创建的List仅需要在其基础上进行遍历的话，asList是可以的。但是如果涉及到修改List的元素的话，请不要使用这个方法创建List，<strong>因为他tnn的就是一个数组！</strong></p> <p></p> <p>常见异常：java.lang.UnsupportedOperationException。</p> <p>接下来看看第三条。asList的参数可以是一个数组，传进去数组的话相当于进行了一个数组与Collection的连接。但是，这两者是“同生共死”的关系，修改了其中的哪一个，另一个都会发生相应的变化。看个例子：</p> <pre><code class="language-java">public class aslist { 	public static void main(String[] args) { 		Integer[] a_Integer = new Integer[] { 1, 2, 3, 4 }; 		List a_Integer_List = Arrays.asList(a_Integer); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach(a_Integer_List);  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a_Integer_List.set(0, 0); 		foreach(a_Integer_List); 		foreach(a_Integer);  		a_Integer[0] = 5; 		foreach(a_Integer_List); 		foreach(a_Integer); 	} &nbsp;&nbsp; &nbsp;/* 打印方法 */ &nbsp;&nbsp; &nbsp;private static void foreach(List list) { &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;for (Object object : list) { &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;System.out.println(object + " "); &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;System.out.println();  &nbsp;&nbsp; &nbsp;}  &nbsp;&nbsp; &nbsp;private static void foreach(int[] a_int) { &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;for (int i : a_int) { &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;System.out.println(i + " "); &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;System.out.println(); &nbsp;&nbsp; &nbsp;}</code></pre> <p>运行结果：</p> <pre><code class="language-java">1  2  3  4   0  2  3  4   0  2  3  4   5  2  3  4   5  2  3  4  </code></pre> <p></p> <p>可以看到，当修改数组a_Integer的时候，a_Integer_List中下标相同的元素发生了相同的改变；反之用set方法修改a_Integer_List亦然。这是一个需要注意的地方，使用时要额外注意两者同步修改可能发生的异常。</p> <p>最后一条，在介绍第三条的时候可能有人发现了，案例中创建的数组是Integer类型而非int类型的。如果我们这样调用asList方法：</p> <pre><code class="language-java">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int[] a_int = { 1, 2, 3, 4 }; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List a_int_List = Arrays.asList(a_int); 		foreach(a_int_List);</code></pre> <p>输出结果为：[I@15db9742 </p> <p>（实机操作视控制台显示真实值为准）</p> <p>这里的asList并没有将a_int视作一个int类型的数组，而是将这个数组本身当成了一个元素，创建成了一个以数组为元素的List。并且，在这种情况下，是无法调用set方法来同步修改数组的值的。因此，使用基本数据类型的时候，需要创建它的包装类的数组，再调用asList才能尽可能遇到少的错误。</p> <p>常见异常：<span class="con-all">java.lang.ArrayStoreException。</span></p> <p><span class="con-all">到此，我在实验中以及网络中获取的关于asList的陷阱介绍就告一段落。</span></p> <p><span class="con-all">稍微总结一点的话，如果在实际使用过程中，需要创建或者传递一个只需要进行遍历操作的Collection的话，Arrays.asList()是一个十分方便的方法，可以节省很多对于列表的操作。但是如果需要在这个结构上进行添加、删除元素的操作的话，就不要使用这用方式创建List、Set等了。<br /></span></p> <p><span class="con-all">所以说，不该偷懒的时候还是要逼一下自己的(￢_￢)</span></p> <p><span style="font-family:Verdana, Arial, Helvetica, sans-serif;color:#333333;">部分文字及代码来源：</span></p> <p><span style="font-family:Verdana, Arial, Helvetica, sans-serif;color:#333333;">https://blog.csdn.net/cntanghai/article/details/7188296</span></p> <p><span style="font-family:Verdana, Arial, Helvetica, sans-serif;color:#333333;">https://blog.csdn.net/keketrtr/article/details/47108435</span></p> <p><span style="font-family:Verdana, Arial, Helvetica, sans-serif;color:#333333;">http://www.cnblogs.com/Miracle-Maker/p/6360069.html<br /></span></p> <p></p> </p></div> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-105750.htm">哈尔滨农大动物医院地址在哪里（哈尔滨农业动物医院）</a></p>
+                                        <p>下一个：<a href="/news/article-106516.htm">nohup: redirecting stderr to stdout的解决办法</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-101095.htm" title="哪里可以领养宠物狗（哪里可以领养犬）">哪里可以领养宠物狗（哪里可以领养犬）</a></li>
+                        <li class="py-2"><a href="/news/article-88564.htm" title="动物疫苗要打几针才有效果呀 动物疫苗要打几针才有效果呀视频">动物疫苗要打几针才有效果呀 动物疫苗要打几针才有效果呀视频</a></li>
+                        <li class="py-2"><a href="/news/article-105749.htm" title="2022年国考公务员考试报名（2021国考公务员考试报名）">2022年国考公务员考试报名（2021国考公务员考试报名）</a></li>
+                        <li class="py-2"><a href="/news/article-66061.htm" title="Code For Better 谷歌开发者之声—— 在 Windows 10 上对 Google Chrome 进行故障排除">Code For Better 谷歌开发者之声—— 在 Windows 10 上对 Google Chrome 进行故障排除</a></li>
+                        <li class="py-2"><a href="/news/article-77943.htm" title="猫咪疫苗可以自己打么（猫咪疫苗可以自己打么?）">猫咪疫苗可以自己打么（猫咪疫苗可以自己打么?）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-11-node-share.htm" title="ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-79325.htm" title="猫咪疫苗可以自己打吗?（自己在家给猫***图解）">猫咪疫苗可以自己打吗?（自己在家给猫***图解）</a></li>
+                        <li class="py-2"><a href="/news/article-84223.htm" title="java8新特性详解_JAVA8 十大新特性详解">java8新特性详解_JAVA8 十大新特性详解</a></li>
+                        <li class="py-2"><a href="/news/article-88563.htm" title="SpringCloud系列之五&#8212;集中配置组件Config+消息总线Bus">SpringCloud系列之五&#8212;集中配置组件Config+消息总线Bus</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-7-node-share.htm" title="ClashX Pro节点订阅每天更新21.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.9M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">87</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                                        <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

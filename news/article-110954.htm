@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashxpro.github.io/news/article-110954.htm" />
+    <meta name="theme-color" content="#c70039">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golang学习之网络参数请求-Query Params及Path Variables的区别及底层实现</title>
+        <meta name="description" content="目录  Golang学习之网络参数请求-Query Params及Path Variables的区别及底层实现   背景 Golang实现 总结      背景 后端向web页面请求参数时，通常会有两" />
+        <link rel="icon" href="/assets/website/img/clashxpro/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="ClashX Pro免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashxpro.github.io/news/article-110954.htm" />
+    <meta property="og:site_name" content="ClashX Pro免费机场订阅节点官网" />
+    <meta property="og:title" content="Golang学习之网络参数请求-Query Params及Path Variables的区别及底层实现" />
+    <meta property="og:image" content="https://clashxpro.github.io/uploads/20241107-1/abca5d38eac1ed3af4f5eb34dffaa203.webp" />
+        <meta property="og:release_date" content="2025-05-03T10:30:26" />
+    <meta property="og:updated_time" content="2025-05-03T10:30:26" />
+        <meta property="og:description" content="目录  Golang学习之网络参数请求-Query Params及Path Variables的区别及底层实现   背景 Golang实现 总结      背景 后端向web页面请求参数时，通常会有两" />
+        
+    <!-- Start Stylesheet -->
+    <link href="/assets/website/css/clashxpro/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/flaticon-set.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/animate.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/bootsnav.css" rel="stylesheet" />
+    <link href="/assets/website/css/clashxpro/style.css" rel="stylesheet">
+    <link href="/assets/website/css/clashxpro/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Golang学习之网络参数请求-Query Params及Path Variables的区别及底层实现">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0EDBJFLX5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W0EDBJFLX5');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Header -->
+    <header id="home">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                    <a class="navbar-brand" href="/">
+                                                <span>ClashX Pro</span>
+                                            </a>
+                </div>
+                <!-- End Header Navigation -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
+                                                <li><a href="/">首页</a></li>
+                                                <li><a href="/free-nodes/">免费节点</a></li>
+                                                <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                <li><a href="/client.htm">客户端</a></li>
+                                                <li><a href="/news/">新闻资讯</a></li>
+                                            </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Header -->
+    <!-- Start Page Heading -->
+    <div class="utf-page-heading shadow dark bg-fixed text-light" style="background-image: url(assets/img/banner/breadcrum.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Golang学习之网络参数请求-Query Params及Path Variables的区别及底层实现</h1>
+                    <div class="utf-breadcrumb-items">
+                        <ul class="breadcrumb">
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/news/">新闻资讯</a></li>
+                            <li class="active">正文</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Heading -->
+    <!-- Start Portfolio -->
+    <div id="portfolio" class="utf-portfolio-area-item default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                <div class="xcblog-blog-detail xcblog-blog-detail-defined">
+                      				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> </h1> <div class="toc"> <h3>目录</h3> <ul> <li>Golang学习之网络参数请求-Query Params及Path Variables的区别及底层实现</li> <li> <ul> <li>背景</li> <li>Golang实现</li> <li>总结</li> </ul> </li> </ul> </div> <h2> 背景</h2> <p>后端向web页面请求参数时，通常会有两种方式，1、<code>Query Params</code>；2、<code>Path Variables</code>，他们的区别在哪里呢？</p> <p>一、<code>Query Params</code></p> <p>顾名思义，请求参数。由前端通过k-v键值对的形式传入，其值并不是通过url本身获取，例如</p> <p><code>http://localhost:8080/Local/user?userName="nick"&amp;age=12</code></p> <p>上述链接可以分两段来理解，<code>？</code>前为路径，<code>？</code>后为路径传入的参数</p> <p>路径：<code>http://localhost:8080/Local/user</code></p> <p>参数：<code>userName="nick"</code>,<code>age=12</code></p> <p>二、<code>Path Variables</code></p> <p>路径参数。直接在<code>url</code>中获取的参数，例如</p> <p><code>http://localhost:8080/Local/user/nick</code></p> <p>上述链接就是一条路径，变量<code>nick</code>通过路径获取</p> <p>后端接口会表示为</p> <p><code>http://localhost:8080/Local/user/:userName</code></p> <h2> Golang实现</h2> <p>在gin框架中，通过<code>context.go</code>封装了获取上述两种参数的方法，需通过<code>Context</code>结构体调用。</p> <p><strong>什么是<code>Context</code></strong></p> <p>官方的说法是，<code>Context</code>是gin框架中最重要的部分，它使得我们可以在中间件中传递参数、管理数据流，验证JSON请求，渲染JSON返回流。其中封装了非常多的功能，详细阅读请查看源码或文档。</p> <pre><code>// Context is the most important part of gin. It allows us to pass variables between middleware, // manage the flow, validate the JSON of a request and render a JSON response for example. </code></pre> <p>1、获取<code>Query Params</code></p> <p>提供了方法<code>Query</code>，gin中部分源码如下</p> <pre><code class="prism language-go"><span class="token comment">// Query returns the keyed url query value if it exists,</span> <span class="token comment">// otherwise it returns an empty string `("")`.</span> <span class="token comment">// It is shortcut for `c.Request.URL.Query().Get(key)`</span> <span class="token comment">//     GET /path?id=1234&amp;name=Manu&amp;value=</span> <span class="token comment">// 	   c.Query("id") == "1234"</span> <span class="token comment">// 	   c.Query("name") == "Manu"</span> <span class="token comment">// 	   c.Query("value") == ""</span> <span class="token comment">// 	   c.Query("wtf") == ""</span> <span class="token keyword">func</span> <span class="token punctuation">(</span>c <span class="token operator">*</span>Context<span class="token punctuation">)</span> <span class="token function">Query</span><span class="token punctuation">(</span>key <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{<!-- --></span> 	value<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">GetQuery</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> 	<span class="token keyword">return</span> value <span class="token punctuation">}</span> <span class="token comment">//查看GetQury方法实现，底层通过map去接收参数，获取第一个参数值并返回</span> <span class="token comment">// 	   It is shortcut for `c.Request.URL.Query().Get(key)`</span> <span class="token comment">//     GET /?name=Manu&amp;lastname=</span> <span class="token comment">//     ("Manu", true) == c.GetQuery("name")</span> <span class="token comment">//     ("", false) == c.GetQuery("id")</span> <span class="token comment">//     ("", true) == c.GetQuery("lastname")</span> <span class="token keyword">func</span> <span class="token punctuation">(</span>c <span class="token operator">*</span>Context<span class="token punctuation">)</span> <span class="token function">GetQuery</span><span class="token punctuation">(</span>key <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> 	<span class="token keyword">if</span> values<span class="token punctuation">,</span> ok <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">GetQueryArray</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{<!-- --></span> 		<span class="token keyword">return</span> values<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ok 	<span class="token punctuation">}</span> 	<span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token boolean">false</span> <span class="token punctuation">}</span>  </code></pre> <p>1、获取<code>Path Variables</code></p> <p>提供了方法<code>Param</code></p> <pre><code class="prism language-go"><span class="token comment">// Param returns the value of the URL param.</span> <span class="token comment">// It is a shortcut for c.Params.ByName(key)</span> <span class="token comment">//     router.GET("/user/:id", func(c *gin.Context) {<!-- --></span> <span class="token comment">//         // a GET request to /user/john</span> <span class="token comment">//         id := c.Param("id") // id == "john"</span> <span class="token comment">//     })</span> <span class="token keyword">func</span> <span class="token punctuation">(</span>c <span class="token operator">*</span>Context<span class="token punctuation">)</span> <span class="token function">Param</span><span class="token punctuation">(</span>key <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{<!-- --></span> 	<span class="token keyword">return</span> c<span class="token punctuation">.</span>Params<span class="token punctuation">.</span><span class="token function">ByName</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token punctuation">}</span>  <span class="token comment">//继续查看调用方法，使用Params结构体封装</span> <span class="token comment">// ByName returns the value of the first Param which key matches the given name.</span> <span class="token comment">// If no matching Param is found, an empty string is returned.</span> <span class="token keyword">func</span> <span class="token punctuation">(</span>ps Params<span class="token punctuation">)</span> <span class="token function">ByName</span><span class="token punctuation">(</span>name <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>va <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> 	va<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">=</span> ps<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> 	<span class="token keyword">return</span> <span class="token punctuation">}</span> </code></pre> <h2> 总结</h2> <p>1、从微观角度看，两者区别在于<code>Path Variables</code>通过slice获取，而<code>Query Params</code>通过map获取，关键点为是否构成k-v结构，所以当所请求参数为空值的时候，作为切片的<code>Path Variables</code>是无法成功获取参数的，而map可以通过例如<code>"name"=""</code>来接收参数，然后后台可以根据这个<code>""</code>继续处理后续接口。</p> <p>2、从宏观角度看，两者在参数获取形式上有区别。<code>Path Variables</code>通过url获取，<code>Query Params</code>通过请求参数获取。</p> </p></div> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-110123.htm">宠物免费咨询24小时在线医生电话（咨询宠物医生在线!24小时免费!）</a></p>
+                                        <p>下一个：<a href="/news/article-110957.htm">自己给宠物打疫苗违法吗怎么处理（自己帮宠物打疫苗）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-4-4-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新21.1M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.1M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-108423.htm" title="附近免费领养狗狗的地方在哪里?（附近哪里可以领养狗狗）">附近免费领养狗狗的地方在哪里?（附近哪里可以领养狗狗）</a></li>
+                        <li class="py-2"><a href="/news/article-110957.htm" title="自己给宠物打疫苗违法吗怎么处理（自己帮宠物打疫苗）">自己给宠物打疫苗违法吗怎么处理（自己帮宠物打疫苗）</a></li>
+                        <li class="py-2"><a href="/news/article-111786.htm" title="被猫抓伤出一丝丝血要打针吗明天打针可以吗多少钱（被猫抓了一下出了点血要打几针）">被猫抓伤出一丝丝血要打针吗明天打针可以吗多少钱（被猫抓了一下出了点血要打几针）</a></li>
+                        <li class="py-2"><a href="/news/article-94513.htm" title="宠物用品批发进货渠道电商有哪些平台（宠物用品货源渠道）">宠物用品批发进货渠道电商有哪些平台（宠物用品货源渠道）</a></li>
+                        <li class="py-2"><a href="/news/article-103467.htm" title="重庆宠物领养贴吧论坛最新（重庆宠物领养贴吧论坛最新信息）">重庆宠物领养贴吧论坛最新（重庆宠物领养贴吧论坛最新信息）</a></li>
+                        <li class="py-2"><a href="/news/article-98235.htm" title="咏梅得过几次柏林影后（咏梅个人资料）原创，">咏梅得过几次柏林影后（咏梅个人资料）原创，</a></li>
+                        <li class="py-2"><a href="/news/article-101094.htm" title="通过实例程序验证与优化谈谈网上很多对于Java DCL的一些误解以及为何要理解Java内存模型">通过实例程序验证与优化谈谈网上很多对于Java DCL的一些误解以及为何要理解Java内存模型</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-22-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新19M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-97435.htm" title="领养宠物用英语怎么说（领养英文单词怎么写）">领养宠物用英语怎么说（领养英文单词怎么写）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">12</span> <a href="/date/2025-05/" title="2025-05 归档">2025-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio -->
+        <!-- Start Footer -->
+    <footer class="text-center bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 copyright text-left">
+                                        <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                    <p>
+                        <a href="/">ClashX Pro免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                    </p>
+                </div>
+                <div class="col-md-4 utf-footer-social text-right">
+                    <ul>
+                        <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery Style -->
+    <script src="/assets/website/js/frontend/clashxpro/jquery-3.2.1.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootstrap.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/equal-height.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.appear.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.easing.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/modernizr.custom.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/owl.carousel.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/isotope.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/count-to.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/bootsnav.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/typed.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/YTPlayer.min.js"></script>
+    <script src="/assets/website/js/frontend/clashxpro/custom_script.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

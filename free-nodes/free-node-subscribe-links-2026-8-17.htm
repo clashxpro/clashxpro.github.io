@@ -277,14 +277,29 @@ A4: 包括Shadowsocks、Vmess、HTTP、SOCKS5等，支持丰富多样，满足�
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>Trojan 如何实现伪装？</h5></div>
+    <div class="panel-body">
+        Trojan 使用 TLS 协议模拟正常的 HTTPS 流量，防火墙难以区分其与普通网站访问的区别。通过伪装域名、SNI 和证书匹配机制，它能在保障安全的同时隐藏真实代理流量。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 节点健康检测如何提高稳定性？</h5></div>
+    <div class="panel-body">
+        WinXray 会定期检测节点延迟和丢包率，并结合策略组自动切换到最优节点。避免高延迟或失效节点，提高网页浏览、视频播放和游戏连接的速度和稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Vmess 节点使用 WebSocket + TLS 时应注意哪些参数？</h5></div>
+    <div class="panel-body">
+        需确保路径（path）与主机名（host）匹配服务器配置，TLS 证书有效，端口与防火墙设置开放。建议开启 mux 与 keepalive 优化连接稳定性，并定期测试延迟避免 CDN 缓存导致连接异常。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Hysteria2 在丢包环境下如何配置更稳？</h5></div>
+    <div class="panel-body">
+        可调整 Hysteria2 的拥塞控制与重传参数，启用 FEC（前向纠错）并合理设置 MTU 与窗口大小以适应链路特性。还可尝试切换 QUIC 参数或更换中转以减少丢包影响。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>SSR 的协议和混淆如何影响连接稳定性？</h5></div>
     <div class="panel-body">
         不同协议和混淆方式对抗 DPI 和封锁能力不同。合理选择可隐藏真实流量特征，减少被封锁风险，提高连接稳定性和访问速度，确保节点长期可用。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Mellow 是否支持 IPv6 流量代理？</h5></div>
-    <div class="panel-body">
-        Mellow 支持 IPv6，只需在配置文件中启用 IPv6 DNS 解析并确认操作系统开启 IPv6 路由功能。部分节点若不支持 IPv6，则相关请求会自动回退到 IPv4，保证兼容性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Netch 的 TUN 模式与 SOCKS 模式有何差异？</h5></div>
@@ -297,34 +312,19 @@ A4: 包括Shadowsocks、Vmess、HTTP、SOCKS5等，支持丰富多样，满足�
         在 Potatso Lite 的配置页点击“导入”，粘贴订阅链接并确认导入。系统会自动解析节点列表，可在主界面查看并选择不同线路。部分机场支持一键导入格式，省去手动配置步骤。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>Mellow 是否支持 IPv6 流量代理？</h5></div>
+    <div class="panel-body">
+        Mellow 支持 IPv6，只需在配置文件中启用 IPv6 DNS 解析并确认操作系统开启 IPv6 路由功能。部分节点若不支持 IPv6，则相关请求会自动回退到 IPv4，保证兼容性。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>Trojan 的伪装域名配置有哪些注意事项？</h5></div>
     <div class="panel-body">
         伪装域名必须真实可访问且证书有效，否则无法建立连接。正确配置可隐藏真实流量特征，降低被封锁和检测风险，提高节点安全性和长期可用性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Trojan 如何实现伪装？</h5></div>
-    <div class="panel-body">
-        Trojan 使用 TLS 协议模拟正常的 HTTPS 流量，防火墙难以区分其与普通网站访问的区别。通过伪装域名、SNI 和证书匹配机制，它能在保障安全的同时隐藏真实代理流量。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Vmess 节点使用 WebSocket + TLS 时应注意哪些参数？</h5></div>
-    <div class="panel-body">
-        需确保路径（path）与主机名（host）匹配服务器配置，TLS 证书有效，端口与防火墙设置开放。建议开启 mux 与 keepalive 优化连接稳定性，并定期测试延迟避免 CDN 缓存导致连接异常。<hr />    </div>
-</div>
-<div class="panel panel-default">
     <div class="panel-heading"><h5>Clash 的规则订阅更新有哪些注意事项？</h5></div>
     <div class="panel-body">
-        Clash 订阅更新需保证网络畅通，规则文件格式正确，并与客户端版本兼容。建议定期更新规则以获得最新节点和分流规则，同时注意避免频繁刷新造成性能问题。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Hysteria2 在丢包环境下如何配置更稳？</h5></div>
-    <div class="panel-body">
-        可调整 Hysteria2 的拥塞控制与重传参数，启用 FEC（前向纠错）并合理设置 MTU 与窗口大小以适应链路特性。还可尝试切换 QUIC 参数或更换中转以减少丢包影响。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 节点健康检测如何提高稳定性？</h5></div>
-    <div class="panel-body">
-        WinXray 会定期检测节点延迟和丢包率，并结合策略组自动切换到最优节点。避免高延迟或失效节点，提高网页浏览、视频播放和游戏连接的速度和稳定性。    </div>
+        Clash 订阅更新需保证网络畅通，规则文件格式正确，并与客户端版本兼容。建议定期更新规则以获得最新节点和分流规则，同时注意避免频繁刷新造成性能问题。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -372,16 +372,16 @@ A4: 包括Shadowsocks、Vmess、HTTP、SOCKS5等，支持丰富多样，满足�
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2026-8-6-node-share.htm" title="ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-19-free-high-speed-nodes.htm" title="ClashX Pro节点订阅每天更新21.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.6M/S免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-8-3.htm" title="ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-node-subscribe-links-2026-8-21.htm" title="ClashX Pro节点订阅每天更新18.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.7M/S免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-22-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新18.9M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.9M/S免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-24-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新19.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.2M/S免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-8-16-node-share.htm" title="ClashX Pro节点订阅每天更新21.3M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.3M/S免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-20-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新21.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新21.7M/S免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-26-free-node-subscribe.htm" title="ClashX Pro节点订阅每天更新20.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.5M/S免费节点订阅链接</a><hr /></li>
                         <li class="py-2"><a href="/free-nodes/node-share-links-2026-8-23.htm" title="ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-node-subscribe-links-2026-8-5.htm" title="ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.5M/S免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-8-node-share.htm" title="ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新20.2M/S免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-8-13.htm" title="ClashX Pro节点订阅每天更新22.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.8M/S免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/node-share-links-2026-9-3.htm" title="ClashX Pro节点订阅每天更新18.2M/S免费节点订阅链接">ClashX Pro节点订阅每天更新18.2M/S免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-24-node-share.htm" title="ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.8M/S免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-8-9.htm" title="ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-node-subscribe-links-2026-8-29.htm" title="ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.6M/S免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-30-free-subscribe-node.htm" title="ClashX Pro节点订阅每天更新22.8M/S免费节点订阅链接">ClashX Pro节点订阅每天更新22.8M/S免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-6-node-share.htm" title="ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接">ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接</a><hr /></li>
                     </ul>
     </div>
 </div>
@@ -393,10 +393,10 @@ A4: 包括Shadowsocks、Vmess、HTTP、SOCKS5等，支持丰富多样，满足�
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">24</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">13</span> <a href="/date/2026-07/" title="2026-07 归档">2026-07</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
             </li>
                     </ul>
     </div>

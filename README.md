@@ -1,4 +1,4 @@
-# ClashX Pro节点订阅每天更新19.7M/S免费节点订阅链接  更新时间 2026-09-21 09:07:45
+# ClashX Pro节点订阅每天更新21.3M/S免费节点订阅链接  更新时间 2026-09-28 10:03:12
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://clashxpro.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -9,23 +9,23 @@
 
 ### 免费Clash节点订阅链接
 
-- https://clashxpro.github.io/uploads/2026/09/0-20260921.yaml
-- https://clashxpro.github.io/uploads/2026/09/1-20260921.yaml
-- https://clashxpro.github.io/uploads/2026/09/2-20260921.yaml
-- https://clashxpro.github.io/uploads/2026/09/3-20260921.yaml
-- https://clashxpro.github.io/uploads/2026/09/4-20260921.yaml
+- https://clashxpro.github.io/uploads/2026/09/0-20260928.yaml
+- https://clashxpro.github.io/uploads/2026/09/1-20260928.yaml
+- https://clashxpro.github.io/uploads/2026/09/2-20260928.yaml
+- https://clashxpro.github.io/uploads/2026/09/3-20260928.yaml
+- https://clashxpro.github.io/uploads/2026/09/4-20260928.yaml
 
 ### 免费V2ray节点订阅链接
 
-- https://clashxpro.github.io/uploads/2026/09/0-20260921.txt
-- https://clashxpro.github.io/uploads/2026/09/1-20260921.txt
-- https://clashxpro.github.io/uploads/2026/09/2-20260921.txt
-- https://clashxpro.github.io/uploads/2026/09/3-20260921.txt
-- https://clashxpro.github.io/uploads/2026/09/4-20260921.txt
+- https://clashxpro.github.io/uploads/2026/09/0-20260928.txt
+- https://clashxpro.github.io/uploads/2026/09/1-20260928.txt
+- https://clashxpro.github.io/uploads/2026/09/2-20260928.txt
+- https://clashxpro.github.io/uploads/2026/09/3-20260928.txt
+- https://clashxpro.github.io/uploads/2026/09/4-20260928.txt
 
 ### 免费Sing-box节点订阅链接
 
-- https://clashxpro.github.io/uploads/2026/09/20260921.json
+- https://clashxpro.github.io/uploads/2026/09/20260928.json
 
 ## 更多Clash节点订阅 ：
 
